@@ -2,146 +2,767 @@
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events - NLP Special Interest Group</title>
+    <meta name="description"
+        content="Special events, workshops, and conferences organized by the NLP Special Interest Group at The Alan Turing Institute">
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <style>
+        :root {
+            --primary-blue: #2c3e50;
+            --turing-blue: #1e3a8a;
+            --accent-blue: #3b82f6;
+            --light-gray: #f8fafc;
+            --dark-gray: #64748b;
+            --text-dark: #1e293b;
+            --border-light: #e2e8f0;
+            --success-green: #10b981;
+            --warning-orange: #f59e0b;
+        }
 
-    <title>Natural Language Processing @ The Alan Turing Institute</title>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: #ffffff;
+        }
 
-    <!-- Custom CSS -->
-    <link href="css/blog-home.css" rel="stylesheet">
-    <link href="css/workshop.css" rel="stylesheet">
+        /* Header & Navigation */
+        .header {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--turing-blue) 100%);
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 70px;
+        }
 
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-section img {
+            height: 40px;
+            border-radius: 4px;
+        }
+
+        .site-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            color: white;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-item a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item a:hover,
+        .nav-item.active a {
+            background-color: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            margin: 3rem 0;
+        }
+
+        .content-area {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        .content-header {
+            background: var(--light-gray);
+            padding: 2rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+
+        .page-subtitle {
+            font-size: 1.25rem;
+            color: var(--dark-gray);
+            font-weight: 400;
+        }
+
+        .content-body {
+            padding: 2rem;
+        }
+
+        /* Events Sections */
+        .events-section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-light);
+        }
+
+        .event-card {
+            background: white;
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .event-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px -8px rgba(0, 0, 0, 0.15);
+        }
+
+        .event-card.upcoming {
+            border-left: 4px solid var(--success-green);
+            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+        }
+
+        .event-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .event-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .event-title a {
+            color: var(--primary-blue);
+            text-decoration: none;
+        }
+
+        .event-title a:hover {
+            color: var(--accent-blue);
+        }
+
+        .event-status {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .event-status.upcoming {
+            background: var(--success-green);
+            color: white;
+        }
+
+        .event-status.past {
+            background: var(--dark-gray);
+            color: white;
+        }
+
+        .event-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark-gray);
+            font-size: 0.95rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .event-description {
+            color: var(--text-dark);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .event-organizers {
+            padding: 1rem;
+            background: var(--light-gray);
+            border-radius: 8px;
+            border-left: 3px solid var(--accent-blue);
+        }
+
+        .organizers-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .organizers-list {
+            color: var(--dark-gray);
+            font-size: 0.9rem;
+        }
+
+        /* External Events */
+        .external-events {
+            background: linear-gradient(135deg, var(--accent-blue) 0%, var(--turing-blue) 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+
+        .external-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .external-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: white;
+            color: var(--accent-blue);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .external-link:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .sidebar-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-light);
+        }
+
+        .sidebar-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+        }
+
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            background: var(--accent-blue);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .action-btn:hover {
+            background: var(--turing-blue);
+            transform: translateY(-1px);
+        }
+
+        .action-btn.secondary {
+            background: white;
+            color: var(--accent-blue);
+            border: 2px solid var(--accent-blue);
+        }
+
+        .action-btn.secondary:hover {
+            background: var(--accent-blue);
+            color: white;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--light-gray);
+            border-top: 1px solid var(--border-light);
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-text {
+            color: var(--dark-gray);
+            font-size: 0.9rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            color: var(--dark-gray);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-blue);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--primary-blue);
+                flex-direction: column;
+                padding: 1rem;
+                gap: 0.5rem;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                margin: 2rem 0;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .content-header,
+            .content-body,
+            .sidebar-card,
+            .event-card {
+                padding: 1.5rem;
+            }
+
+            .event-header {
+                flex-direction: column;
+                align-items: start;
+                gap: 1rem;
+            }
+
+            .event-meta {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+    </style>
 </head>
 
 <body>
-
-  <!-- Navigation -->
-
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo-section">
+                <img src="imgs/turing_logo.jpg" alt="Alan Turing Institute">
+                <a href="index.html" class="site-title">NLP Special Interest Group</a>
             </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                     <li> 
-                        <a href="index.html">Home</a>
-                    </li>
-                    <li>
-                        <a href="people.html">People</a>
-                    </li>
-                    <li>
-                        <a href="meetings.html">Meetings</a>
-                    </li>
-                    <li class="active">
-                        <a href="events.html">Events</a>
-                    </li>
-                   
+            <nav>
+                <ul class="nav-menu" id="navMenu">
+                    <li class="nav-item"><a href="index.html">Home</a></li>
+                    <li class="nav-item"><a href="people.html">People</a></li>
+                    <li class="nav-item"><a href="meetings.html">Meetings</a></li>
+                    <li class="nav-item active"><a href="events.html">Events</a></li>
                 </ul>
-            </div>
-            <!-- /.navbar-collapse -->
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+            </nav>
         </div>
-        <!-- /.container -->
-    </nav>
-   
+    </header>
 
-
-    <!-- Page Content -->
-    <div class="container">
-
-        <div class="row">
-
-            <!-- Blog Entries Column -->
-            <div class="col-md-8">
-
-                <h1>
-                    Events
-                </h1>
-               
-                <p>The Turing is hosting the <a href="https://www.meetup.com/South-England-Natural-Language-Processing-Meetup/">South England Natural Language Processing Meetup</a> (organised by the UCL Machine Reading group).</p>
-
-
-                
-                <h2>Past events</h2>
-
-                    <ul>
-                        <li>21-22 Sept, 2017. Workshop on <a href="https://dongpng.github.io/attached/">Bridging disciplines in analysing text as social and cultural data </a>(#attached2017). Organised by Maria Liakata and Dong Nguyen.</li>
-                         <li>1 June, 2017. NLP Summit (internal meeting for Turing people and collaborators). Organised by Maria Liakata and Dong Nguyen.</li>
-                    </ul>
-                
-                 <h2>Past talks</h2>
-
-                    <ul>
-                        <li>16 July, 2018. <em>Computational Semantics Evaluation: The Origins of Senseval and Evolution of SemEval</em>, Diana McCarthy (University of Cambridge). Hosted by Barbara McGillivray.</li>
-              
-                         <li>22 Feb, 2018. <em>Poisson random fields for dynamic feature models</em>, Valerio Perrone (Warwick/Oxford). Hosted by Barbara McGillivray.</li>
-              
-                        <li>7 Dec, 2017. <em>Augmented Conversation: The Future of Chat, Talk, Entertainment, and Relationship Building</em>, Michael Phillips Moskowitz (Harvard University). Hosted by Barbara McGillivray.</li>
-                        <li>11 Oct, 2017. <em>Structured Dynamic Models of Meaning for Understanding Language Change and Representing Book Plots</em>, Lea Frermann (University of Edinburgh). Hosted by Barbara McGillivray.</li>
-                        <li>17 Aug, 2017. <em>Negativity and semantic change</em>, William Hamilton (Stanford University). Hosted by Barbara McGillivray.</li>
-                    </ul>
-                
-
-            </div>
-
-            <!-- Blog Sidebar Widgets Column -->
-            <div class="col-md-4">
-
-
-                <!-- Side Widget Well -->
-                <div class="text-right">
-                    <a href="http://www.turing.ac.uk/"><img src="img/turing_logo.jpg" width=100></a>
+    <main class="container">
+        <div class="main-content">
+            <div class="content-area">
+                <div class="content-header">
+                    <h1 class="page-title">Events</h1>
+                    <p class="page-subtitle">Workshops, conferences, and special events organized by our community</p>
                 </div>
 
+                <div class="content-body">
+                    <div class="external-events">
+                        <h2 class="external-title">🌐 Community Events</h2>
+                        <p>We collaborate with and host events alongside the broader NLP and data science community. Our
+                            group regularly participates in cross-disciplinary workshops and conferences.</p>
+
+                        <a href="https://www.meetup.com/South-England-Natural-Language-Processing-Meetup/"
+                            class="external-link" target="_blank">
+                            🤝 South England NLP Meetup
+                        </a>
+                    </div>
+
+                    <div class="events-section">
+                        <h2 class="section-title">📅 Upcoming Events</h2>
+
+                        <div class="event-card upcoming">
+                            <div class="event-header">
+                                <div>
+                                    <h3 class="event-title">NLP for Social Good Workshop 2025</h3>
+                                    <div class="event-meta">
+                                        <div class="meta-item">
+                                            <span>📅</span>
+                                            <span>September 15-16, 2025</span>
+                                        </div>
+                                        <div class="meta-item">
+                                            <span>📍</span>
+                                            <span>The Alan Turing Institute, London</span>
+                                        </div>
+                                        <div class="meta-item">
+                                            <span>👥</span>
+                                            <span>50+ Expected Participants</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="event-status upcoming">Upcoming</div>
+                            </div>
+
+                            <div class="event-description">
+                                A two-day workshop bringing together researchers and practitioners working on natural
+                                language processing applications for social good. Topics will include misinformation
+                                detection, mental health applications, accessibility tools, and ethical AI
+                                considerations in NLP systems.
+                            </div>
+
+                            <div class="event-organizers">
+                                <div class="organizers-title">Organized by:</div>
+                                <div class="organizers-list">Anthony Hills, Maria Liakata, and the NLP Special Interest
+                                    Group</div>
+                            </div>
+                        </div>
+
+                        <div
+                            style="background: var(--light-gray); padding: 2rem; border-radius: 12px; text-align: center; border: 2px dashed var(--border-light);">
+                            <h3 style="color: var(--primary-blue); margin-bottom: 1rem;">📋 Planning Future Events</h3>
+                            <p style="color: var(--dark-gray); margin-bottom: 1.5rem;">
+                                We're always planning new workshops, tutorials, and collaborative events. Have an idea
+                                or want to organize something with us?
+                            </p>
+                            <a href="mailto:a.r.hills@qmul.ac.uk?subject=NLP SIG Event Proposal"
+                                style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; background: var(--accent-blue); color: white; text-decoration: none; border-radius: 8px; font-weight: 500;">
+                                💡 Propose an Event
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="events-section">
+                        <h2 class="section-title">📚 Past Events</h2>
+
+                        <div class="event-card">
+                            <div class="event-header">
+                                <div>
+                                    <h3 class="event-title">
+                                        <a href="https://dongpng.github.io/attached/" target="_blank">
+                                            Workshop on Bridging Disciplines in Analysing Text as Social and Cultural
+                                            Data
+                                        </a>
+                                    </h3>
+                                    <div class="event-meta">
+                                        <div class="meta-item">
+                                            <span>📅</span>
+                                            <span>September 21-22, 2017</span>
+                                        </div>
+                                        <div class="meta-item">
+                                            <span>📍</span>
+                                            <span>The Alan Turing Institute, London</span>
+                                        </div>
+                                        <div class="meta-item">
+                                            <span>🏷️</span>
+                                            <span>#attached2017</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="event-status past">Past Event</div>
+                            </div>
+
+                            <div class="event-description">
+                                A groundbreaking workshop that brought together researchers from computer science,
+                                social sciences, and humanities to explore interdisciplinary approaches to text
+                                analysis. The event featured presentations on computational methods for analyzing social
+                                media, historical texts, and cultural data.
+                            </div>
+
+                            <div class="event-organizers">
+                                <div class="organizers-title">Organized by:</div>
+                                <div class="organizers-list">Maria Liakata and Dong Nguyen</div>
+                            </div>
+                        </div>
+
+                        <div class="event-card">
+                            <div class="event-header">
+                                <div>
+                                    <h3 class="event-title">NLP Summit 2017</h3>
+                                    <div class="event-meta">
+                                        <div class="meta-item">
+                                            <span>📅</span>
+                                            <span>June 1, 2017</span>
+                                        </div>
+                                        <div class="meta-item">
+                                            <span>📍</span>
+                                            <span>The Alan Turing Institute</span>
+                                        </div>
+                                        <div class="meta-item">
+                                            <span>👥</span>
+                                            <span>Internal Meeting</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="event-status past">Past Event</div>
+                            </div>
+
+                            <div class="event-description">
+                                An internal summit for Turing researchers and collaborators to share ongoing NLP
+                                research, discuss future directions, and foster new collaborations within the
+                                institute's research community.
+                            </div>
+
+                            <div class="event-organizers">
+                                <div class="organizers-title">Organized by:</div>
+                                <div class="organizers-list">Maria Liakata and Dong Nguyen</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="events-section">
+                        <h2 class="section-title">🎯 Event Types We Organize</h2>
+                        <div
+                            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+                            <div
+                                style="background: white; border: 1px solid var(--border-light); padding: 1.5rem; border-radius: 12px;">
+                                <h4 style="color: var(--primary-blue); margin-bottom: 0.75rem; font-size: 1.1rem;">🎓
+                                    Workshops</h4>
+                                <p style="color: var(--dark-gray); font-size: 0.95rem;">Multi-day intensive workshops on
+                                    specific NLP topics with hands-on sessions and expert speakers.</p>
+                            </div>
+                            <div
+                                style="background: white; border: 1px solid var(--border-light); padding: 1.5rem; border-radius: 12px;">
+                                <h4 style="color: var(--primary-blue); margin-bottom: 0.75rem; font-size: 1.1rem;">📖
+                                    Tutorial Series</h4>
+                                <p style="color: var(--dark-gray); font-size: 0.95rem;">Educational sessions covering
+                                    fundamental and advanced NLP techniques for different skill levels.</p>
+                            </div>
+                            <div
+                                style="background: white; border: 1px solid var(--border-light); padding: 1.5rem; border-radius: 12px;">
+                                <h4 style="color: var(--primary-blue); margin-bottom: 0.75rem; font-size: 1.1rem;">🤝
+                                    Collaborative Events</h4>
+                                <p style="color: var(--dark-gray); font-size: 0.95rem;">Joint events with other research
+                                    groups and industry partners to foster cross-disciplinary collaboration.</p>
+                            </div>
+                            <div
+                                style="background: white; border: 1px solid var(--border-light); padding: 1.5rem; border-radius: 12px;">
+                                <h4 style="color: var(--primary-blue); margin-bottom: 0.75rem; font-size: 1.1rem;">🎤
+                                    Guest Lectures</h4>
+                                <p style="color: var(--dark-gray); font-size: 0.95rem;">Special presentations by
+                                    renowned researchers and industry experts sharing cutting-edge insights.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
+            <div class="sidebar">
+                <div class="sidebar-card">
+                    <h3 class="sidebar-title">📅 Stay Updated</h3>
+                    <p style="margin-bottom: 1.5rem; color: var(--dark-gray); font-size: 0.95rem;">
+                        Don't miss our upcoming events and workshops.
+                    </p>
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=p_SVQ1XklU-Knx-672OE-fR6PcyyBV1JuragBENwKPJUMFEzUFRFVkQ4N0MxOTROTDlNN1Q5S1BJSCQlQCN0PWcu&wdLOR=cCC6B022F-A814-004B-942B-2E835A58A305"
+                            class="action-btn">
+                            ✉️ Join Mailing List
+                        </a>
+                        <a href="mailto:a.r.hills@qmul.ac.uk?subject=NLP SIG Event Updates"
+                            class="action-btn secondary">
+                            📬 Event Notifications
+                        </a>
+                    </div>
+                </div>
+
+                <div class="sidebar-card">
+                    <h3 class="sidebar-title">💡 Organize With Us</h3>
+                    <p style="margin-bottom: 1.5rem; color: var(--dark-gray); font-size: 0.95rem;">
+                        Interested in organizing an event or workshop? We'd love to collaborate!
+                    </p>
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <a href="mailto:a.r.hills@qmul.ac.uk?subject=NLP SIG Event Collaboration" class="action-btn">
+                            🤝 Propose Collaboration
+                        </a>
+                        <a href="mailto:a.r.hills@qmul.ac.uk?subject=NLP SIG Workshop Proposal"
+                            class="action-btn secondary">
+                            🎓 Workshop Ideas
+                        </a>
+                    </div>
+                </div>
+
+                <div class="sidebar-card">
+                    <h3 class="sidebar-title">🌐 External Events</h3>
+                    <p style="margin-bottom: 1rem; color: var(--dark-gray); font-size: 0.9rem;">
+                        Community events we support and participate in:
+                    </p>
+                    <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                        <a href="https://www.meetup.com/South-England-Natural-Language-Processing-Meetup/"
+                            class="action-btn secondary" style="font-size: 0.9rem; padding: 0.5rem 0.75rem;">
+                            🤝 South England NLP Meetup
+                        </a>
+                    </div>
+                </div>
+
+                <div class="sidebar-card">
+                    <h3 class="sidebar-title">📚 Quick Access</h3>
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <a href="meetings.html" class="action-btn secondary">
+                            📅 Regular Meetings
+                        </a>
+                        <a href="people.html" class="action-btn secondary">
+                            👥 Meet the Team
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
-        <!-- /.row -->
+    </main>
 
-      
-        <!-- Footer -->
-        <footer>
-            <div class="row">
-                <div class="col-lg-12">
-                    
-
-                   <!-- <h6 class="text-muted">The design of this website is based on the Bootstrap blog template and the Journal theme.</h6>-->
-                </div> 
-                <!-- /.col-lg-12 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-text">
+                    © 2025 Natural Language Processing Special Interest Group - The Alan Turing Institute
+                </div>
+                <div class="footer-links">
+                    <a href="https://www.turing.ac.uk/">Turing Institute</a>
+                    <a href="https://github.com/turing-nlp/turing-nlp.github.io">GitHub</a>
+                </div>
             </div>
-            <!-- /.row -->
-        </footer>
+        </div>
+    </footer>
 
-    </div>
-    <!-- /.container -->
+    <script>
+        function toggleMobileMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        }
 
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function (event) {
+            const navMenu = document.getElementById('navMenu');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+            if (!navMenu.contains(event.target) && !menuBtn.contains(event.target)) {
+                navMenu.classList.remove('active');
+            }
+        });
 
+        // Set active navigation item
+        function setActiveNav() {
+            const currentPage = 'events.html';
+            const navItems = document.querySelectorAll('.nav-item');
+
+            navItems.forEach(item => {
+                const link = item.querySelector('a');
+                if (link.getAttribute('href') === currentPage) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', setActiveNav);
+    </script>
 </body>
 
 </html>

@@ -1,0 +1,22 @@
+{
+    "meetings": [
+        {
+            "date": "24.07.2025",
+            "presenter": "Joseph Boyle",
+            "presenterBio": "Joseph Boyle is a 3rd year doctorate student under Dr. Alison Q. O'Neil (Canon Medical) and Prof. Maria Liakata (Queen Mary University of London). He has been working on healthcare applications of NLP since early 2023. Prior to his EngD., he was a software developer at a gaming company. His research interests include medical NLP and informatics, with a focus on practical applications.",
+            "title": "Building Useful Agents",
+            "authors": "Boyle, J.",
+            "abstract": "This talk introduces Navigator, a task-oriented dialogue agent deployed within the NHS to automate clinical informatics analysis tasks. We present a case study on creating and integrating a natural language interface to a world-leading healthcare analytics platform. Moving beyond this specific application, we will share practical takeaways for practitioners looking to develop and apply language model agents, on questions of architecture, design and testing.",
+            "location": "Margaret Hamilton Meeting room (Alan Turing Institute) & online"
+        },
+        {
+            "date": "10.07.2025",
+            "presenter": "Jialin Yu",
+            "presenterBio": "Jialin is a postdoc at University of Oxford, working with Philip Torr and funded by Microsoft. He previously held a postdoctoral position at UCL, where he worked with Ricardo Silva on methodological research in causal inference. His research interest lies in robust and efficient machine learning, with a recent emphasis on AI safety. He served on programme committee for conferences such as NeurIPS, ICML, ICLR, UAI, and AISTATS. He is a co-organiser for 'Scaling Up Interventional Models' workshop at ICML 2025.",
+            "title": "Combating Spurious Correlations via Causal Fine-Tuning",
+            "authors": "Yu, J.",
+            "abstract": "Adapting to latent-confounded shifts remains a core challenge in modern AI. These shifts are propagated via latent variables that induce spurious, non-transportable correlations between inputs and labels. One practical failure mode arises when fine-tuning pre-trained foundation models on confounded data (e.g., where certain text tokens or image backgrounds spuriously correlate with the label), leaving models vulnerable at deployment. We frame causal fine-tuning as an identification problem and pose an explicit causal model that decomposes inputs into low-level spurious features and high‐level causal representations. Under this family of models, we formalize the assumptions required for identification. Using pre-trained language models as a case study, we show how identifying and adjusting these components during causal fine-tuning enables automatic adaptation to latent-confounded shifts at test time. Experiments on semi-synthetic benchmarks derived from real-world problems demonstrate that our method outperforms black-box domain generalization baselines, illustrating the benefits of explicitly modeling causal structure.",
+            "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+        }
+    ]
+}

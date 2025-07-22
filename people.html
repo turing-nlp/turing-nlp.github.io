@@ -2,145 +2,848 @@
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>People - NLP Special Interest Group</title>
+    <meta name="description"
+        content="Meet the organizers, members, and collaborators of the NLP Special Interest Group at The Alan Turing Institute">
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <style>
+        :root {
+            --primary-blue: #2c3e50;
+            --turing-blue: #1e3a8a;
+            --accent-blue: #3b82f6;
+            --light-gray: #f8fafc;
+            --dark-gray: #64748b;
+            --text-dark: #1e293b;
+            --border-light: #e2e8f0;
+            --success-green: #10b981;
+            --warning-orange: #f59e0b;
+        }
 
-    <title>Natural Language Processing @ The Alan Turing Institute</title>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: #ffffff;
+        }
 
-    <!-- Custom CSS -->
-    <link href="css/blog-home.css" rel="stylesheet">
-    <link href="css/workshop.css" rel="stylesheet">
+        /* Header & Navigation */
+        .header {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--turing-blue) 100%);
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 70px;
+        }
 
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-section img {
+            height: 40px;
+            border-radius: 4px;
+        }
+
+        .site-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            color: white;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-item a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item a:hover,
+        .nav-item.active a {
+            background-color: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            margin: 3rem 0;
+        }
+
+        .content-area {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        .content-header {
+            background: var(--light-gray);
+            padding: 2rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+
+        .page-subtitle {
+            font-size: 1.25rem;
+            color: var(--dark-gray);
+            font-weight: 400;
+        }
+
+        .content-body {
+            padding: 2rem;
+        }
+
+        /* People Sections */
+        .people-section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-light);
+        }
+
+        .people-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .person-card {
+            background: white;
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .person-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px -8px rgba(0, 0, 0, 0.15);
+        }
+
+        .person-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--border-light);
+            margin-bottom: 1.5rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .person-card:hover .person-image {
+            border-color: var(--accent-blue);
+        }
+
+        .person-card.principal {
+            border-left: 4px solid var(--warning-orange);
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+        }
+
+        .person-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .person-name a {
+            color: var(--primary-blue);
+            text-decoration: none;
+        }
+
+        .person-name a:hover {
+            color: var(--accent-blue);
+        }
+
+        .person-role {
+            font-size: 0.9rem;
+            color: var(--warning-orange);
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .person-affiliation {
+            font-size: 0.95rem;
+            color: var(--dark-gray);
+            margin-bottom: 1rem;
+        }
+
+        .person-research {
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            line-height: 1.5;
+        }
+
+        .research-interests {
+            margin-top: 1rem;
+        }
+
+        .research-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .research-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .research-tag {
+            background: var(--accent-blue);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Community Section */
+        .community-info {
+            background: linear-gradient(135deg, var(--accent-blue) 0%, var(--turing-blue) 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+
+        .community-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .community-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .sidebar-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-light);
+        }
+
+        .sidebar-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+        }
+
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            background: var(--accent-blue);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .action-btn:hover {
+            background: var(--turing-blue);
+            transform: translateY(-1px);
+        }
+
+        .action-btn.secondary {
+            background: white;
+            color: var(--accent-blue);
+            border: 2px solid var(--accent-blue);
+        }
+
+        .action-btn.secondary:hover {
+            background: var(--accent-blue);
+            color: white;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--light-gray);
+            border-top: 1px solid var(--border-light);
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-text {
+            color: var(--dark-gray);
+            font-size: 0.9rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            color: var(--dark-gray);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-blue);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--primary-blue);
+                flex-direction: column;
+                padding: 1rem;
+                gap: 0.5rem;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                margin: 2rem 0;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .content-header,
+            .content-body,
+            .sidebar-card {
+                padding: 1.5rem;
+            }
+
+            .people-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .community-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
 </head>
 
 <body>
-
-  <!-- Navigation -->
-
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo-section">
+                <img src="img/turing_logo.jpg" alt="Alan Turing Institute">
+                <a href="index.html" class="site-title">NLP Special Interest Group</a>
             </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                     <li> 
-                        <a href="index.html">Home</a>
-                    </li>
-                    <li class="active">
-                        <a href="people.html">People</a>
-                    </li>
-                    <li>
-                        <a href="meetings.html">Meetings</a>
-                    </li>
-                    <li>
-                        <a href="events.html">Events</a>
-                    </li>
-                   
+            <nav>
+                <ul class="nav-menu" id="navMenu">
+                    <li class="nav-item"><a href="index.html">Home</a></li>
+                    <li class="nav-item active"><a href="people.html">People</a></li>
+                    <li class="nav-item"><a href="meetings.html">Meetings</a></li>
+                    <li class="nav-item"><a href="events.html">Events</a></li>
                 </ul>
-            </div>
-            <!-- /.navbar-collapse -->
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+            </nav>
         </div>
-        <!-- /.container -->
-    </nav>
-   
+    </header>
 
-
-    <!-- Page Content -->
-    <div class="container">
-
-        <div class="row">
-
-            <!-- Blog Entries Column -->
-            <div class="col-md-8">
-
-                <h1>
-                    People
-                </h1>
-               
-                <ul>
-                    <li><a href="http://homepages.inf.ed.ac.uk/balex/">Beatrice Alex</a> (University of Edinburgh/Turing) </li>
-                    <li><a href="https://www.mml.cam.ac.uk/nhc30">Nigel Collier</a> (University of Cambridge/Turing)</li>
-                    <li><a href="http://www.scotthale.net/">Scott Hale</a> (University of Oxford/Turing)</li>
-                    <li><a href="https://warwick.ac.uk/fac/sci/dcs/people/research/mapmbc/">Elena Kochkina</a> (University of Warwick/Turing) </li>
-                    <li><a href="https://www.ucl.ac.uk/political-science/people/research/radoslaw-kowalski">Radoslaw Kowalski</a> (UCL)</li>
-                    <li><a href="https://warwick.ac.uk/fac/sci/dcs/people/maria_liakata/">Maria Liakata</a> (University of Warwick/Turing) </li>
-                    <li><a href="http://homepages.inf.ed.ac.uk/alouis/">Annie Louis</a> (University of Edinburgh/Turing) </li>
-                    <li><a href="http://www.cs.ox.ac.uk/thomas.lukasiewicz/">Thomas Lukasiewicz</a> (University of Oxford/Turing)</li>
-                    <li><a href="http://people.ds.cam.ac.uk/bm517/">Barbara McGillivray</a> (University of Cambridge/Turing)</li>
-                    <li><a href="http://neuralnoise.com/">Pasquale Minervini</a> (UCL) </li>
-                    <li><a href="http://www.lancaster.ac.uk/scc/about-us/people/andrew-moore">Andrew Moore</a> (Lancaster University)</li>                   
-                    <li><a href="http://dongnguyen.nl/">Dong Nguyen</a> (University of Edinburgh/Turing)</li>
-                    <li><a href="https://warwick.ac.uk/study/csde/gsp/eportfolio/directory/pg/live/u1692023/">Nicole Peinelt</a> (University of Warwick/Turing) </li>
-                    <li><a href="http://www.marekrei.com/">Marek Rei</a> (University of Cambridge)</li>
-                    <li><a href="https://www.turing.ac.uk/node/2326">Feng Shi</a> (Imperial College London/Turing)</li>
-                    <li><a href="http://homepages.inf.ed.ac.uk/csutton/">Charles Sutton</a> (University of Edinburgh/Turing)</li>
-                    <li><a href="https://warwick.ac.uk/fac/sci/dcs/people/research/cspmao/">Adam Tsakalidis</a> (University of Warwick/Turing) </li>
-                    <li><a href="https://bluemonk482.github.io/">Bo Wang</a> (University of Warwick/Turing) </li>
-                    <li><a href="https://www.southampton.ac.uk/ifls/about/our_students/tw5n14.page">Tao Wang</a>, (University of Southampton/Turing)</li>
-                </ul>
-              
-
-            </div>
-
-            <!-- Blog Sidebar Widgets Column -->
-            <div class="col-md-4">
-
-
-                <!-- Side Widget Well -->
-                <div class="text-right">
-                    <a href="http://www.turing.ac.uk/"><img src="img/turing_logo.jpg" width=100></a>
+    <main class="container">
+        <div class="main-content">
+            <div class="content-area">
+                <div class="content-header">
+                    <h1 class="page-title">People</h1>
+                    <p class="page-subtitle">Meet our organizers, members, and collaborators advancing NLP research</p>
                 </div>
 
+                <div class="content-body">
+                    <div class="community-info">
+                        <h2 class="community-title">🌟 Our Research Community</h2>
+                        <p>We bring together researchers, practitioners, and students from across disciplines to advance
+                            natural language processing and its applications to social sciences.</p>
+
+                        <div class="community-stats">
+                            <div class="stat-item">
+                                <span class="stat-number">250+</span>
+                                <span class="stat-label">Mailing List Members</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">15+</span>
+                                <span class="stat-label">Institutions</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">Weekly</span>
+                                <span class="stat-label">Meetings</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="people-section">
+                        <h2 class="section-title">👑 Organizers</h2>
+                        <div class="people-grid">
+                            <div class="person-card">
+                                <h3 class="person-name">
+                                    <a href="https://www.linkedin.com/in/anthony-hills-ph-d-b92359105/"
+                                        target="_blank">Anthony Hills</a>
+                                </h3>
+                                <div class="person-affiliation">Postdoctoral Research Assistant<br>Queen Mary University
+                                    of London & The Alan Turing Institute</div>
+                                <div class="person-research">
+                                    Anthony leads the NLP Special Interest Group and coordinates speaker invitations,
+                                    event planning, and community engagement. His research focuses on computational
+                                    approaches to time series analysis and mental health applications.
+                                </div>
+                                <div class="research-interests">
+                                    <div class="research-title">Research Interests:</div>
+                                    <div class="research-tags">
+                                        <span class="research-tag">Time Series Analysis</span>
+                                        <span class="research-tag">Mental Health</span>
+                                        <span class="research-tag">Social Media</span>
+                                        <span class="research-tag">NLP</span>
+                                        <span class="research-tag">Change Detection</span>
+                                        <span class="research-tag">Large Language Models</span>
+                                    </div>
+                                </div>
+                                <div style="margin-top: 1rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                                    <a href="mailto:a.r.hills@qmul.ac.uk"
+                                        style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: var(--accent-blue); color: white; text-decoration: none; border-radius: 6px; font-size: 0.9rem; font-weight: 500;">
+                                        ✉️ Email Anthony
+                                    </a>
+                                    <a href="https://scholar.google.com/citations?user=fhHnemUAAAAJ&hl=en"
+                                        target="_blank"
+                                        style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: white; color: var(--accent-blue); text-decoration: none; border-radius: 6px; font-size: 0.9rem; font-weight: 500; border: 2px solid var(--accent-blue);">
+                                        📚 Google Scholar
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="person-card">
+                                <h3 class="person-name">
+                                    <a href="https://www.turing.ac.uk/people/researchers/maria-liakata"
+                                        target="_blank">Maria Liakata</a>
+                                </h3>
+                                <div class="person-affiliation">Professor & Turing Fellow<br>Queen Mary University of
+                                    London & The Alan Turing Institute</div>
+                                <div class="person-research">
+                                    Maria is a Professor with expertise in natural language processing, machine
+                                    learning, and computational social science. She provides strategic guidance and
+                                    research leadership for the NLP SIG. Maria also leads the <a
+                                        href="https://maria-liakata-nlp-group.github.io/" target="_blank"
+                                        style="color: var(--accent-blue);">LongNLP research group</a>, which focuses on
+                                    longitudinal phenomena in natural language and temporal modeling.
+                                </div>
+                                <div class="research-interests">
+                                    <div class="research-title">Research Interests:</div>
+                                    <div class="research-tags">
+                                        <span class="research-tag">Resources and Evaluation</span>
+                                        <span class="research-tag">Multi-modal Analysis</span>
+                                        <span class="research-tag">Computational Social Science</span>
+                                        <span class="research-tag">Longitudinal Models</span>
+                                        <span class="research-tag">Summarisation</span>
+                                        <span class="research-tag">NLP Applications</span>
+                                        <span class="research-tag">Sentence Level Semantics</span>
+                                        <span class="research-tag">Temporal Language Modelling</span>
+                                        <span class="research-tag">Sentiment Analysis</span>
+                                        <span class="research-tag">Personalisation</span>
+                                    </div>
+                                </div>
+                                <div style="margin-top: 1rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                                    <a href="mailto:mliakata@turing.ac.uk"
+                                        style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: var(--accent-blue); color: white; text-decoration: none; border-radius: 6px; font-size: 0.9rem; font-weight: 500;">
+                                        ✉️ Email Maria
+                                    </a>
+                                    <a href="https://scholar.google.co.uk/citations?user=eys5GB4AAAAJ&hl=en"
+                                        target="_blank"
+                                        style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: white; color: var(--accent-blue); text-decoration: none; border-radius: 6px; font-size: 0.9rem; font-weight: 500; border: 2px solid var(--accent-blue);">
+                                        📚 Google Scholar
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="person-card">
+                                <h3 class="person-name">
+                                    <a href="https://guneetsk99.github.io/" target="_blank">Guneet Singh Kohli</a>
+                                </h3>
+                                <div class="person-affiliation">PhD Student<br>Queen Mary University of London</div>
+                                <div class="person-research">
+                                    Guneet is a PhD student and researcher in Maria's LongNLP group, focusing on
+                                    interpretability and reasoning in large language models. He contributes to
+                                    organizing technical discussions and coordinates with industry partners for the NLP
+                                    SIG.
+                                </div>
+                                <div class="research-interests">
+                                    <div class="research-title">Research Interests:</div>
+                                    <div class="research-tags">
+                                        <span class="research-tag">Interpretability</span>
+                                        <span class="research-tag">Social Science</span>
+                                        <span class="research-tag">Reasoning and Evaluations</span>
+                                        <span class="research-tag">ML in NLP</span>
+                                        <span class="research-tag">Time Series Analysis</span>
+                                        <span class="research-tag">Large Language Models</span>
+                                    </div>
+                                </div>
+                                <div style="margin-top: 1rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                                    <a href="mailto:g.s.kohli@qmul.ac.uk"
+                                        style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: var(--accent-blue); color: white; text-decoration: none; border-radius: 6px; font-size: 0.9rem; font-weight: 500;">
+                                        ✉️ Email Guneet
+                                    </a>
+                                    <a href="https://scholar.google.com/citations?user=rayX0-YAAAAJ&hl=en"
+                                        target="_blank"
+                                        style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: white; color: var(--accent-blue); text-decoration: none; border-radius: 6px; font-size: 0.9rem; font-weight: 500; border: 2px solid var(--accent-blue);">
+                                        📚 Google Scholar
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="person-card">
+                                <h3 class="person-name">
+                                    <a href="https://www.linkedin.com/in/yuxiang-zhou-8b879b320/?originalSubdomain=uk"
+                                        target="_blank">Yuxiang Zhou</a>
+                                </h3>
+                                <div class="person-affiliation">Postdoctoral Research Assistant<br>Queen Mary University
+                                    of London</div>
+                                <div class="person-research">
+                                    Yuxiang is a postdoctoral researcher in Maria's LongNLP group, working on natural
+                                    language processing and large language models. He helps organize reading groups and
+                                    tutorial sessions for the NLP SIG, contributing to research coordination and
+                                    community outreach efforts.
+                                </div>
+                                <div class="research-interests">
+                                    <div class="research-title">Research Interests:</div>
+                                    <div class="research-tags">
+                                        <span class="research-tag">Natural Language Processing</span>
+                                        <span class="research-tag">Large Language Models</span>
+                                        <span class="research-tag">Time Series Analysis</span>
+                                    </div>
+                                </div>
+                                <div style="margin-top: 1rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                                    <a href="mailto:yuxiang.zhou@qmul.ac.uk"
+                                        style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: var(--accent-blue); color: white; text-decoration: none; border-radius: 6px; font-size: 0.9rem; font-weight: 500;">
+                                        ✉️ Email Yuxiang
+                                    </a>
+                                    <a href="https://scholar.google.com/citations?user=qvvJvNQAAAAJ&hl=en"
+                                        target="_blank"
+                                        style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: white; color: var(--accent-blue); text-decoration: none; border-radius: 6px; font-size: 0.9rem; font-weight: 500; border: 2px solid var(--accent-blue);">
+                                        📚 Google Scholar
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="people-section">
+                        <h2 class="section-title">🎓 Past Organizers</h2>
+                        <div class="people-grid">
+                            <div class="person-card">
+                                <img src="imgs/organizers/adam-tsakalidis.jpg" alt="Adam Tsakalidis"
+                                    class="person-image">
+                                <h3 class="person-name">
+                                    Adam Tsakalidis
+                                </h3>
+                                <div class="person-affiliation">Former Organizer<br>Previously: Queen Mary University of
+                                    London & The Alan Turing Institute</div>
+                                <div class="person-research">
+                                    Adam was a Research Fellow who worked on temporally sensitive methods for natural
+                                    language processing. His work focused on capturing changes in longitudinal
+                                    user-generated textual data and studying their association with well-being over
+                                    time. His research interests spanned semantic change detection, sentiment analysis,
+                                    and applications in political and mental health domains.
+                                </div>
+                                <div class="research-interests">
+                                    <div class="research-title">Past Research Interests:</div>
+                                    <div class="research-tags">
+                                        <span class="research-tag">Temporal NLP</span>
+                                        <span class="research-tag">Semantic Change Detection</span>
+                                        <span class="research-tag">Sentiment Analysis</span>
+                                        <span class="research-tag">Mental Health</span>
+                                        <span class="research-tag">Political Analysis</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="person-card">
+                                <img src="imgs/organizers/dong-nguyen.jpg" alt="Dong Nguyen" class="person-image">
+                                <h3 class="person-name">
+                                    <a href="https://www.dongnguyen.nl/" target="_blank">Dong Nguyen</a>
+                                </h3>
+                                <div class="person-affiliation">Former Organizer<br>University of Utrecht</div>
+                                <div class="person-research">
+                                    Dong was a previous organizer of the NLP Special Interest Group and played a key
+                                    role in establishing the group's early activities and community. She continues to be
+                                    an active member of the NLP research community.
+                                </div>
+                                <div class="research-interests">
+                                    <div class="research-title">Research Interests:</div>
+                                    <div class="research-tags">
+                                        <span class="research-tag">Computational Social Science</span>
+                                        <span class="research-tag">Social Media Analysis</span>
+                                        <span class="research-tag">NLP</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="people-section">
+                        <h2 class="section-title">🤝 How to Join Our Community</h2>
+                        <div
+                            style="background: var(--light-gray); padding: 2rem; border-radius: 12px; border-left: 4px solid var(--accent-blue);">
+                            <h3 style="color: var(--primary-blue); margin-bottom: 1rem;">Get Involved:</h3>
+                            <ul style="margin-left: 1.5rem; color: var(--dark-gray); line-height: 1.8;">
+                                <li><strong>Join our mailing list</strong> to receive updates about meetings and events
+                                </li>
+                                <li><strong>Attend our weekly meetings</strong> every Thursday 4-5pm (UK time)</li>
+                                <li><strong>Present your research</strong> or lead paper discussions</li>
+                                <li><strong>Collaborate</strong> with other members on research projects</li>
+                                <li><strong>Participate</strong> in reading groups and tutorial sessions</li>
+                            </ul>
+                            <div
+                                style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border-light);">
+                                <p style="color: var(--dark-gray); margin-bottom: 1rem;">
+                                    <strong>Contact:</strong> Reach out to Anthony at a.r.hills [at] qmul.ac.uk to get
+                                    involved or learn more about the group.
+                                </p>
+                                <p style="color: var(--dark-gray); font-style: italic;">
+                                    We welcome researchers at all career stages, from graduate students to senior
+                                    faculty, and from both academia and industry.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
+            <div class="sidebar">
+                <div class="sidebar-card">
+                    <h3 class="sidebar-title">🤝 Join Our Community</h3>
+                    <p style="margin-bottom: 1.5rem; color: var(--dark-gray); font-size: 0.95rem;">
+                        Become part of our growing NLP research community.
+                    </p>
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=p_SVQ1XklU-Knx-672OE-fR6PcyyBV1JuragBENwKPJUMFEzUFRFVkQ4N0MxOTROTDlNN1Q5S1BJSCQlQCN0PWcu&wdLOR=cCC6B022F-A814-004B-942B-2E835A58A305"
+                            class="action-btn">
+                            ✉️ Join Mailing List
+                        </a>
+                        <a href="mailto:a.r.hills@qmul.ac.uk?subject=NLP SIG Membership Inquiry"
+                            class="action-btn secondary">
+                            💬 Contact Organizers
+                        </a>
+                    </div>
+                </div>
+
+                <div class="sidebar-card">
+                    <h3 class="sidebar-title">📅 Quick Access</h3>
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <a href="meetings.html" class="action-btn secondary">
+                            📚 View Meetings
+                        </a>
+                        <a href="events.html" class="action-btn secondary">
+                            🎯 See Events
+                        </a>
+                    </div>
+                </div>
+
+                <div class="sidebar-card">
+                    <h3 class="sidebar-title">🏛️ Official Pages</h3>
+                    <p style="margin-bottom: 1rem; color: var(--dark-gray); font-size: 0.9rem;">
+                        Visit our official Turing Institute page:
+                    </p>
+                    <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                        <a href="https://www.turing.ac.uk/research/interest-groups/natural-language-processing"
+                            class="action-btn secondary" style="font-size: 0.9rem; padding: 0.5rem 0.75rem;">
+                            🏛️ Official Turing Page
+                        </a>
+                    </div>
+                </div>
+
+                <div class="sidebar-card">
+                    <h3 class="sidebar-title">🤝 Related Groups</h3>
+                    <p style="margin-bottom: 1rem; color: var(--dark-gray); font-size: 0.9rem;">
+                        Explore our affiliated interest groups:
+                    </p>
+                    <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                        <a href="https://www.turing.ac.uk/research/interest-groups/media-digital-age"
+                            class="action-btn secondary" style="font-size: 0.9rem; padding: 0.5rem 0.75rem;">
+                            📺 Media in the Digital Age
+                        </a>
+                        <a href="https://www.turing.ac.uk/research/interest-groups/data-science-mental-health"
+                            class="action-btn secondary" style="font-size: 0.9rem; padding: 0.5rem 0.75rem;">
+                            🧠 Data Science for Mental Health
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
-        <!-- /.row -->
+    </main>
 
-      
-        <!-- Footer -->
-        <footer>
-            <div class="row">
-                <div class="col-lg-12">
-                    
-
-                   <!-- <h6 class="text-muted">The design of this website is based on the Bootstrap blog template and the Journal theme.</h6>-->
-                </div> 
-                <!-- /.col-lg-12 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-text">
+                    © 2025 Natural Language Processing Special Interest Group - The Alan Turing Institute
+                </div>
+                <div class="footer-links">
+                    <a href="https://www.turing.ac.uk/">Turing Institute</a>
+                    <a href="https://github.com/turing-nlp/turing-nlp.github.io">GitHub</a>
+                </div>
             </div>
-            <!-- /.row -->
-        </footer>
+        </div>
+    </footer>
 
-    </div>
-    <!-- /.container -->
+    <script>
+        function toggleMobileMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        }
 
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function (event) {
+            const navMenu = document.getElementById('navMenu');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+            if (!navMenu.contains(event.target) && !menuBtn.contains(event.target)) {
+                navMenu.classList.remove('active');
+            }
+        });
 
+        // Set active navigation item
+        function setActiveNav() {
+            const currentPage = 'people.html';
+            const navItems = document.querySelectorAll('.nav-item');
+
+            navItems.forEach(item => {
+                const link = item.querySelector('a');
+                if (link.getAttribute('href') === currentPage) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', setActiveNav);
+    </script>
 </body>
 
 </html>

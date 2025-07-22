@@ -2,1111 +2,917 @@
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meetings - NLP Special Interest Group</title>
+    <meta name="description"
+        content="Weekly meetings, paper discussions, and invited talks at the NLP Special Interest Group - Alan Turing Institute">
 
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="">
-  <meta name="author" content="">
+    <style>
+        :root {
+            --primary-blue: #2c3e50;
+            --turing-blue: #1e3a8a;
+            --accent-blue: #3b82f6;
+            --light-gray: #f8fafc;
+            --dark-gray: #64748b;
+            --text-dark: #1e293b;
+            --border-light: #e2e8f0;
+            --success-green: #10b981;
+            --warning-orange: #f59e0b;
+        }
 
-  <title>Natural Language Processing @ The Alan Turing Institute</title>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  <!-- Bootstrap Core CSS -->
-  <link href="css/bootstrap.min.css" rel="stylesheet">
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: #ffffff;
+        }
 
-  <!-- Custom CSS -->
-  <link href="css/blog-home.css" rel="stylesheet">
-  <link href="css/workshop.css" rel="stylesheet">
+        /* Header & Navigation */
+        .header {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--turing-blue) 100%);
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 70px;
+        }
 
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-section img {
+            height: 40px;
+            border-radius: 4px;
+        }
+
+        .site-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            color: white;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-item a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item a:hover,
+        .nav-item.active a {
+            background-color: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            margin: 3rem 0;
+        }
+
+        .content-area {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        .content-header {
+            background: var(--light-gray);
+            padding: 2rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+
+        .page-subtitle {
+            font-size: 1.25rem;
+            color: var(--dark-gray);
+            font-weight: 400;
+        }
+
+        .content-body {
+            padding: 2rem;
+        }
+
+        /* Meeting Info */
+        .meeting-overview {
+            background: linear-gradient(135deg, var(--accent-blue) 0%, var(--turing-blue) 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+
+        .overview-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .overview-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .detail-icon {
+            font-size: 1.25rem;
+            opacity: 0.9;
+        }
+
+        /* Schedule Table */
+        .schedule-section {
+            margin-top: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-light);
+        }
+
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .schedule-table th {
+            background: var(--primary-blue);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .schedule-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-light);
+            vertical-align: top;
+        }
+
+        .schedule-table tr:hover {
+            background: var(--light-gray);
+        }
+
+        .schedule-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .paper-title {
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-bottom: 0.25rem;
+        }
+
+        .paper-authors {
+            color: var(--dark-gray);
+            font-size: 0.9rem;
+        }
+
+        .presenter {
+            font-weight: 500;
+            color: var(--turing-blue);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .sidebar-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-light);
+        }
+
+        .sidebar-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+        }
+
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            background: var(--accent-blue);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .action-btn:hover {
+            background: var(--turing-blue);
+            transform: translateY(-1px);
+        }
+
+        .action-btn.secondary {
+            background: white;
+            color: var(--accent-blue);
+            border: 2px solid var(--accent-blue);
+        }
+
+        .action-btn.secondary:hover {
+            background: var(--accent-blue);
+            color: white;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--light-gray);
+            border-top: 1px solid var(--border-light);
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-text {
+            color: var(--dark-gray);
+            font-size: 0.9rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            color: var(--dark-gray);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-blue);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--primary-blue);
+                flex-direction: column;
+                padding: 1rem;
+                gap: 0.5rem;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                margin: 2rem 0;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .content-header,
+            .content-body,
+            .sidebar-card {
+                padding: 1.5rem;
+            }
+
+            .schedule-table {
+                font-size: 0.9rem;
+            }
+
+            .schedule-table th,
+            .schedule-table td {
+                padding: 0.75rem;
+            }
+
+            .overview-details {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 
 <body>
-
-  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-      </div>
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
-          <li>
-            <a href="index.html">Home</a>
-          </li>
-          <li>
-            <a href="people.html">People</a>
-          </li>
-          <li class="active">
-            <a href="meetings.html">Meetings</a>
-          </li>
-          <li>
-            <a href="events.html">Events</a>
-          </li>
-
-        </ul>
-      </div>
-      <!-- /.navbar-collapse -->
-    </div>
-    <!-- /.container -->
-  </nav>
-
-
-  <!-- Page Content -->
-  <div class="container">
-
-    <div class="row">
-
-      <!-- Blog Entries Column -->
-      <div class="col-md-8">
-
-        <h1>
-          Meetings
-        </h1>
-
-
-        <p>We have weekly meetings (paper discussions and invited talks). The meetings are organised by <a
-            href="https://www.turing.ac.uk/people/researchers/maria-liakata">Maria Liakata</a>, <a
-            href="https://www.turing.ac.uk/people/researchers/adam-tsakalidis">Adam Tsakalidis</a>, and <a
-            href="https://www.linkedin.com/in/anthony-hills-b92359105/?originalSubdomain=uk">Anthony Hills</a>. The
-          previous organiser was <a href="https://www.dongnguyen.nl/">Dong Nguyen</a>.
-          <br><br>
-          Please feel free to suggest
-          papers, themes, volunteer as presenters, and review our upcoming schedule in our <a
-            href="https://docs.google.com/document/d/1hUcnPw50eGVXRJ0KcDj3_ZK8BB5CFL00UhTgDg1QpSs/edit">google doc</a>
-          or by emailing Anthony at <a href="mailto:a.r.hills@qmul.ac.uk">a.r.hills@qmul.ac.uk</a>.
-          <!-- <br>
-          Please note that the
-          <a href="https://docs.google.com/document/d/1hUcnPw50eGVXRJ0KcDj3_ZK8BB5CFL00UhTgDg1QpSs/edit">google doc</a>
-          is updated more frequently than this website, so please check there if this website appears outdated. -->
-
-
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Presenter</th>
-              <th>Title of the paper/talk</th>
-            </tr>
-          </thead>
-
-          <tr>
-            <td>30.03.23</td>
-            <td>Luis Espinosa-Anke</td>
-            <td>NLP for (Market) Intelligence</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>23.03.23</td>
-            <td>Jing Ma</td>
-            <td>Social Assisted Rumor Detection and Fake News Detection</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>09.03.23</td>
-            <td>Everyone</td>
-            <td>Paper Skimming on Long Document Transformers</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>02.03.23</td>
-            <td>Everyone</td>
-            <td>Paper Skimming on Long Document Transformers</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>26.01.23</td>
-            <td>Everyone</td>
-            <td>Paper Skimming</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>02.02.23</td>
-            <td>Zixiu Wu</td>
-            <td>NLP-Based Real-Time Assistance to Human Therapist</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>26.01.23</td>
-            <td>Georgi Karadzhov</td>
-            <td>DEliBots - Deliberation Enhancing Bots</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>12.01.23</td>
-            <td>Everyone</td>
-            <td>EMNLP Paper Skimming Session</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>24.11.22</td>
-            <td>Danny To Eun Kim</td>
-            <td>Can dialogue systems have a theory-of-mind?</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>10.11.22</td>
-            <td>Everyone</td>
-            <td>Paper Skimming Session</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>03.11.22</td>
-            <td>Elena Kochkina</td>
-            <td>Evaluating the Generalisability of Neural Rumor Verification Models</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>27.10.22</td>
-            <td>Everyone</td>
-            <td>Paper Skimming Session</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>13.10.22</td>
-            <td>Everyone</td>
-            <td>Paper Skimming Session</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>04.10.22</td>
-            <td>Iryana Gurevych</td>
-            <td>Detect – Verify – Communicate: Combating Misinformation with More Realistic NLP</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>29.09.22</td>
-            <td>Hao Ni</td>
-            <td>Path Development Network with Finite-Dimensional Lie Group</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>22.09.22</td>
-            <td>Everyone</td>
-            <td>Paper Skimming Session</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>08.09.22</td>
-            <td>Iman Bilal</td>
-            <td>Template-based Abstractive Microblog Opinion Summarisation</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>01.09.22</td>
-            <td>Everyone</td>
-            <td>Paper Skimming Session</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>04.08.22</td>
-            <td>Ramit Sawhney</td>
-            <td>User Modeling on Social Media: Privacy, Ethics, and Mental Health</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>28.07.22</td>
-            <td>Krishnapriya Vishnubhotla & Saif Mohammad</td>
-            <td>"Tweet Emotion Dynamics: Emotion Word Usage in Tweets from US and Canada" & "Ethics Sheets for AI"</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>20.07.22</td>
-            <td>Anthony Hills</td>
-            <td>Neural Spatio-temporal Point Processes</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>14.07.22</td>
-            <td>Everyone</td>
-            <td>Paper Skimming Session</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>07.07.22</td>
-            <td>Everyone</td>
-            <td>Paper Skimming (NAACL 2022)</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>30.06.22</td>
-            <td>Matt Maufe</td>
-            <td>Learning from ACL 2022 - Building Better Models</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>09.06.22</td>
-            <td>Everyone</td>
-            <td>Paper Skimming Session</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>12.05.22</td>
-            <td>Everyone</td>
-            <td>Paper Skimming Session</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>5.05.22</td>
-            <td>Everyone</td>
-            <td>Paper Skimming Session</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>28.04.22</td>
-            <td>Ramit Sawhney</td>
-            <td>Modeling User Context for Mental Health Assessment on Social Media</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>14.04.22</td>
-            <td>Giannis Karamanolakis</td>
-            <td>Weakly-supervised learning in NLP</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>31.03.22</td>
-            <td>Everyone</td>
-            <td>Paper Skimming Session</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>04.03.2022</td>
-            <td>Everyone</td>
-            <td>Paper Skimming Session</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>24.03.22</td>
-            <td>Iman Bilal</td>
-            <td>Evaluation of Thematic Coherence in Microblogs</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>10.03.22</td>
-            <td>Everyone</td>
-            <td>Paper Skimming Session</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>03.03.22</td>
-            <td>Everyone</td>
-            <td>Paper Skimming Session</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>24.02.22</td>
-            <td>James Bishop</td>
-            <td>Hands-on Session: Zero shot learning for NLI</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>10.02.22</td>
-            <td>Kaspar Beelen</td>
-            <td>Hands-on Session: Flair</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>03.02.22</td>
-            <td>Rafael Mestre</td>
-            <td>Multimodal analysis of political debates with text, audio and video: from argumentation to sentiment
-              analysis</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>27.01.22</td>
-            <td>Everyone</td>
-            <td>Paper Skimming Session</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>04.03.2022</td>
-            <td>Everyone</td>
-            <td>Paper Skimming Session</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>13.01.22</td>
-            <td>Yulan He</td>
-            <td>Topic-Driven Sentiment Analysis</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>06.01.22</td>
-            <td>Everyone</td>
-            <td>Paper Skimming Session</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>9.12.21</td>
-            <td>James Baker</td>
-            <td>Hands-on Session: Baleen 3 and Annot8</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>2.12.21</td>
-            <td>Everyone</td>
-            <td>Paper Skimming Session</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>04.03.2022</td>
-            <td>Everyone</td>
-            <td>Paper Skimming Session</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>25.11.21</td>
-            <td>Everyone</td>
-            <td>EMNLP 2021 - Paper Skimming Session</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>28.10.21</td>
-            <td>Everyone</td>
-            <td>Paper Skimming Session</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>14.10.21</td>
-            <td>Peifeng Wang</td>
-            <td>Incorporating Structured Knowledge for Machine Commonsense Reasoning</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>07.10.21</td>
-            <td>Everyone</td>
-            <td>Paper Skimming Session</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>30.09.21</td>
-            <td>Harish Tayyar Madabushi</td>
-            <td>"AStitchInLanguageModels: Dataset and Methods for the Exploration of Idiomaticity in Pre-Trained
-              Language Models" & "SemEval 2022 Task 2 Multilingual Idiomaticity Detection and Sentence Embedding"</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>23.09.21</td>
-            <td>Everyone</td>
-            <td>Paper Skimming Session</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>22.07.2021</td>
-            <td>Everyone</td>
-            <td>Paper Skimming Session</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>08.07.2021</td>
-            <td>Everyone</td>
-            <td>Paper Skimming Session (general)
-            </td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>01.07.2021</td>
-            <td>Everyone</td>
-            <td>Paper Skimming Session - part 2 (NAACL 2021)</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>24.06.2021</td>
-            <td>Everyone</td>
-            <td>Paper Skimming Session (NAACL 2021)</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>10.06.2021</td>
-            <td>Avijit Thawani</td>
-            <td>Numbers in NLP</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>27.05.2021</td>
-            <td>Stuart Middleton</td>
-            <td>SafeSpacesNLP: https://www.tas.ac.uk/safespacesnlp/</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>13.05.2021</td>
-            <td>Saif Mohammad</td>
-            <td>Ethics Sheets for AI Tasks and a Case Study for Automatic Emotion Recognition</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>06.05.2021</td>
-            <td>Dr Alexander Mikhalev</td>
-            <td>Open Source project for NLP research collaboration: NLP meets VR/AR (http://thepattern.digital/)</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>29.04.2021</td>
-            <td>Dr Mimie Liotsiou</td>
-            <td>The influence of online (mis)information: prediction, explanation, causality</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>08.04.2021</td>
-            <td>Gabriele Pergola & James Ravenscroft</td>
-            <td>"CD2CR: Coreference Resolution Across Documents and Domains" & "Boosting Low-Resource Biomedical QA via
-              Entity-Aware Masking Strategies"</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>25.03.2021</td>
-            <td>Bill Lampos</td>
-            <td>Tracking COVID-19 using online search</td>
-            <td></td>
-          </tr>
-
-          <!--  -->
-
-          <tr>
-            <td>11.03.2021</td>
-            <td>Radu Voit</td>
-            <td>Deep Reinforcement Learning with a Combinatorial Action Space for Predicting Popular Reddit Threads</td>
-            <td><a href=https://www.aclweb.org/anthology/D16-1189.pdf>link</a></td>
-          </tr>
-          <tr>
-            <td>04.03.2021</td>
-            <td>Everyone</td>
-            <td>Paper Skimming Session</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>25.02.2021</td>
-            <td>Paul Rottger</td>
-            <td>HATECHECK: Functional Tests for Hate Speech Detection Models</td>
-            <td><a href=https://arxiv.org/pdf/2012.15606.pdf>link</a></td>
-          </tr>
-          <tr>
-            <td>11.02.2021</td>
-            <td>James Ravenscroft</td>
-            <td>Rationalising Neural Predictions</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>28.01.2021</td>
-            <td>Everyone</td>
-            <td>Paper Skimming Session</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>21.01.2021</td>
-            <td>Dimitris Gkoumas</td>
-            <td>Quantum cognitively motivated multimodal representation learning for human language analysis.</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>10.12.2020</td>
-            <td>Kaspar Beelen, Barbara McGillivray, Federico Nanni, Giorgia Tolfo, Mariona Coll Ardanuy, Kasra Hosseini
-            </td>
-            <td>Living with machines update</td>
-            <td><a href=https://arxiv.org/pdf/2005.11140.pdf>link</a></td>
-          </tr>
-          <tr>
-            <td>03.12.2020</td>
-            <td>Filip Ilievski</td>
-            <td>Reasoning with Commonsense Knowledge Graphs</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>26.11.2020</td>
-            <td>Adam Tsakalidis</td>
-            <td>A Time-Aware Transformer Based Model for Suicide Ideation Detection on Social Media</td>
-            <td><a href=https://www.aclweb.org/anthology/2020.emnlp-main.619.pdf>link</a></td>
-          </tr>
-          <tr>
-            <td>12.11.2020</td>
-            <td>Saleh AL Hashmi</td>
-            <td>e-Commerce and Sentiment Analysis Predicting Outcomes of Class Action Lawsuits</td>
-            <td><a href=https://www.aclweb.org/anthology/2020.ecnlp-1.12.pdf>link</a></td>
-          </tr>
-          <tr>
-            <td>05.11.2020</td>
-            <td>Harish Tayyar Madabushi</td>
-            <td>CxGBERT: BERT meets Construction Grammar</td>
-            <td><a href=https://www.aclweb.org/anthology/2020.coling-main.355.pdf>link</a></td>
-          </tr>
-          <tr>
-            <td>29.10.2020</td>
-            <td>Adam Tsakalidis</td>
-            <td>Analysing Lexical Semantic Change with Contextualised Word Representations</td>
-            <td><a href=https://www.aclweb.org/anthology/2020.acl-main.365.pdf>link</a></td>
-          </tr>
-          <tr>
-            <td>22.10.2020</td>
-            <td>
-              Barbara McGillivray, Quirin Würschinger</td>
-            <td>Simple, Interpretable and Stable Method for Detecting Words with Usage Change across Corpora</td>
-            <td><a href=https://www.aclweb.org/anthology/2020.acl-main.51.pdf>link</a></td>
-          </tr>
-          <tr>
-            <td>01.10.2020</td>
-            <td>Elena Kochkina</td>
-            <td>Document Expansion by Query Prediction</td>
-            <td><a href=https://arxiv.org/pdf/1904.08375v2.pdf>link</a></td>
-          </tr>
-          <tr>
-            <td>24.09.2020</td>
-            <td>Greg Jacenkow</td>
-            <td>The Hateful Memes Challenge: Detecting Hate Speech in Multimodal Memes</td>
-            <td><a
-                href=https://proceedings.neurips.cc//paper/2020/file/1b84c4cee2b8b3d823b30e2d604b1878-Paper.pdf>link</a>
-            </td>
-          </tr>
-          <tr>
-            <td>10.09.2020</td>
-            <td>Bo Wang</td>
-            <td>Preliminary study on Information Extraction from Swedish Medical Prescriptions with Sig-Transformer
-              Encoder</td>
-            <td><a href=https://www.aclweb.org/anthology/2020.clinicalnlp-1.5.pdf>link</a></td>
-          </tr>
-          <tr>
-            <td>03.09.2020</td>
-            <td>Adam Tsakalidis</td>
-            <td>Beyond Accuracy: Behavioral Testing of NLP Models with CheckList</td>
-            <td><a href=https://www.aclweb.org/anthology/2020.acl-main.442.pdf>link</a></td>
-          </tr>
-          <tr>
-            <td>13.08.2020</td>
-            <td>Harish Tayyar Madabushi</td>
-            <td>Climbing towards NLU: On Meaning, Form, and Understanding in the Age of Data</td>
-            <td><a href=https://www.aclweb.org/anthology/2020.acl-main.463.pdf>link</a></td>
-          </tr>
-          <tr>
-            <td>06.08.2020</td>
-            <td>Everyone</td>
-            <td>ACL discussion</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>07.11.2019</td>
-            <td>Bo Wang</td>
-            <td>A machine learning approach to predicting psychosis using semantic density and latent content analysis
-            </td>
-            <td><a href=https://www.nature.com/articles/s41537-019-0077-9>link</a></td>
-          </tr>
-          <tr>
-            <td>31.10.2019</td>
-            <td>Harish Tayyar Madabushi, Elena Kochkina, Michael Castelle</td>
-            <td>Talk on "Cost-Sensitive BERT for Generalisable Sentence Classification with Imbalanced Data"</td>
-            <td><a href=https://www.aclweb.org/anthology/D19-5018 />link</a></td>
-          </tr>
-          <tr>
-            <td>24.10.2019</td>
-            <td>Nicole Peinelt</td>
-            <td>What do you learn from context? Probing for sentence structure in contextualized word representations,
-              Tenney et al.</td>
-            <td><a href=https://arxiv.org/pdf/1905.06316.pdf>link</a></td>
-          </tr>
-          <tr>
-            <td>17.10.2019</td>
-            <td>Maria Liakata</td>
-            <td>Don’t Take the Premise for Granted: Mitigating Artifacts in Natural Language Inference, Belinkov et al.
-            </td>
-            <td><a href=https://www.aclweb.org/anthology/P19-1084.pdf>link</a></td>
-          </tr>
-          <tr>
-            <td>10.10.2019</td>
-            <td>Adam Tsakalidis</td>
-            <td>Right for the Wrong Reasons: Diagnosing Syntactic Heuristics in Natural Language Inference, McCoy et al.
-            </td>
-            <td><a href=https://www.aclweb.org/anthology/P19-1334.pdf>link</a></td>
-          </tr>
-          <tr>
-            <td>03.10.2019</td>
-            <td>Nicole Peinelt</td>
-            <td>NLP conference discussion</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>18.07.2019</td>
-            <td>Nicole Peinelt</td>
-            <td>Talk on "Aiming beyond the Obvious: Identifying Non-Obvious Cases in Semantic Similarity Datasets"</td>
-            <td><a href=https://www.aclweb.org/anthology/P19-1268.pdf>link</a></td>
-          </tr>
-          <tr>
-            <td>04.07.2019</td>
-            <td>Julia Ive (University of Sheffield)</td>
-            <td>Talk on "Towards Shareable Data in Clinical Natural Language Processing: Generating Synthetic Electronic
-              Health Records"</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>27.06.2019</td>
-            <td>Raymond Ng (University of British Columbia)</td>
-            <td>Talk on "Text Analytics for Chronic Disease Management"</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>16.05.2019</td>
-            <td>Andreas Vlachos (University of Cambridge)</td>
-            <td>Talk on "Fact Checking: an AI perspective"</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>02.05.2019</td>
-            <td>Michael Castelle</td>
-            <td>Rotational Unit of Memory: A Novel Representation Unit for RNNs with Scalable Applications, Dangovski et
-              al.</td>
-            <td><a href=https://www.mitpressjournals.org/doi/pdf/10.1162/tacl_a_00258>link</a></td>
-          </tr>
-          <tr>
-            <td>25.04.2019</td>
-            <td>Feng Shi</td>
-            <td>Talk on "NLP for creativity and innovation"</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>18.04.2019</td>
-            <td>Harish Tayyar Madabushi (University of Birmingham)</td>
-            <td>Talk on "On the Integration of Conceptual Hierarchies with Deep Learning for Explainable Open-Domain
-              Question Answering"</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>28.03.2019</td>
-            <td>Hieu Hoang</td>
-            <td>Emergence of linguistic communication from referential games with symbolic and pixel input, Lazaridou et
-              al.</td>
-            <td><a href="https://openreview.net/pdf?id=HJGv1Z-AW">link</a></td>
-          </tr>
-          <tr>
-            <td>21.03.2019</td>
-            <td>Yen-Chen Wu (University of Cambridge)</td>
-            <td>Talk on "Model-based Reinforcement Learning and its Applications to Dialogue Systems"</td>
-            <td></td>
-          </tr>
-          <tr>
-          <tr>
-            <td>07.03.2019</td>
-            <td>Nicole Peinelt and Maria Liakata</td>
-            <td>Coarse-to-Fine Question Answering for Long Documents, Choi et al.</td>
-            <td><a href="https://homes.cs.washington.edu/~eunsol/papers/acl17eunsol.pdf">link</a></td>
-          </tr>
-          <tr>
-            <td>28.02.2019</td>
-            <td>Nicolas Anastassacos</td>
-            <td>Talk on "Introduction to Reinforcement learning"</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>21.02.2019</td>
-            <td>Dong Nguyen</td>
-            <td>BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding, Devlin et al.</td>
-            <td><a href="https://arxiv.org/pdf/1810.04805.pdf">link</a></td>
-          </tr>
-          <tr>
-            <td>31.01.2019</td>
-            <td>Maria Liakata and Elena Kochkina</td>
-            <td>Confidence Modeling for Neural Semantic Parsing, Dong et al.</td>
-            <td><a href="http://aclweb.org/anthology/P18-1069">link</a></td>
-          </tr>
-          <tr>
-            <td>06.12.2018</td>
-            <td>Daniil Sorokin (TU Darmstadt)</td>
-            <td>Talk on "Graph Neural Networks for Knowledge Base Question Answering"</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>29.11.2018</td>
-            <td>Radoslaw Kowalski</td>
-            <td>Coherent narrative summarization with a cognitive model, Zhang et al.</td>
-            <td><a href="https://bayanbox.ir/view/607717198685211120/rahpu.ir-TNC176.pdf">link</a></td>
-          </tr>
-          <tr>
-            <td>22.11.2018</td>
-            <td> Dong Nguyen and Rebekah Tromble</td>
-            <td> DeClarE: Debunking Fake News and False Claims using Evidence-Aware Deep Learning, Popat et al.</td>
-            <td><a href="http://aclweb.org/anthology/D18-1003">link</a></td>
-          </tr>
-          <tr>
-            <td>15.11.2018</td>
-            <td>Hao Ni</td>
-            <td>Talk on "Signature Method"</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>01.11.2018</td>
-            <td>Elena Kochkina</td>
-            <td>Dropout as a Bayesian Approximation: Representing Model Uncertainty in Deep Learning</td>
-            <td><a href="http://proceedings.mlr.press/v48/gal16.pdf">link</a></td>
-          </tr>
-
-          <tr>
-            <td>25.10.2018</td>
-            <td>Lev Konstantinovskiy</td>
-            <td>Talk on "Towards Automated Fact checking: Developing an Annotation Schema and Benchmark for Consistent
-              Automated Claim Detection"</td>
-            <td><a href="https://arxiv.org/abs/1809.08193">link</a></td>
-          </tr>
-          <tr>
-            <td>18.10.2018</td>
-            <td>Yulan He (University of Warwick)</td>
-            <td>Talk on "Unsupervised Event Extraction and Storyline Generation from Text"</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>11.10.2018</td>
-            <td>Annie Louis (University of Edinburgh)</td>
-            <td>Talk on "Tracking referring expressions across time"</td>
-            <td><a href="http://homepages.inf.ed.ac.uk/alouis/papers/RefTime-emnlp2018.pdf">link</a></td>
-          </tr>
-
-
-          <tr>
-            <td>04.10.2018</td>
-            <td>Johannes Welbl (UCL)</td>
-            <td>Talk on "Jack the Reader – A Machine Reading Framework"</td>
-            <td><a href="http://www.aclweb.org/anthology/P18-4005">link</a></td>
-          </tr>
-
-          <tr>
-            <td>27.09.2018</td>
-            <td>Kent Chang</td>
-            <td>Talk on "Individuals, Institutions and Innovation in the debates of the French revolution" </td>
-            <td><a href="http://www.pnas.org/content/pnas/early/2018/04/16/1717729115.full.pdf">link</a></td>
-          </tr>
-
-          <tr>
-            <td>20.09.2018</td>
-            <td>James Ravenscroft</td>
-            <td>Talk on "HarriGT: A Tool for Linking News to Science (ACL system demo)"" </td>
-            <td><a href="http://www.aclweb.org/anthology/P18-4004">link</a></td>
-          </tr>
-          <tr>
-            <td>13.09.2018</td>
-            <td>Farhana Liza and Philippa Shoemark</td>
-            <td>Talk on "Semantic change in social media"</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>06.09.2018</td>
-            <td>Elena Kochkina and Andrew Moore</td>
-            <td>Two COLING talks: 1) All-in-one: Multi-task Learning for Rumour Verification 2) Bringing replication and
-              reproduction together with generalisability in NLP: Three reproduction studies for Target Dependent
-              Sentiment Analysis </td>
-            <td><a href="http://www.aclweb.org/anthology/C18-1288">link1</a> <a
-                href="https://aclanthology.coli.uni-saarland.de/papers/C18-1097/c18-1097">link2</a></td>
-          </tr>
-          <tr>
-            <td>30.08.2018</td>
-            <td>Tianhong Dai (Imperial College London)</td>
-            <td>Talk on "Research Tools: Pytorch"</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>09.08.2018</td>
-            <td>Nicole Peinelt</td>
-            <td>Talk on "Research Tools: Tensorboard & Tensorflow Debugger"</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>26.07.2018</td>
-            <td>Dong Nguyen</td>
-            <td>Deep contextualized word representations, Peters et al. </td>
-            <td><a href="http://www.aclweb.org/anthology/N18-1202">link</a></td>
-          </tr>
-          <tr>
-            <td>19.07.2018</td>
-            <td>Marya Bazzi</td>
-            <td>Talk on "Community detection in temporal multilayer networks, with an application to correlation
-              networks"</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>12.07.2018</td>
-            <td>Hieu Hoang</td>
-            <td>Talk on "Fast neural machine translation implementation"</td>
-            <td><a href="https://arxiv.org/pdf/1805.09863.pdf">link</a></td>
-          </tr>
-
-          <tr>
-            <td>28.06.2018</td>
-            <td>Andrew Moore</td>
-            <td>Strong baselines for neural semi-supervised learning under domain shift, Ruder and Plank</td>
-            <td><a href="https://arxiv.org/pdf/1804.09530.pdf">link</a></td>
-          </tr>
-          <tr>
-            <td>14.06.2018</td>
-            <td>Nigel Collier</td>
-            <td>Talk on "Entity linking using heterogeneous health text data"</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>21.05.2018</td>
-            <td>Andrey Malinin</td>
-            <td>Talk on "Estimating uncertainty in predictions for deep learning"</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>14.05.2018</td>
-            <td>Dong Nguyen</td>
-            <td>Talk on "Comparing automatic and human evaluation of local explanations for text classification"</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>30.04.2018</td>
-            <td>Kira Kempinska</td>
-            <td>Talk on "Adversarial sequential Monte Carlo - flexible modelling of sequential data with Bayesian deep
-              learning"</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>23.04.2018</td>
-            <td>Andrew Moore</td>
-            <td>Auxiliary Objectives for Neural Error Detection Models, Rei and Yannakoudakis</td>
-            <td><a href="http://www.aclweb.org/anthology/W17-5004">link</a></td>
-          </tr>
-
-          <tr>
-            <td>09.04.2018</td>
-            <td>Zeerak Waseem (Factmata/Sheffield)</td>
-            <td>Talk on "Annotation and detection of hate speech"</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>26.03.2018</td>
-            <td>Elena Kochkina</td>
-            <td>Building a Bayesian deep learning classifier, Dorman</td>
-            <td><a href="https://github.com/kyle-dorman/bayesian-neural-network-blogpost">link</a></td>
-          </tr>
-          <tr>
-            <td>19.03.2018</td>
-            <td>Bo Wang</td>
-            <td>A simple regularization-based algorithm for learning cross-domain word embeddings, Yang et al.</td>
-            <td><a href="http://aclweb.org/anthology/D17-1312">link</a></td>
-          </tr>
-          <tr>
-            <td>12.03.2018</td>
-            <td>Johannes Welbl (UCL)</td>
-            <td>Talk on “Machines that read and reason: Multi-hop reading comprehension across documents”</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>5.03.2018</td>
-            <td>Bo Wang and Nicole Peinelt</td>
-            <td>Hierarchical Attention Networks for Document Classification, Yang et al.</td>
-            <td><a href="http://www.aclweb.org/anthology/N16-1174">link</a></td>
-          </tr>
-          <tr>
-            <td>26.02.2018</td>
-            <td>Radoslaw Kowalski</td>
-            <td>Apparatus and method for predicting customer behaviour, Kannan et al.</td>
-            <td><a href="https://patents.google.com/patent/US9536248B2/en">link</a></td>
-          </tr>
-
-          <tr>
-            <td>19.02.2018</td>
-            <td>Adam Tsakalidis</td>
-            <td>Active Sentiment Domain Adaptation, Wu et al.</td>
-            <td><a href="http://aclweb.org/anthology/P/P17/P17-1156.pdf">link</a></td>
-          </tr>
-          <tr>
-            <td>12.02.2018</td>
-            <td>Nicole Peinelt</td>
-            <td>Very deep convolutional networks for text classification, Conneau et al. </td>
-            <td><a href="http://www.aclweb.org/anthology/E17-1104">link</a></td>
-          </tr>
-
-
-          <tr>
-            <td>25.01.2018</td>
-            <td>Adria Gascon</td>
-            <td>Talk on “Privacy-preserving document classification in federated databases”</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>18.01.2018</td>
-            <td>Dong Nguyen, Barbara McGillivray, Taha Yasseri</td>
-            <td>Word Embeddings Quantify 100 Years of Gender and Ethnic Stereotypes, Garg et al. </td>
-            <td><a href="https://arxiv.org/pdf/1711.08412.pdf">link</a></td>
-          </tr>
-          <tr>
-            <td>11.01.2018</td>
-            <td>Tao Wang</td>
-            <td>Detecting and Characterizing Eating-Disorder Communities on Social Media, Wang et al.</td>
-            <td><a href="https://dl.acm.org/citation.cfm?id=3018706">link</a></td>
-          </tr>
-          <tr>
-            <td>07.12.2017</td>
-            <td>Elena Kochkina</td>
-            <td>An investigation of imitation learning algorithms for structured prediction, Vlachos </td>
-            <td><a href="http://proceedings.mlr.press/v24/vlachos12a/vlachos12a.pdf">link</a></td>
-          </tr>
-          <tr>
-            <td>30.11.2017</td>
-            <td>Barbara McGillivray</td>
-            <td>Semantic Variation in Online Communities of Practice, Tredici and Fern&aacute;ndez </td>
-            <td><a href="http://www.aclweb.org/anthology/W/W17/W17-6804.pdf">link</a></td>
-          </tr>
-          <tr>
-            <td>23.11.2017</td>
-            <td>Barbara McGillivray and Jim Smith</td>
-            <td>A Bayesian Model of Diachronic Meaning Change, Frermann and Lapata </td>
-            <td><a href="http://www.aclweb.org/anthology/Q16-1003">link</a></td>
-          </tr>
-          <tr>
-            <td>16.11.2017</td>
-            <td>Maria Liakata</td>
-            <td>Sluice networks: Learning what to share between loosely related tasks, Ruder et al.</td>
-            <td><a href="https://arxiv.org/abs/1705.08142">link</a></td>
-          </tr>
-          <tr>
-            <td>09.11.2017</td>
-            <td>Radoslaw Kowalski</td>
-            <td>Semantic Folding Part 1 of the article (pp. 8-29), De Sousa Webber</td>
-            <td><a href="https://arxiv.org/abs/1511.08855">link</a></td>
-          </tr>
-          <tr>
-            <td>02.11.2017</td>
-            <td>Walid Magdy (Edinburgh)</td>
-            <td>Discussion with Walid Magdy about his paper Fake it till you make it: Fishing for Catfishes.</td>
-            <td><a href="https://arxiv.org/abs/1705.06530">link</a></td>
-          </tr>
-          <tr>
-            <td>26.10.2017</td>
-            <td>Dong Nguyen</td>
-            <td>Depression and Self-Harm Risk Assessment in Online Forums, Yates et al.</td>
-            <td><a href="http://aclweb.org/anthology/D17-1322">link</a></td>
-          </tr>
-          <tr>
-            <td>19.10.2017</td>
-            <td>Hieu Hoang</td>
-            <td>Attention is all you need, Vaswani et al.</td>
-            <td><a href="https://arxiv.org/abs/1706.03762">link</a></td>
-          </tr>
-          <tr>
-            <td>12.10.2017</td>
-            <td>Andrew Moore</td>
-            <td>Aspect Level Sentiment Classification with Deep Memory Network, Tang et al. </td>
-            <td><a href="http://www.anthology.aclweb.org/D/D16/D16-1021.pdf">link</a></td>
-          </tr>
-
-          </tbody>
-        </table>
-
-
-
-
-
-      </div>
-
-      <!-- Blog Sidebar Widgets Column -->
-      <div class="col-md-4">
-
-
-        <!-- Side Widget Well -->
-        <div class="text-right">
-          <a href="http://www.turing.ac.uk/"><img src="img/turing_logo.jpg" width=100></a>
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo-section">
+                <img src="imgs/turing_logo.jpg" alt="Alan Turing Institute">
+                <a href="index.html" class="site-title">NLP Special Interest Group</a>
+            </div>
+            <nav>
+                <ul class="nav-menu" id="navMenu">
+                    <li class="nav-item"><a href="index.html">Home</a></li>
+                    <li class="nav-item"><a href="people.html">People</a></li>
+                    <li class="nav-item active"><a href="meetings.html">Meetings</a></li>
+                    <li class="nav-item"><a href="events.html">Events</a></li>
+                </ul>
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+            </nav>
         </div>
+    </header>
 
-      </div>
+    <main class="container">
+        <div class="main-content">
+            <div class="content-area">
+                <div class="content-header">
+                    <h1 class="page-title">Meetings</h1>
+                    <p class="page-subtitle">Weekly paper discussions, invited talks, and collaborative research
+                        sessions</p>
+                </div>
 
-    </div>
-    <!-- /.row -->
+                <div class="content-body">
+                    <div class="meeting-overview">
+                        <h2 class="overview-title">📅 Meeting Information</h2>
+                        <p>Join us for engaging discussions on cutting-edge NLP research, featuring paper presentations,
+                            invited speakers, and collaborative sessions.</p>
 
+                        <div class="overview-details">
+                            <div class="detail-item">
+                                <span class="detail-icon">⏰</span>
+                                <div>
+                                    <strong>When:</strong><br>
+                                    Every Thursday 4-5pm (UK time)
+                                </div>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-icon">📅</span>
+                                <div>
+                                    <strong>Schedule:</strong><br>
+                                    Excluding 1st & 3rd Thursday each month
+                                </div>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-icon">🔗</span>
+                                <div>
+                                    <strong>Join via Zoom:</strong><br>
+                                    <a href="#" style="color: white; text-decoration: underline;">Meeting Link</a>
+                                </div>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-icon">👥</span>
+                                <div>
+                                    <strong>Contact:</strong><br>
+                                    a.r.hills [at] qmul.ac.uk
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-    <!-- Footer -->
-    <footer>
-      <div class="row">
-        <div class="col-lg-12">
+                    <!-- This Week's Meeting (Most Prominent) -->
+                    <div id="thisWeekSection" class="schedule-section" style="display: none;">
+                        <h2 class="section-title">🎯 This Week's Meeting</h2>
+                        <div id="thisWeekMeeting"
+                            style="background: linear-gradient(135deg, #fef3c7, #fde68a); border-radius: 12px; padding: 2rem; border-left: 4px solid var(--warning-orange); margin-bottom: 2rem;">
+                            <!-- This week's meeting will be populated by JavaScript -->
+                        </div>
+                    </div>
 
+                    <!-- Upcoming Meetings -->
+                    <div class="schedule-section">
+                        <h2 class="section-title">📚 Upcoming Meetings</h2>
+                        <p style="margin-bottom: 1.5rem; color: var(--dark-gray);">
+                            Future scheduled meetings and presentations.
+                        </p>
 
-          <!--<h6 class="text-muted">The design of this website is based on the Bootstrap blog template and the Journal theme.</h6>-->
+                        <table class="schedule-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 120px;">Date</th>
+                                    <th style="width: 150px;">Presenter</th>
+                                    <th>Paper/Topic</th>
+                                </tr>
+                            </thead>
+                            <tbody id="upcomingMeetings">
+                                <!-- Meetings will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="schedule-section">
+                        <h2 class="section-title">📚 Previous Meetings</h2>
+                        <p style="margin-bottom: 1.5rem; color: var(--dark-gray);">
+                            Archive of our past paper discussions and presentations, listed with most recent first.
+                        </p>
+
+                        <table class="schedule-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 120px;">Date</th>
+                                    <th style="width: 150px;">Presenter</th>
+                                    <th>Paper/Topic</th>
+                                </tr>
+                            </thead>
+                            <tbody id="previousMeetings">
+                                <!-- Previous meetings will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="schedule-section">
+                        <h2 class="section-title">💡 How to Participate</h2>
+                        <div
+                            style="background: var(--light-gray); padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--accent-blue);">
+                            <h3 style="margin-bottom: 1rem; color: var(--primary-blue);">Ways to Get Involved:</h3>
+                            <ul style="margin-left: 1.5rem; color: var(--dark-gray);">
+                                <li style="margin-bottom: 0.5rem;"><strong>Suggest Papers:</strong> Recommend papers
+                                    you'd like to discuss by contacting Anthony</li>
+                                <li style="margin-bottom: 0.5rem;"><strong>Volunteer to Present:</strong> Lead
+                                    discussions on papers or present your own work</li>
+                                <li style="margin-bottom: 0.5rem;"><strong>Join Discussions:</strong> Participate in our
+                                    weekly paper discussions</li>
+                                <li style="margin-bottom: 0.5rem;"><strong>Propose Topics:</strong> Suggest themes or
+                                    research areas for future sessions</li>
+                            </ul>
+                            <p style="margin-top: 1rem; margin-bottom: 0; font-style: italic;">
+                                Contact Anthony at a.r.hills [at] qmul.ac.uk for any questions or to get more involved!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <div class="sidebar-card">
+                    <h3 class="sidebar-title">🔗 Join Our Meetings</h3>
+                    <p style="margin-bottom: 1.5rem; color: var(--dark-gray); font-size: 0.95rem;">
+                        All meetings use the same recurring Zoom link every Thursday 4-5pm (UK time).
+                    </p>
+                    <a href="#" class="action-btn" style="margin-bottom: 1rem;">
+                        📹 Join Zoom Meeting
+                    </a>
+                    <div
+                        style="padding: 1rem; background: var(--light-gray); border-radius: 6px; font-size: 0.85rem; color: var(--dark-gray);">
+                        <strong>Meeting ID:</strong> [To be added]<br>
+                        <strong>Passcode:</strong> [To be added]
+                    </div>
+                </div>
+
+                <div class="sidebar-card">
+                    <h3 class="sidebar-title">📧 Join Our Community</h3>
+                    <p style="margin-bottom: 1.5rem; color: var(--dark-gray); font-size: 0.95rem;">
+                        Don't miss our meetings! Join our mailing list for updates.
+                    </p>
+                    <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=p_SVQ1XklU-Knx-672OE-fR6PcyyBV1JuragBENwKPJUMFEzUFRFVkQ4N0MxOTROTDlNN1Q5S1BJSCQlQCN0PWcu&wdLOR=cCC6B022F-A814-004B-942B-2E835A58A305"
+                        class="action-btn">
+                        ✉️ Join Mailing List
+                    </a>
+                </div>
+
+                <div class="sidebar-card">
+                    <h3 class="sidebar-title">👥 Organizers</h3>
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <div>
+                            <div style="font-weight: 600; color: var(--primary-blue);">
+                                <a href="https://www.linkedin.com/in/anthony-hills-ph-d-b92359105/"
+                                    style="color: var(--primary-blue); text-decoration: none;">Anthony Hills</a>
+                            </div>
+                        </div>
+                        <div style="font-weight: 500; color: var(--turing-blue);">
+                            <a href="https://www.turing.ac.uk/people/researchers/maria-liakata"
+                                style="color: var(--turing-blue); text-decoration: none;">Maria Liakata</a>
+                        </div>
+                        <div style="font-weight: 500; color: var(--turing-blue);">
+                            <a href="https://guneetsk99.github.io/"
+                                style="color: var(--turing-blue); text-decoration: none;">Guneet Singh Kohli</a>
+                        </div>
+                        <div style="font-weight: 500; color: var(--turing-blue);">
+                            <a href="https://www.linkedin.com/in/yuxiang-zhou-8b879b320/?originalSubdomain=uk"
+                                style="color: var(--turing-blue); text-decoration: none;">Yuxiang Zhou</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sidebar-card">
+                    <h3 class="sidebar-title">🤝 Related Groups</h3>
+                    <p style="margin-bottom: 1rem; color: var(--dark-gray); font-size: 0.9rem;">
+                        We coordinate with these affiliated interest groups:
+                    </p>
+                    <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                        <a href="https://www.turing.ac.uk/research/interest-groups/media-digital-age"
+                            class="action-btn secondary" style="font-size: 0.9rem; padding: 0.5rem 0.75rem;">
+                            📺 Media in the Digital Age
+                        </a>
+                        <a href="https://www.turing.ac.uk/research/interest-groups/data-science-mental-health"
+                            class="action-btn secondary" style="font-size: 0.9rem; padding: 0.5rem 0.75rem;">
+                            🧠 Data Science for Mental Health
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
-        <!-- /.col-lg-12 -->
-      </div>
-      <!-- /.row -->
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-text">
+                    © 2025 Natural Language Processing Special Interest Group - The Alan Turing Institute
+                </div>
+                <div class="footer-links">
+                    <a href="https://www.turing.ac.uk/">Turing Institute</a>
+                    <a href="https://github.com/turing-nlp/turing-nlp.github.io">GitHub</a>
+                </div>
+            </div>
+        </div>
     </footer>
 
-  </div>
-  <!-- /.container -->
+    <script>
+        // Load meetings data from external JSON file
+        let allMeetings = [];
 
-  <!-- jQuery -->
-  <script src="js/jquery.js"></script>
+        // Function to load meetings data (placeholder - will load from meetings-data.json)
+        async function loadMeetingsData() {
+            try {
+                // In a real implementation, this would load from meetings-data.json
+                // For now, using placeholder data structure
+                allMeetings = [
+                    // Example structure:
+                    // {
+                    //     date: "25.07.2025",
+                    //     presenter: "Dr. Jane Smith",
+                    //     presenterBio: "Dr. Smith is a researcher at...",
+                    //     title: "Advanced Reasoning in Large Language Models",
+                    //     authors: "Smith et al.",
+                    //     abstract: "This paper presents novel approaches to..."
+                    // }
+                ];
+            } catch (error) {
+                console.log('Using default empty data structure');
+            }
+        }
 
-  <!-- Bootstrap Core JavaScript -->
-  <script src="js/bootstrap.min.js"></script>
+        function parseDate(dateStr) {
+            // Convert DD.MM.YYYY to Date object
+            const [day, month, year] = dateStr.split('.');
+            return new Date(year, month - 1, day);
+        }
 
+        function isCurrentWeek(date) {
+            const today = new Date();
+            const currentWeekStart = getWeekStart(today);
+            const currentWeekEnd = new Date(currentWeekStart);
+            currentWeekEnd.setDate(currentWeekStart.getDate() + 6);
+
+            return date >= currentWeekStart && date <= currentWeekEnd;
+        }
+
+        function getWeekStart(date) {
+            const d = new Date(date);
+            const day = d.getDay();
+            const diff = d.getDate() - day + (day === 0 ? -6 : 1); // Monday as start of week
+            const weekStart = new Date(d.setDate(diff));
+            weekStart.setHours(0, 0, 0, 0);
+            return weekStart;
+        }
+
+        function categorizeMeetings() {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            let thisWeekMeeting = null;
+            let upcomingMeetings = [];
+            let previousMeetings = [];
+
+            allMeetings.forEach(meeting => {
+                const meetingDate = parseDate(meeting.date);
+
+                if (isCurrentWeek(meetingDate)) {
+                    thisWeekMeeting = meeting;
+                } else if (meetingDate > today) {
+                    upcomingMeetings.push(meeting);
+                } else {
+                    previousMeetings.push(meeting);
+                }
+            });
+
+            // Sort upcoming meetings by date (earliest first)
+            upcomingMeetings.sort((a, b) => parseDate(a.date) - parseDate(b.date));
+
+            // Sort previous meetings by date (most recent first)
+            previousMeetings.sort((a, b) => parseDate(b.date) - parseDate(a.date));
+
+            return { thisWeekMeeting, upcomingMeetings, previousMeetings };
+        }
+
+        function toggleDetails(meetingId) {
+            const details = document.getElementById(`details-${meetingId}`);
+            const button = document.querySelector(`[onclick="toggleDetails('${meetingId}')"]`);
+
+            if (details.style.display === 'none' || details.style.display === '') {
+                details.style.display = 'block';
+                button.textContent = '▼ Hide Details';
+            } else {
+                details.style.display = 'none';
+                button.textContent = '▶ Show Details';
+            }
+        }
+
+        function renderThisWeekMeeting(meeting) {
+            const section = document.getElementById('thisWeekSection');
+            const container = document.getElementById('thisWeekMeeting');
+
+            if (!meeting) {
+                section.style.display = 'none';
+                return;
+            }
+
+            section.style.display = 'block';
+
+            const hasDetails = meeting.abstract || meeting.presenterBio;
+
+            container.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
+                    <div>
+                        <h3 style="color: var(--primary-blue); font-size: 1.5rem; margin-bottom: 0.5rem;">${meeting.title}</h3>
+                        <div style="color: var(--dark-gray); margin-bottom: 0.5rem;">
+                            <strong>Presenter:</strong> ${meeting.presenter}
+                        </div>
+                        ${meeting.authors ? `<div style="color: var(--dark-gray); margin-bottom: 0.5rem;"><strong>Authors:</strong> ${meeting.authors}</div>` : ''}
+                        <div style="color: var(--warning-orange); font-weight: bold;">📅 ${meeting.date} • Thursday 4-5pm (UK time)</div>
+                    </div>
+                    <div style="background: white; padding: 0.5rem 1rem; border-radius: 6px; font-weight: bold; color: var(--warning-orange); border: 2px solid var(--warning-orange);">
+                        THIS WEEK
+                    </div>
+                </div>
+                
+                ${hasDetails ? `
+                    <button onclick="toggleDetails('thisweek')" 
+                            id="thisweek-btn"
+                            style="background: var(--accent-blue); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 6px; cursor: pointer; font-weight: 500; margin-top: 1rem;">
+                        ▶ Show Abstract & Bio
+                    </button>
+                    <div id="details-thisweek" style="display: none; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 2px solid rgba(255,255,255,0.3);">
+                        ${meeting.abstract ? `
+                            <div style="margin-bottom: 1.5rem;">
+                                <h4 style="color: var(--primary-blue); margin-bottom: 0.75rem;">📄 Abstract:</h4>
+                                <p style="color: var(--dark-gray); line-height: 1.6; background: rgba(255,255,255,0.7); padding: 1rem; border-radius: 6px;">${meeting.abstract}</p>
+                            </div>
+                        ` : ''}
+                        ${meeting.presenterBio ? `
+                            <div>
+                                <h4 style="color: var(--primary-blue); margin-bottom: 0.75rem;">👤 Speaker Bio:</h4>
+                                <p style="color: var(--dark-gray); line-height: 1.6; background: rgba(255,255,255,0.7); padding: 1rem; border-radius: 6px;">${meeting.presenterBio}</p>
+                            </div>
+                        ` : ''}
+                    </div>
+                ` : ''}
+            `;
+        }
+
+        function renderUpcomingMeetings(meetings) {
+            const tbody = document.getElementById('upcomingMeetings');
+
+            if (meetings.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td><strong>TBA</strong></td>
+                        <td colspan="2" style="font-style: italic; color: var(--dark-gray);">
+                            Schedule being updated. Contact Anthony to propose papers or volunteer to present!
+                        </td>
+                    </tr>
+                `;
+            } else {
+                let html = '';
+                meetings.forEach((meeting, index) => {
+                    html += `
+                        <tr>
+                            <td><strong>${meeting.date}</strong></td>
+                            <td class="presenter">${meeting.presenter}</td>
+                            <td>
+                                <div class="paper-title">${meeting.title}</div>
+                                ${meeting.authors ? `<div class="paper-authors">${meeting.authors}</div>` : ''}
+                                ${(meeting.abstract || meeting.presenterBio) ? `
+                                    <button onclick="toggleDetails('upcoming-${index}')" 
+                                            style="background: none; border: none; color: var(--accent-blue); cursor: pointer; font-size: 0.9rem; margin-top: 0.5rem; padding: 0;">
+                                        ▶ Show Details
+                                    </button>
+                                ` : ''}
+                            </td>
+                        </tr>
+                    `;
+
+                    if (meeting.abstract || meeting.presenterBio) {
+                        html += `
+                            <tr id="details-upcoming-${index}" style="display: none;">
+                                <td colspan="3" style="background: var(--light-gray); padding: 1.5rem;">
+                                    ${meeting.abstract ? `
+                                        <div style="margin-bottom: 1rem;">
+                                            <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Abstract:</h4>
+                                            <p style="color: var(--dark-gray); line-height: 1.6;">${meeting.abstract}</p>
+                                        </div>
+                                    ` : ''}
+                                    ${meeting.presenterBio ? `
+                                        <div>
+                                            <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Speaker Bio:</h4>
+                                            <p style="color: var(--dark-gray); line-height: 1.6;">${meeting.presenterBio}</p>
+                                        </div>
+                                    ` : ''}
+                                </td>
+                            </tr>
+                        `;
+                    }
+                });
+                tbody.innerHTML = html;
+            }
+        }
+
+        function renderPreviousMeetings(meetings) {
+            const tbody = document.getElementById('previousMeetings');
+
+            if (meetings.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="3" style="font-style: italic; color: var(--dark-gray); text-align: center; padding: 2rem;">
+                            Previous meeting archive will be populated here as we build our meeting history.
+                        </td>
+                    </tr>
+                `;
+            } else {
+                let html = '';
+                meetings.forEach((meeting, index) => {
+                    html += `
+                        <tr>
+                            <td><strong>${meeting.date}</strong></td>
+                            <td class="presenter">${meeting.presenter}</td>
+                            <td>
+                                <div class="paper-title">${meeting.title}</div>
+                                ${meeting.authors ? `<div class="paper-authors">${meeting.authors}</div>` : ''}
+                                ${(meeting.abstract || meeting.presenterBio) ? `
+                                    <button onclick="toggleDetails('previous-${index}')" 
+                                            style="background: none; border: none; color: var(--accent-blue); cursor: pointer; font-size: 0.9rem; margin-top: 0.5rem; padding: 0;">
+                                        ▶ Show Details
+                                    </button>
+                                ` : ''}
+                            </td>
+                        </tr>
+                    `;
+
+                    if (meeting.abstract || meeting.presenterBio) {
+                        html += `
+                            <tr id="details-previous-${index}" style="display: none;">
+                                <td colspan="3" style="background: var(--light-gray); padding: 1.5rem;">
+                                    ${meeting.abstract ? `
+                                        <div style="margin-bottom: 1rem;">
+                                            <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Abstract:</h4>
+                                            <p style="color: var(--dark-gray); line-height: 1.6;">${meeting.abstract}</p>
+                                        </div>
+                                    ` : ''}
+                                    ${meeting.presenterBio ? `
+                                        <div>
+                                            <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Speaker Bio:</h4>
+                                            <p style="color: var(--dark-gray); line-height: 1.6;">${meeting.presenterBio}</p>
+                                        </div>
+                                    ` : ''}
+                                </td>
+                            </tr>
+                        `;
+                    }
+                });
+                tbody.innerHTML = html;
+            }
+        }
+
+        function toggleMobileMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function (event) {
+            const navMenu = document.getElementById('navMenu');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+
+            if (!navMenu.contains(event.target) && !menuBtn.contains(event.target)) {
+                navMenu.classList.remove('active');
+            }
+        });
+
+        // Set active navigation item
+        function setActiveNav() {
+            const currentPage = 'meetings.html';
+            const navItems = document.querySelectorAll('.nav-item');
+
+            navItems.forEach(item => {
+                const link = item.querySelector('a');
+                if (link.getAttribute('href') === currentPage) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', async function () {
+            setActiveNav();
+            await loadMeetingsData();
+
+            const { thisWeekMeeting, upcomingMeetings, previousMeetings } = categorizeMeetings();
+
+            renderThisWeekMeeting(thisWeekMeeting);
+            renderUpcomingMeetings(upcomingMeetings);
+            renderPreviousMeetings(previousMeetings);
+        });
+    </script>
 </body>
 
 </html>
