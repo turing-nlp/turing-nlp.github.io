@@ -39,17 +39,35 @@ Your spreadsheet should have these columns:
 
 | Column | Description | Example |
 |--------|-------------|---------|
-| Date | Event date | `30/10/2025` |
+| Date | Event date | `30/10/2025` or `24.11.22` |
 | Presenter | Speaker name | `Joseph Boyle` |
 | Event Name | Talk/session title | `Building Useful Agents` |
 | Type of Session | Session type | `seminar` or `journal club` |
+| Zoom Link | Online meeting link | `https://zoom.us/...` |
+| Room | Meeting room | `Ada Lovelace` |
+| Abstract | Talk/session abstract | `This talk presents...` |
+| Bio for Speaker | Speaker biography | `Dr. Smith is a researcher...` |
+| Paper Links | Comma-separated paper URLs | `https://..., https://...` |
 
 ### Optional Columns
-You can add these columns for richer data:
+You can also add:
 - `authors` - Paper authors
-- `abstract` - Talk abstract  
-- `presenterBio` - Speaker biography
-- `paper_url` - Link to paper/materials
+
+### Date Format Handling
+The script automatically handles different date formats:
+- **Before/including 9/29/2022**: MM/DD/YYYY format
+- **After 9/29/2022**: DD/MM/YYYY or DD.MM.YYYY format
+
+### Information Rules
+- **Past events (before July 28, 2025)**: Only basic info (no abstracts, bios, paper links)
+- **Future events (after July 28, 2025)**:
+  - **Seminars**: Abstract gets "TBA" if empty, Bio optional (no TBA if empty)
+  - **Journal clubs**: Abstract optional (no TBA if empty), no bios
+  - **Paper links**: Optional for all (no TBA if empty)
+
+### Location Rules
+- **Past events**: No location information stored
+- **Future events**: Room + Zoom info if available, otherwise "TBA"
 
 ## Running the Conversion Script
 
@@ -79,24 +97,47 @@ python convert_events.py your_custom_file.csv
 
 The generated `meetings-data.json` follows this structure:
 
+**Past events (before July 28, 2025):**
 ```json
-[
-  {
-    "date": "24.07.2025",
-    "presenter": "Joseph Boyle", 
-    "title": "Building Useful Agents",
-    "type": "seminar",
-    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
-  },
-  {
-    "date": "10.07.2025",
-    "presenter": "Jialin Yu",
-    "title": "Attuned to Change: Causal Fine-Tuning under Latent-Confounded Shifts", 
-    "type": "seminar",
-    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
-  }
-]
+{
+  "date": "10.05.2025",
+  "presenter": "Dr. Jane Smith",
+  "title": "Advanced NLP Techniques", 
+  "type": "seminar"
+}
 ```
+
+**Future events (after July 28, 2025):**
+```json
+{
+  "date": "15.08.2025",
+  "presenter": "Joseph Boyle", 
+  "title": "Building Useful Agents",
+  "type": "seminar",
+  "location": "Ada Lovelace (Alan Turing Institute) & online",
+  "abstract": "TBA",
+  "presenterBio": "Joseph is a researcher at...",
+  "paper_links": ["https://paper1.com", "https://paper2.com"]
+}
+```
+
+**Journal club example:**
+```json
+{
+  "date": "22.08.2025",
+  "presenter": "Reading Group",
+  "title": "Recent Advances in LLMs",
+  "type": "journal_club",
+  "location": "TBA",
+  "abstract": "We'll discuss recent papers on..."
+}
+```
+
+**Notes**: 
+- Past events only include basic information
+- Future seminars get "TBA" for abstract if empty
+- Journal clubs don't include speaker bios
+- Paper links and bios are optional (no "TBA" if empty)
 
 ## Website Integration
 

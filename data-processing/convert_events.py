@@ -19,37 +19,71 @@ from datetime import datetime
 
 
 def parse_date(date_str):
-    """Convert date string to standardized format DD.MM.YYYY"""
+    """Convert date string to standardized format DD.MM.YYYY
+    
+    Handles different date formats:
+    - Before/including 9/29/2022: MM/DD/YYYY format
+    - After 9/29/2022: DD/MM/YYYY or DD.MM.YYYY format
+    """
     if not date_str or date_str.strip() == "":
         return None
     
     # Handle different date formats
     date_str = date_str.strip()
     
-    # Try DD/MM/YYYY format first
-    try:
-        date_obj = datetime.strptime(date_str, "%d/%m/%Y")
-        return date_obj.strftime("%d.%m.%Y")
-    except ValueError:
-        pass
+    # Cutoff date to determine format (9/29/2022)
+    cutoff_date = datetime(2022, 9, 29)
     
-    # Try DD-MM-YYYY format
-    try:
-        date_obj = datetime.strptime(date_str, "%d-%m-%Y")
-        return date_obj.strftime("%d.%m.%Y")
-    except ValueError:
-        pass
-    
-    # Try DD.MM.YYYY format (already correct)
+    # Try DD.MM.YYYY format first (most common recent format)
     try:
         date_obj = datetime.strptime(date_str, "%d.%m.%Y")
-        return date_str
+        return date_str  # Already in correct format
     except ValueError:
         pass
     
-    # Try other common formats
-    formats_to_try = ["%Y-%m-%d", "%m/%d/%Y", "%d %B %Y", "%d %b %Y"]
-    for fmt in formats_to_try:
+    # Try DD/MM/YYYY format (recent format)
+    try:
+        date_obj = datetime.strptime(date_str, "%d/%m/%Y")
+        # Check if this date is after cutoff to confirm format
+        if date_obj > cutoff_date:
+            return date_obj.strftime("%d.%m.%Y")
+    except ValueError:
+        pass
+    
+    # Try MM/DD/YYYY format (old format, before/including 9/29/2022)
+    try:
+        date_obj = datetime.strptime(date_str, "%m/%d/%Y")
+        # Only use this format for dates before/including cutoff
+        if date_obj <= cutoff_date:
+            return date_obj.strftime("%d.%m.%Y")
+    except ValueError:
+        pass
+    
+    # Handle ambiguous dates by checking if they're in the old period
+    # Try both formats and pick the most logical one
+    try:
+        # Try as MM/DD/YYYY first
+        date_obj_mdy = datetime.strptime(date_str, "%m/%d/%Y")
+        if date_obj_mdy <= cutoff_date:
+            return date_obj_mdy.strftime("%d.%m.%Y")
+    except ValueError:
+        pass
+    
+    try:
+        # Try as DD/MM/YYYY 
+        date_obj_dmy = datetime.strptime(date_str, "%d/%m/%Y")
+        if date_obj_dmy > cutoff_date:
+            return date_obj_dmy.strftime("%d.%m.%Y")
+    except ValueError:
+        pass
+    
+    # Try other less common formats
+    other_formats = [
+        "%d-%m-%Y", "%Y-%m-%d", "%d %B %Y", "%d %b %Y",
+        "%m-%d-%Y"  # Alternative old format
+    ]
+    
+    for fmt in other_formats:
         try:
             date_obj = datetime.strptime(date_str, fmt)
             return date_obj.strftime("%d.%m.%Y")
@@ -93,6 +127,98 @@ def is_free_slot(row):
             event_name.lower() == 'free for booking' or
             (presenter == '' and event_name == ''))
 
+def get_location_info(row, meeting_date):
+    """Determine location information based on date and available data
+    
+    Rules:
+    - For past events: return empty string
+    - For future events: return room info if available, otherwise "TBA"
+    """
+    today = datetime.now()
+    
+    # If meeting is in the past, don't include location
+    if meeting_date <= today:
+        return ""
+    
+    # For future events, check for room/location information
+    room_field = clean_text(row.get('Room', ''))
+    zoom_field = clean_text(row.get('Zoom Link', ''))
+    
+    # Check if any location info is provided
+    if room_field and zoom_field:
+        return f"{room_field} (Alan Turing Institute) & online"
+    elif room_field:
+        return f"{room_field} (Alan Turing Institute) & online"
+    elif zoom_field:
+        return "Online (Zoom)"
+    else:
+        return "TBA"
+
+def should_include_detailed_info(meeting_date):
+    """Check if we should include detailed information (abstracts, bios, etc.)
+    
+    Only include detailed info for talks after July 28, 2025
+    """
+    cutoff_date = datetime(2025, 7, 28)
+    return meeting_date > cutoff_date
+
+def get_abstract_info(row, meeting_date, session_type):
+    """Get abstract information based on rules
+    
+    Rules:
+    - Before July 28, 2025: Don't include abstracts
+    - After July 28, 2025: 
+      - For seminars: Include if exists, otherwise "TBA"
+      - For journal clubs: Include if exists, otherwise don't include
+    """
+    if not should_include_detailed_info(meeting_date):
+        return None
+    
+    abstract = clean_text(row.get('Abstract', ''))
+    
+    if abstract:
+        return abstract
+    elif session_type == 'seminar':
+        return "TBA"
+    else:
+        # Journal club - don't include if empty
+        return None
+
+def get_bio_info(row, meeting_date, session_type):
+    """Get speaker bio information based on rules
+    
+    Rules:
+    - Before July 28, 2025: Don't include bios
+    - After July 28, 2025:
+      - For seminars: Include if exists, otherwise don't include (no TBA)
+      - For journal clubs: Don't include bios
+    """
+    if not should_include_detailed_info(meeting_date):
+        return None
+    
+    if session_type != 'seminar':
+        return None
+    
+    bio = clean_text(row.get('Bio for Speaker', ''))
+    return bio if bio else None
+
+def get_paper_links(row, meeting_date):
+    """Get paper links information
+    
+    Rules:
+    - Before July 28, 2025: Don't include paper links
+    - After July 28, 2025: Include if exists, split by comma, no TBA if empty
+    """
+    if not should_include_detailed_info(meeting_date):
+        return None
+    
+    paper_links = clean_text(row.get('Paper Links', ''))
+    if paper_links:
+        # Split by comma and clean up each link
+        links = [link.strip() for link in paper_links.split(',') if link.strip()]
+        return links if links else None
+    return None
+
 def convert_csv_to_json(csv_file_path, output_file_path='meetings-data.json'):
     """Convert CSV file to JSON format required by the website"""
     
@@ -110,11 +236,14 @@ def convert_csv_to_json(csv_file_path, output_file_path='meetings-data.json'):
             
             for row_num, row in enumerate(reader, start=2):  # Start at 2 for spreadsheet row numbers
                 try:
-                    # Parse date
+                    # Parse date first to determine if it's future/past
                     date_str = parse_date(row.get('Date', ''))
                     if not date_str:
                         print(f"Row {row_num}: Skipping entry with invalid date")
                         continue
+                    
+                    # Convert to datetime object for comparison
+                    meeting_date = datetime.strptime(date_str, "%d.%m.%Y")
                     
                     # Skip free booking slots
                     if is_free_slot(row):
@@ -130,24 +259,39 @@ def convert_csv_to_json(csv_file_path, output_file_path='meetings-data.json'):
                         print(f"Row {row_num}: Skipping entry with no presenter or event name")
                         continue
                     
+                    # Get location info based on date
+                    location = get_location_info(row, meeting_date)
+                    
                     # Create meeting object
                     meeting = {
                         "date": date_str,
                         "presenter": presenter if presenter else "TBA",
                         "title": event_name if event_name else "TBA",
-                        "type": session_type,
-                        "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+                        "type": session_type
                     }
                     
-                    # Add optional fields if they exist in the CSV
-                    optional_fields = ['authors', 'abstract', 'presenterBio', 'paper_url']
-                    for field in optional_fields:
+                    # Only add location if it's not empty (for future events)
+                    if location:
+                        meeting["location"] = location
+                    
+                    # Add detailed information based on date and rules
+                    abstract = get_abstract_info(row, meeting_date, session_type)
+                    if abstract is not None:
+                        meeting["abstract"] = abstract
+                    
+                    bio = get_bio_info(row, meeting_date, session_type)
+                    if bio is not None:
+                        meeting["presenterBio"] = bio
+                    
+                    paper_links = get_paper_links(row, meeting_date)
+                    if paper_links is not None:
+                        meeting["paper_links"] = paper_links
+                    
+                    # Add other optional fields if they exist
+                    other_optional_fields = ['authors']
+                    for field in other_optional_fields:
                         if field in row and clean_text(row[field]):
                             meeting[field] = clean_text(row[field])
-                    
-                    # Handle special cases for TBA events
-                    if event_name.upper() == 'TBA' and presenter not in ['', 'TBA']:
-                        meeting['title'] = f"Talk by {presenter} (TBA)"
                     
                     meetings.append(meeting)
                     print(f"Row {row_num}: Added meeting - {date_str}: {presenter} - {event_name}")
