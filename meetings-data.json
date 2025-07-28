@@ -1,22 +1,702 @@
-{
-    "meetings": [
-        {
-            "date": "24.07.2025",
-            "presenter": "Joseph Boyle",
-            "presenterBio": "Joseph Boyle is a 3rd year doctorate student under Dr. Alison Q. O'Neil (Canon Medical) and Prof. Maria Liakata (Queen Mary University of London). He has been working on healthcare applications of NLP since early 2023. Prior to his EngD., he was a software developer at a gaming company. His research interests include medical NLP and informatics, with a focus on practical applications.",
-            "title": "Building Useful Agents",
-            "authors": "Boyle, J.",
-            "abstract": "This talk introduces Navigator, a task-oriented dialogue agent deployed within the NHS to automate clinical informatics analysis tasks. We present a case study on creating and integrating a natural language interface to a world-leading healthcare analytics platform. Moving beyond this specific application, we will share practical takeaways for practitioners looking to develop and apply language model agents, on questions of architecture, design and testing.",
-            "location": "Margaret Hamilton Meeting room (Alan Turing Institute) & online"
-        },
-        {
-            "date": "10.07.2025",
-            "presenter": "Jialin Yu",
-            "presenterBio": "Jialin is a postdoc at University of Oxford, working with Philip Torr and funded by Microsoft. He previously held a postdoctoral position at UCL, where he worked with Ricardo Silva on methodological research in causal inference. His research interest lies in robust and efficient machine learning, with a recent emphasis on AI safety. He served on programme committee for conferences such as NeurIPS, ICML, ICLR, UAI, and AISTATS. He is a co-organiser for 'Scaling Up Interventional Models' workshop at ICML 2025.",
-            "title": "Combating Spurious Correlations via Causal Fine-Tuning",
-            "authors": "Yu, J.",
-            "abstract": "Adapting to latent-confounded shifts remains a core challenge in modern AI. These shifts are propagated via latent variables that induce spurious, non-transportable correlations between inputs and labels. One practical failure mode arises when fine-tuning pre-trained foundation models on confounded data (e.g., where certain text tokens or image backgrounds spuriously correlate with the label), leaving models vulnerable at deployment. We frame causal fine-tuning as an identification problem and pose an explicit causal model that decomposes inputs into low-level spurious features and high‐level causal representations. Under this family of models, we formalize the assumptions required for identification. Using pre-trained language models as a case study, we show how identifying and adjusting these components during causal fine-tuning enables automatic adaptation to latent-confounded shifts at test time. Experiments on semi-synthetic benchmarks derived from real-world problems demonstrate that our method outperforms black-box domain generalization baselines, illustrating the benefits of explicitly modeling causal structure.",
-            "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
-        }
-    ]
-}
+[
+  {
+    "date": "11.09.2025",
+    "presenter": "Samuel Mensah",
+    "title": "Talk by Samuel Mensah (TBA)",
+    "type": "seminar",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "28.08.2025",
+    "presenter": "TBA",
+    "title": "TBA",
+    "type": "seminar",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "14.08.2025",
+    "presenter": "Elena Kochkina",
+    "title": "Talk by Elena Kochkina (TBA)",
+    "type": "seminar",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "07.08.2025",
+    "presenter": "TBA",
+    "title": "Reading Group",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "24.07.2025",
+    "presenter": "Joseph Boyle",
+    "title": "Building Useful Agents",
+    "type": "seminar",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "10.07.2025",
+    "presenter": "Jialin Yu",
+    "title": "Attuned to Change: Causal Fine-Tuning under Latent-Confounded Shifts",
+    "type": "seminar",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "26.06.2025",
+    "presenter": "Chiara Di Bonaventura",
+    "title": "Hatevolution: What Static Benchmarks Don’t Tell Us",
+    "type": "seminar",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "29.05.2025",
+    "presenter": "TBA",
+    "title": "RAG to Reasoning: Safety and Verification Frontiers in LLM Research",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "22.05.2025",
+    "presenter": "Cohere researchers: Shivalika Singh and Yiyang Nan",
+    "title": "The Leaderboard Illusion",
+    "type": "seminar",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "08.05.2025",
+    "presenter": "Shuang Ao",
+    "title": "Trustworthy Adaptation of LLMs: Uncertainty, Safety, and Cross-Modal Alignment",
+    "type": "seminar",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "01.05.2025",
+    "presenter": "TBA",
+    "title": "Cross-lingual Transfer Techniques",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "10.04.2025",
+    "presenter": "Michael Schlichtkrull",
+    "title": "Pretraining Large Language Models: A Deepdive",
+    "type": "seminar",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "03.04.2025",
+    "presenter": "Yuxiang Zhou",
+    "title": "Understanding the Capabilities of (Large) Language Models and Their Real-World Applications",
+    "type": "seminar",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "27.03.2025",
+    "presenter": "Jonas Geiping",
+    "title": "What's so interesting about models with recurrent depth?",
+    "type": "seminar",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "13.03.2025",
+    "presenter": "TBA",
+    "title": "NLP Applications in Mental Health and Healthcare",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "27.02.2025",
+    "presenter": "Aryo Gema",
+    "title": "DeCoRe: Decoding by Contrasting Retrieval Heads to Mitigate Hallucinations",
+    "type": "seminar",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "13.02.2025",
+    "presenter": "Ibraheem Muhammad Moosa",
+    "title": "MT-Ranker: Reference-free machine translation evaluation by inter-system ranking",
+    "type": "seminar",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "06.02.2025",
+    "presenter": "Sriyash Poddar",
+    "title": "Personalizing Reinforcement Learning from Human Feedback with Variational Preference Learning",
+    "type": "seminar",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "04.07.2024",
+    "presenter": "TBA",
+    "title": "Reasoning in Large Language Models",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "27.06.2024",
+    "presenter": "TBA",
+    "title": "LLMs for Code Generation",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "24.06.2024",
+    "presenter": "TBA",
+    "title": "Large Language Models",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "13.06.2024",
+    "presenter": "TBA",
+    "title": "Large Language Models",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "06.06.2024",
+    "presenter": "TBA",
+    "title": "Large Language Models",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "30.05.2024",
+    "presenter": "TBA",
+    "title": "Reasoning in Large Language Models",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "09.05.2024",
+    "presenter": "TBA",
+    "title": "Reasoning in Large Language Models",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "02.05.2024",
+    "presenter": "TBA",
+    "title": "Reasoning in Large Language Models",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "25.04.2024",
+    "presenter": "TBA",
+    "title": "Reasoning in Large Language Models",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "11.04.2024",
+    "presenter": "TBA",
+    "title": "Interpretability in Large Language Models",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "04.04.2024",
+    "presenter": "TBA",
+    "title": "Retrieval Augmented Generation (RAG) for LLMs",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "07.03.2024",
+    "presenter": "TBA",
+    "title": "Hallucinations in Large Language Models",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "22.02.2024",
+    "presenter": "TBA",
+    "title": "Annotation Capabilities of Large Language Models",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "08.02.2024",
+    "presenter": "TBA",
+    "title": "Neural Theory of Mind - Capabilities of Large Language Models",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "01.02.2024",
+    "presenter": "TBA",
+    "title": "Capabilities of Large Language Models",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "25.01.2024",
+    "presenter": "TBA",
+    "title": "Taking Automated Fact-checking to the Real World",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "11.01.2024",
+    "presenter": "TBA",
+    "title": "Paper Skimming",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "14.12.2023",
+    "presenter": "TBA",
+    "title": "Large Language Models are Few-Shot Training Example Generators: A Case Study in Fallacy Recognition",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "30.11.2023",
+    "presenter": "TBA",
+    "title": "Are Large Language Models Temporally Grounded?",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "23.11.2023",
+    "presenter": "TBA",
+    "title": "Parameter Efficient Fine-tuning of LLMs",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "09.11.2023",
+    "presenter": "TBA",
+    "title": "Large Language Models",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "01.11.2023",
+    "presenter": "Mahmud Elahi Akhter",
+    "title": "Does Transliteration Help Multilingual Language Modeling?",
+    "type": "seminar",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "26.10.2023",
+    "presenter": "Jose Camacho-Collados",
+    "title": "NLP and Social media: Language Modelling, Benchmarking and Temporal Challenges",
+    "type": "seminar",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "12.10.2023",
+    "presenter": "TBA",
+    "title": "Rumour Verification / Fact Checking",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "05.10.2023",
+    "presenter": "TBA",
+    "title": "Summarisation",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "05.12.2022",
+    "presenter": "TBA",
+    "title": "Paper Skimming",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "27.11.2022",
+    "presenter": "Kaspar Beelen",
+    "title": "\"Hands-on Session: Flair\" with Kaspar Beelen",
+    "type": "seminar",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "25.11.2022",
+    "presenter": "TBA",
+    "title": "\"PhD Enrichment Scheme\" Introduction to the teams",
+    "type": "seminar",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "24.11.2022",
+    "presenter": "Danny To Eun Kim",
+    "title": "Can dialogue systems have a theory-of-mind? - Danny To Eun Kim",
+    "type": "seminar",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "10.11.2022",
+    "presenter": "TBA",
+    "title": "Paper Skimming",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "03.11.2022",
+    "presenter": "Elena Kochkina",
+    "title": "\"Evaluating the Generalisability of Neural Rumor Verification Models\" with Elena Kochkina",
+    "type": "seminar",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "27.10.2022",
+    "presenter": "TBA",
+    "title": "Paper Skimming",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "04.10.2022",
+    "presenter": "Iryana Gurevych",
+    "title": "\"Detect – Verify – Communicate: Combating Misinformation with More Realistic NLP\" with Iryana Gurevych",
+    "type": "seminar",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "03.10.2022",
+    "presenter": "TBA",
+    "title": "Paper Skimming",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "29.09.2022",
+    "presenter": "Hao Ni",
+    "title": "\"Path Development Network with Finite-Dimensional Lie Group\" with Hao Ni",
+    "type": "seminar",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "27.09.2022",
+    "presenter": "TBA",
+    "title": "Paper Skimming",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "06.09.2022",
+    "presenter": "TBA",
+    "title": "Paper Skimming",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "09.08.2022",
+    "presenter": "Iman Bilal",
+    "title": "\"Template-based Abstractive Microblog Opinion Summarisation\" with Iman Bilal",
+    "type": "seminar",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "28.07.2022",
+    "presenter": "Krishnapriya Vishnubhotla and Saif Mohammad",
+    "title": "\"Tweet Emotion Dynamics: Emotion Word Usage in Tweets from US and Canada\" and \"Ethics Sheets for AI\" with Krishnapriya Vishnubhotla and Saif Mohammad",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "20.07.2022",
+    "presenter": "Anthony Hills",
+    "title": "\"Neural Spatio-temporal Point Processes\" with Anthony Hills",
+    "type": "seminar",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "14.07.2022",
+    "presenter": "TBA",
+    "title": "Paper Skimming (NAACL)",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "07.07.2022",
+    "presenter": "TBA",
+    "title": "Paper Skimming (NAACL)",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "30.06.2022",
+    "presenter": "Matt Maufe",
+    "title": "\"Learning from ACL 2022 - Building Better Models\" with Matt Maufe",
+    "type": "seminar",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "01.06.2022",
+    "presenter": "TBA",
+    "title": "Paper Skimming",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "05.05.2022",
+    "presenter": "TBA",
+    "title": "Paper Skimming",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "22.04.2022",
+    "presenter": "Ramit Sawhney",
+    "title": "\"Modeling User Context for Mental Health Assessment on Social Media\" with Ramit Sawhney",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "14.04.2022",
+    "presenter": "Giannis Karamanolakis",
+    "title": "\"Weakly-supervised learning in NLP\" with Giannis Karamanolakis",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "08.04.2022",
+    "presenter": "Ramit Sawhney",
+    "title": "\"User Modeling on Social Media: Privacy, Ethics, and Mental Health\" with Ramit Sawhney",
+    "type": "seminar",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "31.03.2022",
+    "presenter": "TBA",
+    "title": "Paper Skimming",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "31.03.2022",
+    "presenter": "Iman Bilal",
+    "title": "\"Evaluation of Thematic Coherence in Microblogs\" with Iman Bilal",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "03.03.2022",
+    "presenter": "TBA",
+    "title": "Paper Skimming",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "02.03.2022",
+    "presenter": "Rafael Mestre",
+    "title": "\"Multimodal analysis of political debates with text, audio and video: from argumentation to sentiment analysis\" with Rafael Mestre",
+    "type": "seminar",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "24.02.2022",
+    "presenter": "James Bishop",
+    "title": "\"Hands-on Session: Zero shot learning for NLI\" with James Bishop",
+    "type": "seminar",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "27.01.2022",
+    "presenter": "TBA",
+    "title": "Paper Skimming",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "13.01.2022",
+    "presenter": "TBA",
+    "title": "\"Topic-Driven Sentiment Analysis\" with Yulan He",
+    "type": "seminar",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "09.01.2022",
+    "presenter": "TBA",
+    "title": "Paper Skimming",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "12.12.2021",
+    "presenter": "Yulan He",
+    "title": "Hands-on Session: Baleen 3 and Annot8",
+    "type": "seminar",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "25.11.2021",
+    "presenter": "TBA",
+    "title": "Paper Skimming Session",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "03.11.2021",
+    "presenter": "Radu Voit",
+    "title": "\"Deep Reinforcement Learning with a Combinatorial Action Space for Predicting Popular Re ddit Threads\" with Radu Voit",
+    "type": "seminar",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "29.10.2021",
+    "presenter": "TBA",
+    "title": "Paper Skimming Session",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "28.10.2021",
+    "presenter": "TBA",
+    "title": "Paper Skimming Session",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "21.10.2021",
+    "presenter": "Dimitris Gkoumas",
+    "title": "\"Quantum cognitively motivated multimodal representation learning for human language analysis\" with Dimitris Gkoumas",
+    "type": "seminar",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "14.10.2021",
+    "presenter": "Peifeng Wang",
+    "title": "\"Incorporating Structured Knowledge for Machine Commonsense Reasoning\" with Peifeng Wang",
+    "type": "seminar",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "30.09.2021",
+    "presenter": "Harish Tayyar Madabushi",
+    "title": "\"AStitchInLanguageModels: Dataset and Methods for the Exploration of Idiomaticity in Pre-Trained Language Models SemEval 2022 Task 2 Multilingual Idiomaticity Detection and Sentence Embedding\" with Harish Tayyar Madabushi",
+    "type": "seminar",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "23.09.2021",
+    "presenter": "TBA",
+    "title": "Paper Skimming Session",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "07.08.2021",
+    "presenter": "TBA",
+    "title": "Paper Skimming Session",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "04.08.2021",
+    "presenter": "James Ravenscroft and Gabriele Pergola",
+    "title": "\"CD2CR: Coreference Resolution Across Documents and Domains\" and \"Boosting Low-Resource Biomedical QA via Entity-Aware Masking Strategies\" with James Ravenscroft and Gabriele Pergola",
+    "type": "seminar",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "22.07.2021",
+    "presenter": "TBA",
+    "title": "Paper Skimming Session",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "10.07.2021",
+    "presenter": "TBA",
+    "title": "Paper Skimming Session",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "24.06.2021",
+    "presenter": "TBA",
+    "title": "Paper Skimming Session",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "05.06.2021",
+    "presenter": "Alexander Mikhalev",
+    "title": "\"Open Source project for NLP research collaboration: NLP meets VR/AR\" with Alexander Mikhalev",
+    "type": "seminar",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "27.05.2021",
+    "presenter": "Stuart Middleton",
+    "title": "\"SafeSpacesNLP\" with Stuart Middleton",
+    "type": "seminar",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "13.05.2021",
+    "presenter": "Saif Mohammad",
+    "title": "\"Ethics Sheets for AI Tasks and a Case Study for Automatic Emotion Recognition\" with Saif Mohammad",
+    "type": "seminar",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "29.04.2021",
+    "presenter": "Mimie Liotsiou",
+    "title": "\"The influence of online (mis)information: prediction, explanation, causality\" with Mimie Liotsiou",
+    "type": "seminar",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "03.04.2021",
+    "presenter": "TBA",
+    "title": "Paper Skimming Session",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "25.03.2021",
+    "presenter": "Bill Lampos",
+    "title": "\"Tracking COVID-19 using online search\" with Bill Lampos",
+    "type": "seminar",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "23.03.2021",
+    "presenter": "TBA",
+    "title": "AIUK2021 booth presentation",
+    "type": "seminar",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "06.03.2021",
+    "presenter": "Avijit Thawani",
+    "title": "\"Numbers in NLP\" with Avijit Thawani",
+    "type": "seminar",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "25.02.2021",
+    "presenter": "Paul Rottger",
+    "title": "\"HATECHECK: Functional Tests for Hate Speech Detection Models\" with Paul Rottger",
+    "type": "seminar",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "12.02.2021",
+    "presenter": "TBA",
+    "title": "Paper Skimming Session",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "11.02.2021",
+    "presenter": "James Ravenscroft",
+    "title": "\"Rationalising Neural Predictions\" with James Ravenscroft",
+    "type": "seminar",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  },
+  {
+    "date": "07.01.2021",
+    "presenter": "TBA",
+    "title": "Paper Skimming Session",
+    "type": "journal_club",
+    "location": "Ada Lovelace meeting room (Alan Turing Institute) & online"
+  }
+]

@@ -1,0 +1,145 @@
+Date,Presenter,Event Name,Type of Session
+30/10/2025,,,free for booking
+23/10/2025,,,free for booking
+09/10/2025,,,free for booking
+25/09/2025,,,free for booking
+11/09/2025,Samuel Mensah,TBA,seminar
+28/08/2025,Guneet,TBA,seminar
+14/08/2025,Elena Kochkina,TBA,seminar
+07/08/2025,,Reading Group,journal club
+24/07/2025,Joseph Boyle,Building Useful Agents,seminar
+10/07/2025,Jialin Yu,Attuned to Change: Causal Fine-Tuning under Latent-Confounded Shifts,seminar
+26/06/2025,Chiara Di Bonaventura,Hatevolution: What Static Benchmarks Don’t Tell Us,seminar
+29/05/2025,,RAG to Reasoning: Safety and Verification Frontiers in LLM Research,journal club
+22/05/2025,Cohere researchers: Shivalika Singh and Yiyang Nan,The Leaderboard Illusion,seminar
+08/05/2025,Shuang Ao,"Trustworthy Adaptation of LLMs: Uncertainty, Safety, and Cross-Modal Alignment",seminar
+01/05/2025,,Cross-lingual Transfer Techniques,journal club
+10/04/2025,Michael Schlichtkrull,Pretraining Large Language Models: A Deepdive,seminar
+03/04/2025,Yuxiang Zhou,Understanding the Capabilities of (Large) Language Models and Their Real-World Applications,seminar
+27/03/2025,Jonas Geiping,What's so interesting about models with recurrent depth?,seminar
+13/03/2025,,NLP Applications in Mental Health and Healthcare,journal club
+27/02/2025,Aryo Gema,DeCoRe: Decoding by Contrasting Retrieval Heads to Mitigate Hallucinations,seminar
+13/02/2025,Ibraheem Muhammad Moosa,MT-Ranker: Reference-free machine translation evaluation by inter-system ranking,seminar
+06/02/2025,Sriyash Poddar,Personalizing Reinforcement Learning from Human Feedback with Variational Preference Learning,seminar
+30/01/25,Michael Schlichtkrull,"""DeepSeek-R1"" Reinforcement Learning for Open Source LLMs",seminar
+23/01/25,,Reasoning in LLMs,journal club
+04/07/2024, ,Reasoning in Large Language Models,journal club
+27/06/2024, ,LLMs for Code Generation,journal club
+24/06/2024, ,Large Language Models,journal club
+13/06/2024, ,Large Language Models,journal club
+06/06/2024, ,Large Language Models,journal club
+30/05/2024, ,Reasoning in Large Language Models,journal club
+09/05/2024, ,Reasoning in Large Language Models,journal club
+02/05/2024, ,Reasoning in Large Language Models,journal club
+25/04/2024, ,Reasoning in Large Language Models,journal club
+11/04/2024, ,Interpretability in Large Language Models,journal club
+04/04/2024, ,Retrieval Augmented Generation (RAG) for LLMs,journal club
+28/03/204,"Prof. Ann John (Swansea)
+Prof. Dana Atzil-Slonim (Bar-Ilan University)
+Prof. Eiman Kanjo (Nottingham Trent/Imperial)
+Prof. Joseph Hayes (UCL)
+Prof. Philip Resnik (University of Maryland)
+Prof. Robert Stewart (King's College London)
+Dr. Valentin Tablan (IESO)","AI UK Fringe event, ""AI for Mental Health Monitoring"", jointly organised by the ""Natural Language Processing"" and ""Data Science for Mental Health"" Turing Interest Groups. ",conference
+07/03/2024, ,Hallucinations in Large Language Models,journal club
+29/02/024, ,Evaluation with Large Language Models,journal club
+22/02/2024, ,Annotation Capabilities of Large Language Models,journal club
+08/02/2024, ,Neural Theory of Mind - Capabilities of Large Language Models,journal club
+01/02/2024, ,Capabilities of Large Language Models,journal club
+25/01/2024, ,Taking Automated Fact-checking to the Real World,journal club
+11/01/2024, ,Paper Skimming,journal club
+14/12/2023, ,Large Language Models are Few-Shot Training Example Generators: A Case Study in Fallacy Recognition,journal club
+30/11/2023, ,Are Large Language Models Temporally Grounded?,journal club
+23/11/2023, ,Parameter Efficient Fine-tuning of LLMs,journal club
+09/11/2023, ,Large Language Models,journal club
+01/11/2023,Mahmud Elahi Akhter,Does Transliteration Help Multilingual Language Modeling?,seminar
+26/10/2023,Jose Camacho-Collados,"NLP and Social media: Language Modelling, Benchmarking and Temporal Challenges",seminar
+12/10/2023, ,Rumour Verification / Fact Checking,journal club
+05/10/2023, ,Summarisation,journal club
+21.09.23,Talia Tseriotou,“Alternative approaches for modeling positional encodings in transformers” - Reading Group,journal club
+07.09.23,"Adam Tsakalidis
+&
+Anthony Hills",“ACL 2023” - Reading Group,journal club
+24.08.23,Talia Tseriotou,“ACL 2023” - Reading Group,journal club
+03.08.23,,“ChatGPT and LLMs” - Reading Group,journal club
+27.07.23,"Joseph Spartacus Boyle
+&
+Jenny Chim",“Knowledge Injection” - Reading Group,journal club
+29.06.23,,Paper Skimming,journal club
+08.06.23,Jenny Chim,Hands-on Tutorial for Prompt Engineering,workshop
+01.06.23,,Paper Skimming,journal club
+27.04.23,Federico Ruggeri,Combining Transformers with Natural Language Explanations,seminar
+06.04.23,,Paper Skimming,journal club
+30.03.23,Luis Espinosa-Anke,NLP for Intelligence: Tweet and News Analysis for Data-Driven Decision Making,seminar
+23.03.23,"MA, Jing",Social Assisted Rumor Detection and Fake News Detection,seminar
+09.03.23,,Paper Skimming on Long Document Transformers,journal club
+02.03.23,,Paper Skimming on Long Document Transformers,journal club
+23.02.23,,Paper Skimming,journal club
+09.02.23,,Paper Skimming,journal club
+02.02.23,Zixiu Wu,NLP-Based Real-Time Assistance to Human Therapist,seminar
+26.01.23,Georgi Karadzhov,DEliBots - Deliberation Enhancing Bots,seminar
+12.01.23,,EMNLP Paper Skimming Session,journal club
+01.12.22,Everyone,Paper Skimming Session,journal club
+24.11.22,Danny To Eun Kim,Can dialogue systems have a theory-of-mind?,seminar
+10.11.22,Everyone,Paper Skimming,journal club
+03.11.22,Elena Kochkina,Evaluating the Generalisability of Neural Rumor Verification Models,seminar
+27.10.22,Everyone,Paper Skimming,journal club
+13.10.22,,Paper Skimming,journal club
+04.10.22,Iryana Gurevych,Detect – Verify – Communicate: Combating Misinformation with More Realistic NLP,seminar
+25/11/2022,,"""PhD Enrichment Scheme"" Introduction to the teams",other
+24/11/2022,Danny To Eun Kim,Can dialogue systems have a theory-of-mind? - Danny To Eun Kim,seminar
+10/11/2022,,Paper Skimming,journal club
+3/11/2022,Elena Kochkina,"""Evaluating the Generalisability of Neural Rumor Verification Models"" with Elena Kochkina",seminar
+27/10/2022,,Paper Skimming,journal club
+4/10/2022,Iryana Gurevych,"""Detect – Verify – Communicate: Combating Misinformation with More Realistic NLP"" with Iryana Gurevych",seminar
+9/29/2022,Hao Ni,"""Path Development Network with Finite-Dimensional Lie Group"" with Hao Ni",seminar
+9/27/2022,,Paper Skimming,journal club
+9/8/2022,Iman Bilal,"""Template-based Abstractive Microblog Opinion Summarisation"" with Iman Bilal",seminar
+9/1/2022,,Paper Skimming,journal club
+8/4/2022,Ramit Sawhney,"""User Modeling on Social Media: Privacy, Ethics, and Mental Health"" with Ramit Sawhney",seminar
+7/28/2022,Krishnapriya Vishnubhotla and Saif Mohammad,"""Tweet Emotion Dynamics: Emotion Word Usage in Tweets from US and Canada"" and ""Ethics Sheets for AI"" with Krishnapriya Vishnubhotla and Saif Mohammad",journal club
+7/20/2022,Anthony Hills,"""Neural Spatio-temporal Point Processes"" with Anthony Hills",seminar
+7/14/2022,,Paper Skimming (NAACL),journal club
+7/7/2022,,Paper Skimming (NAACL),journal club
+6/30/2022,Matt Maufe,"""Learning from ACL 2022 - Building Better Models"" with Matt Maufe",seminar
+6/9/2022,,Paper Skimming,journal club
+5/12/2022,,Paper Skimming,journal club
+5/5/2022,,Paper Skimming,journal club
+4/22/2022,Ramit Sawhney,"""Modeling User Context for Mental Health Assessment on Social Media"" with Ramit Sawhney",journal club
+4/14/2022,Giannis Karamanolakis,"""Weakly-supervised learning in NLP"" with Giannis Karamanolakis",journal club
+3/31/2022,,Paper Skimming,journal club
+3/31/2022,Iman Bilal,"""Evaluation of Thematic Coherence in Microblogs"" with Iman Bilal",journal club
+3/10/2022,,Paper Skimming,journal club
+3/3/2022,,Paper Skimming,journal club
+2/24/2022,James Bishop,"""Hands-on Session: Zero shot learning for NLI"" with James Bishop",workshop
+11/27/2022,Kaspar Beelen,"""Hands-on Session: Flair"" with Kaspar Beelen",workshop
+2/3/2022,Rafael Mestre,"""Multimodal analysis of political debates with text, audio and video: from argumentation to sentiment analysis"" with Rafael Mestre",seminar
+1/27/2022,,Paper Skimming,journal club
+1/13/2022,,"""Topic-Driven Sentiment Analysis"" with Yulan He",seminar
+1/6/2022,,Paper Skimming,journal club
+12/12/2021,Yulan He,Hands-on Session: Baleen 3 and Annot8,workshop
+12/2/2021,,Paper Skimming Session,journal club
+11/25/2021,,"Paper Skimming Session",journal club
+10/28/2021,,"Paper Skimming Session",journal club
+10/14/2021,Peifeng Wang,"""Incorporating Structured Knowledge for Machine Commonsense Reasoning"" with Peifeng Wang",seminar
+10/7/2021,,Paper Skimming Session,journal club
+9/30/2021,Harish Tayyar Madabushi,"""AStitchInLanguageModels: Dataset and Methods for the Exploration of Idiomaticity in Pre-Trained Language Models SemEval 2022 Task 2 Multilingual Idiomaticity Detection and Sentence Embedding"" with Harish Tayyar Madabushi",seminar
+9/23/2021,,Paper Skimming Session ,journal club
+7/22/2021,,Paper Skimming Session ,journal club
+7/8/2021,,Paper Skimming Session ,journal club
+7/1/2021,,Paper Skimming Session ,journal club
+6/24/2021,,Paper Skimming Session ,journal club
+6/3/2021,Avijit Thawani,"""Numbers in NLP"" with Avijit Thawani",seminar
+5/27/2021,Stuart Middleton,"""SafeSpacesNLP"" with Stuart Middleton",seminar
+5/13/2021,Saif Mohammad,"""Ethics Sheets for AI Tasks and a Case Study for Automatic Emotion Recognition"" with Saif Mohammad",seminar
+5/6/2021,Alexander Mikhalev,"""Open Source project for NLP research collaboration: NLP meets VR/AR"" with Alexander Mikhalev",seminar
+4/29/2021,Mimie Liotsiou,"""The influence of online (mis)information: prediction, explanation, causality"" with Mimie Liotsiou",seminar
+4/8/2021,James Ravenscroft and Gabriele Pergola,"""CD2CR: Coreference Resolution Across Documents and Domains"" and ""Boosting Low-Resource Biomedical QA via Entity-Aware Masking Strategies"" with James Ravenscroft and Gabriele Pergola",seminar
+3/25/2021,Bill Lampos,"""Tracking COVID-19 using online search"" with Bill Lampos",seminar
+3/23/2021,,AIUK2021 booth presentation,conference
+3/11/2021,Radu Voit,"""Deep Reinforcement Learning with a Combinatorial Action Space for Predicting Popular Re ddit Threads"" with Radu Voit",seminar
+3/4/2021,,Paper Skimming Session,journal club
+2/25/2021,Paul Rottger,"""HATECHECK: Functional Tests for Hate Speech Detection Models"" with Paul Rottger",seminar
+11/2/2021,James Ravenscroft,"""Rationalising Neural Predictions"" with James Ravenscroft",seminar
+10/29/2021,,Paper Skimming Session,journal club
+10/21/2021,Dimitris Gkoumas,"""Quantum cognitively motivated multimodal representation learning for human language analysis"" with Dimitris Gkoumas",seminar
