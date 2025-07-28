@@ -476,15 +476,16 @@
                         <table class="schedule-table">
                             <thead>
                                 <tr>
-                                    <th style="width: 120px;">Date</th>
-                                    <th style="width: 150px;">Presenter</th>
-                                    <th style="width: 120px;">Type</th>
+                                    <th style="width: 100px;">Date</th>
+                                    <th style="width: 140px;">Presenter</th>
+                                    <th style="width: 100px;">Type</th>
+                                    <th style="width: 120px;">Zoom Link</th>
                                     <th>Paper/Topic</th>
                                 </tr>
                             </thead>
                             <tbody id="upcomingMeetings">
                                 <tr>
-                                    <td colspan="4" style="text-align: center; padding: 2rem; color: var(--dark-gray);">
+                                    <td colspan="5" style="text-align: center; padding: 2rem; color: var(--dark-gray);">
                                         Loading meetings data...
                                     </td>
                                 </tr>
@@ -654,11 +655,42 @@
         }
 
         function getPresenterName(meeting) {
-            // For journal clubs, show empty presenter if no specific presenter
-            if (meeting.type === 'journal_club' && (meeting.presenter === 'Reading Group' || meeting.presenter === '')) {
-                return '<span style="color: var(--dark-gray); font-style: italic;">—</span>';
+            // For journal clubs, show empty string
+            if (meeting.type === 'journal_club') {
+                return '';
             }
-            return meeting.presenter;
+            return meeting.presenter || 'TBA';
+        }
+
+        function categorizeMeetings() {
+            const today = new Date();
+            // Set to 1 day before current date for safety (UK time consideration)
+            today.setDate(today.getDate() - 1);
+            today.setHours(0, 0, 0, 0);
+
+            let thisWeekMeeting = null;
+            let upcomingMeetings = [];
+            let previousMeetings = [];
+
+            allMeetings.forEach(meeting => {
+                const meetingDate = parseDate(meeting.date);
+
+                if (isCurrentWeek(meetingDate)) {
+                    thisWeekMeeting = meeting;
+                } else if (meetingDate > today) {
+                    upcomingMeetings.push(meeting);
+                } else {
+                    previousMeetings.push(meeting);
+                }
+            });
+
+            // Sort upcoming meetings by date (earliest first)
+            upcomingMeetings.sort((a, b) => parseDate(a.date) - parseDate(b.date));
+
+            // Sort previous meetings by date (most recent first)
+            previousMeetings.sort((a, b) => parseDate(b.date) - parseDate(a.date));
+
+            return { thisWeekMeeting, upcomingMeetings, previousMeetings };
         }
 
         function isCurrentWeek(date) {
@@ -812,7 +844,7 @@
             if (meetings.length === 0) {
                 tbody.innerHTML = `
                     <tr>
-                        <td colspan="4" style="font-style: italic; color: var(--dark-gray); text-align: center; padding: 2rem;">
+                        <td colspan="5" style="font-style: italic; color: var(--dark-gray); text-align: center; padding: 2rem;">
                             No upcoming meetings scheduled. Check back soon or join our mailing list for updates.
                         </td>
                     </tr>
@@ -824,23 +856,27 @@
                     const isNextUpcoming = index === 0; // First meeting is the next upcoming
                     const rowStyle = isNextUpcoming ? 'background: linear-gradient(135deg, #fef3c7, #fde68a); border-left: 4px solid var(--warning-orange);' : '';
 
+                    // Don't show abstract as "TBA" for journal clubs
+                    const shouldShowAbstract = meeting.type !== 'journal_club' || (meeting.abstract && meeting.abstract !== 'TBA');
+                    const hasActualDetails = (shouldShowAbstract && meeting.abstract) || meeting.presenterBio || (meeting.paper_links && meeting.paper_links.length > 0);
+
                     html += `
                         <tr style="${rowStyle}">
                             <td><strong>${formatDateForDisplay(meeting.date)}</strong></td>
                             <td class="presenter">${getPresenterName(meeting)}</td>
                             <td>${getSessionTypeButton(meeting.type)}</td>
+                            <td>${meeting.zoom_link ? `<a href="${meeting.zoom_link}" style="color: var(--primary-blue); font-size: 0.9rem;">Join Meeting</a>` : '<span style="color: var(--dark-gray); font-style: italic;">TBA</span>'}</td>
                             <td>
                                 <div class="paper-title">${meeting.title}</div>
                                 ${meeting.authors ? `<div class="paper-authors">${meeting.authors}</div>` : ''}
                                 ${meeting.location ? `<div style="font-size: 0.9rem; color: var(--dark-gray); margin-top: 0.25rem;">${meeting.location}</div>` : ''}
-                                ${meeting.zoom_link ? `<div style="font-size: 0.9rem; margin-top: 0.25rem;"><a href="${meeting.zoom_link}" style="color: var(--primary-blue);">Join via Zoom</a></div>` : ''}
-                                ${hasDetails ? `
+                                ${hasActualDetails ? `
                                     <button onclick="toggleDetails('upcoming-${index}')" 
                                         style="background: var(--accent-blue); color: white; border: none; padding: 0.25rem 0.5rem; border-radius: 4px; cursor: pointer; font-size: 0.8rem; margin-top: 0.5rem;">
                                         ▶ Show Details
                                     </button>
                                     <div id="details-upcoming-${index}" style="display: none; margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid var(--border-light);">
-                                        ${meeting.abstract ? `
+                                        ${(shouldShowAbstract && meeting.abstract) ? `
                                             <div style="margin-bottom: 1rem;">
                                                 <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Abstract:</h4>
                                                 <p style="color: var(--dark-gray); line-height: 1.6;">${meeting.abstract}</p>
