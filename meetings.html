@@ -615,28 +615,23 @@
         </div>
     </footer>
 
+    // Load meetings data from external JSON file
     <script>
-        // Load meetings data from external JSON file
         let allMeetings = [];
 
-        // Function to load meetings data (placeholder - will load from meetings-data.json)
+        // Function to load meetings data from meetings-data.json
         async function loadMeetingsData() {
             try {
-                // In a real implementation, this would load from meetings-data.json
-                // For now, using placeholder data structure
-                allMeetings = [
-                    // Example structure:
-                    // {
-                    //     date: "25.07.2025",
-                    //     presenter: "Dr. Jane Smith",
-                    //     presenterBio: "Dr. Smith is a researcher at...",
-                    //     title: "Advanced Reasoning in Large Language Models",
-                    //     authors: "Smith et al.",
-                    //     abstract: "This paper presents novel approaches to..."
-                    // }
-                ];
+                const response = await fetch('meetings-data.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                allMeetings = await response.json();
+                console.log(`Loaded ${allMeetings.length} meetings from meetings-data.json`);
             } catch (error) {
-                console.log('Using default empty data structure');
+                console.error('Error loading meetings data:', error);
+                // Fallback to empty array if loading fails
+                allMeetings = [];
             }
         }
 
@@ -693,6 +688,100 @@
             return { thisWeekMeeting, upcomingMeetings, previousMeetings };
         }
 
+        function getZoomInfo(meeting) {
+            // Check if meeting has Zoom Link in the data
+            if (meeting.zoom_link) {
+                return `<a href="${meeting.zoom_link}" style="color: white; text-decoration: underline;">Join Meeting</a>`;
+            } else {
+                return 'We conduct our meetings via Zoom. <br>Keep up to date with our mailing list to see this week\'s Zoom link.';
+            }
+        }
+
+        function renderThisWeekMeeting(meeting) {
+            const section = document.getElementById('thisWeekSection');
+            const container = document.getElementById('thisWeekMeeting');
+
+            if (!meeting) {
+                section.style.display = 'none';
+                // Update the general Zoom info in the overview
+                const zoomElement = document.querySelector('.detail-item .detail-icon:contains("🔗")').nextElementSibling;
+                if (zoomElement) {
+                    zoomElement.innerHTML = '<strong>Join via Zoom:</strong><br>Keep up to date with our mailing list to see this week\'s Zoom link.';
+                }
+                return;
+            }
+
+            section.style.display = 'block';
+
+            const hasDetails = meeting.abstract || meeting.presenterBio;
+
+            container.innerHTML = `
+            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
+                <div>
+                    <h3 style="color: var(--primary-blue); font-size: 1.5rem; margin-bottom: 0.5rem;">${meeting.title}</h3>
+                    <div style="color: var(--dark-gray); margin-bottom: 0.5rem;">
+                        <strong>Presenter:</strong> ${meeting.presenter}
+                    </div>
+                    ${meeting.authors ? `
+                        <div style="color: var(--dark-gray); margin-bottom: 0.5rem;">
+                            <strong>Authors:</strong> ${meeting.authors}
+                        </div>
+                    ` : ''}
+                    ${meeting.location ? `
+                        <div style="color: var(--dark-gray); margin-bottom: 0.5rem;">
+                            <strong>Location:</strong> ${meeting.location}
+                        </div>
+                    ` : ''}
+                    ${meeting.zoom_link ? `
+                        <div style="color: var(--dark-gray); margin-bottom: 0.5rem;">
+                            <strong>Zoom Link:</strong> <a href="${meeting.zoom_link}" style="color: var(--primary-blue);">Join Meeting</a>
+                        </div>
+                    ` : ''}
+                </div>
+                <div style="text-align: right; color: var(--dark-gray);">
+                    <div style="font-size: 1.1rem; font-weight: 600;">${meeting.date}</div>
+                    <div style="font-size: 0.9rem;">Thursday, 4-5pm UK</div>
+                </div>
+            </div>
+            ${hasDetails ? `
+                <button onclick="toggleDetails('thisweek')" 
+                    style="background: var(--primary-blue); color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; margin-bottom: 1rem;">
+                    ▶ Show Details
+                </button>
+                <div id="details-thisweek" style="display: none;">
+                    ${meeting.abstract ? `
+                        <div style="margin-bottom: 1rem;">
+                            <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Abstract:</h4>
+                            <p style="color: var(--dark-gray); line-height: 1.6;">${meeting.abstract}</p>
+                        </div>
+                    ` : ''}
+                    ${meeting.presenterBio ? `
+                        <div>
+                            <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Speaker Bio:</h4>
+                            <p style="color: var(--dark-gray); line-height: 1.6;">${meeting.presenterBio}</p>
+                        </div>
+                    ` : ''}
+                    ${meeting.paper_links && meeting.paper_links.length > 0 ? `
+                        <div style="margin-top: 1rem;">
+                            <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Paper Links:</h4>
+                            <ul style="color: var(--dark-gray);">
+                                ${meeting.paper_links.map(link => `<li><a href="${link}" target="_blank" style="color: var(--primary-blue);">${link}</a></li>`).join('')}
+                            </ul>
+                        </div>
+                    ` : ''}
+                </div>
+            ` : ''}
+        `;
+
+            // Update the general Zoom info in the overview
+            const overviewZoom = document.querySelector('.meeting-overview .detail-item:nth-child(3) div');
+            if (overviewZoom && meeting.zoom_link) {
+                overviewZoom.innerHTML = `<strong>Join via Zoom:</strong><br><a href="${meeting.zoom_link}" style="color: white; text-decoration: underline;">Join This Week's Meeting</a>`;
+            } else if (overviewZoom) {
+                overviewZoom.innerHTML = '<strong>Join via Zoom:</strong><br>Keep up to date with our mailing list to see this week\'s Zoom link.';
+            }
+        }
+
         function toggleDetails(meetingId) {
             const details = document.getElementById(`details-${meetingId}`);
             const button = document.querySelector(`[onclick="toggleDetails('${meetingId}')"]`);
@@ -706,94 +795,36 @@
             }
         }
 
-        function renderThisWeekMeeting(meeting) {
-            const section = document.getElementById('thisWeekSection');
-            const container = document.getElementById('thisWeekMeeting');
-
-            if (!meeting) {
-                section.style.display = 'none';
-                return;
-            }
-
-            section.style.display = 'block';
-
-            const hasDetails = meeting.abstract || meeting.presenterBio;
-
-            container.innerHTML = `
-                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
-                    <div>
-                        <h3 style="color: var(--primary-blue); font-size: 1.5rem; margin-bottom: 0.5rem;">${meeting.title}</h3>
-                        <div style="color: var(--dark-gray); margin-bottom: 0.5rem;">
-                            <strong>Presenter:</strong> ${meeting.presenter}
-                        </div>
-                        ${meeting.authors ? `<div style="color: var(--dark-gray); margin-bottom: 0.5rem;"><strong>Authors:</strong> ${meeting.authors}</div>` : ''}
-                        <div style="color: var(--warning-orange); font-weight: bold;">📅 ${meeting.date} • Thursday 4-5pm (UK time)</div>
-                    </div>
-                    <div style="background: white; padding: 0.5rem 1rem; border-radius: 6px; font-weight: bold; color: var(--warning-orange); border: 2px solid var(--warning-orange);">
-                        THIS WEEK
-                    </div>
-                </div>
-                
-                ${hasDetails ? `
-                    <button onclick="toggleDetails('thisweek')" 
-                            id="thisweek-btn"
-                            style="background: var(--accent-blue); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 6px; cursor: pointer; font-weight: 500; margin-top: 1rem;">
-                        ▶ Show Abstract & Bio
-                    </button>
-                    <div id="details-thisweek" style="display: none; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 2px solid rgba(255,255,255,0.3);">
-                        ${meeting.abstract ? `
-                            <div style="margin-bottom: 1.5rem;">
-                                <h4 style="color: var(--primary-blue); margin-bottom: 0.75rem;">📄 Abstract:</h4>
-                                <p style="color: var(--dark-gray); line-height: 1.6; background: rgba(255,255,255,0.7); padding: 1rem; border-radius: 6px;">${meeting.abstract}</p>
-                            </div>
-                        ` : ''}
-                        ${meeting.presenterBio ? `
-                            <div>
-                                <h4 style="color: var(--primary-blue); margin-bottom: 0.75rem;">👤 Speaker Bio:</h4>
-                                <p style="color: var(--dark-gray); line-height: 1.6; background: rgba(255,255,255,0.7); padding: 1rem; border-radius: 6px;">${meeting.presenterBio}</p>
-                            </div>
-                        ` : ''}
-                    </div>
-                ` : ''}
-            `;
-        }
-
         function renderUpcomingMeetings(meetings) {
             const tbody = document.getElementById('upcomingMeetings');
 
             if (meetings.length === 0) {
                 tbody.innerHTML = `
-                    <tr>
-                        <td><strong>TBA</strong></td>
-                        <td colspan="2" style="font-style: italic; color: var(--dark-gray);">
-                            Schedule being updated. Contact Anthony to propose papers or volunteer to present!
-                        </td>
-                    </tr>
-                `;
+                <tr>
+                    <td colspan="3" style="font-style: italic; color: var(--dark-gray); text-align: center; padding: 2rem;">
+                        No upcoming meetings scheduled. Check back soon or join our mailing list for updates.
+                    </td>
+                </tr>
+            `;
             } else {
                 let html = '';
                 meetings.forEach((meeting, index) => {
+                    const hasDetails = meeting.abstract || meeting.presenterBio || (meeting.paper_links && meeting.paper_links.length > 0);
                     html += `
-                        <tr>
-                            <td><strong>${meeting.date}</strong></td>
-                            <td class="presenter">${meeting.presenter}</td>
-                            <td>
-                                <div class="paper-title">${meeting.title}</div>
-                                ${meeting.authors ? `<div class="paper-authors">${meeting.authors}</div>` : ''}
-                                ${(meeting.abstract || meeting.presenterBio) ? `
-                                    <button onclick="toggleDetails('upcoming-${index}')" 
-                                            style="background: none; border: none; color: var(--accent-blue); cursor: pointer; font-size: 0.9rem; margin-top: 0.5rem; padding: 0;">
-                                        ▶ Show Details
-                                    </button>
-                                ` : ''}
-                            </td>
-                        </tr>
-                    `;
-
-                    if (meeting.abstract || meeting.presenterBio) {
-                        html += `
-                            <tr id="details-upcoming-${index}" style="display: none;">
-                                <td colspan="3" style="background: var(--light-gray); padding: 1.5rem;">
+                    <tr>
+                        <td><strong>${meeting.date}</strong></td>
+                        <td class="presenter">${meeting.presenter}</td>
+                        <td>
+                            <div class="paper-title">${meeting.title}</div>
+                            ${meeting.authors ? `<div class="paper-authors">${meeting.authors}</div>` : ''}
+                            ${meeting.location ? `<div style="font-size: 0.9rem; color: var(--dark-gray); margin-top: 0.25rem;">${meeting.location}</div>` : ''}
+                            ${meeting.zoom_link ? `<div style="font-size: 0.9rem; margin-top: 0.25rem;"><a href="${meeting.zoom_link}" style="color: var(--primary-blue);">Join via Zoom</a></div>` : ''}
+                            ${hasDetails ? `
+                                <button onclick="toggleDetails('upcoming-${index}')" 
+                                    style="background: var(--accent-blue); color: white; border: none; padding: 0.25rem 0.5rem; border-radius: 4px; cursor: pointer; font-size: 0.8rem; margin-top: 0.5rem;">
+                                    ▶ Show Details
+                                </button>
+                                <div id="details-upcoming-${index}" style="display: none; margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid var(--border-light);">
                                     ${meeting.abstract ? `
                                         <div style="margin-bottom: 1rem;">
                                             <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Abstract:</h4>
@@ -801,15 +832,24 @@
                                         </div>
                                     ` : ''}
                                     ${meeting.presenterBio ? `
-                                        <div>
+                                        <div style="margin-bottom: 1rem;">
                                             <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Speaker Bio:</h4>
                                             <p style="color: var(--dark-gray); line-height: 1.6;">${meeting.presenterBio}</p>
                                         </div>
                                     ` : ''}
-                                </td>
-                            </tr>
-                        `;
-                    }
+                                    ${meeting.paper_links && meeting.paper_links.length > 0 ? `
+                                        <div>
+                                            <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Paper Links:</h4>
+                                            <ul style="color: var(--dark-gray); margin: 0; padding-left: 1.5rem;">
+                                                ${meeting.paper_links.map(link => `<li><a href="${link}" target="_blank" style="color: var(--primary-blue);">${link}</a></li>`).join('')}
+                                            </ul>
+                                        </div>
+                                    ` : ''}
+                                </div>
+                            ` : ''}
+                        </td>
+                    </tr>
+                `;
                 });
                 tbody.innerHTML = html;
             }
@@ -820,36 +860,29 @@
 
             if (meetings.length === 0) {
                 tbody.innerHTML = `
-                    <tr>
-                        <td colspan="3" style="font-style: italic; color: var(--dark-gray); text-align: center; padding: 2rem;">
-                            Previous meeting archive will be populated here as we build our meeting history.
-                        </td>
-                    </tr>
-                `;
+                <tr>
+                    <td colspan="3" style="font-style: italic; color: var(--dark-gray); text-align: center; padding: 2rem;">
+                        Previous meeting archive will be populated here as we build our meeting history.
+                    </td>
+                </tr>
+            `;
             } else {
                 let html = '';
                 meetings.forEach((meeting, index) => {
+                    const hasDetails = meeting.abstract || meeting.presenterBio || (meeting.paper_links && meeting.paper_links.length > 0);
                     html += `
-                        <tr>
-                            <td><strong>${meeting.date}</strong></td>
-                            <td class="presenter">${meeting.presenter}</td>
-                            <td>
-                                <div class="paper-title">${meeting.title}</div>
-                                ${meeting.authors ? `<div class="paper-authors">${meeting.authors}</div>` : ''}
-                                ${(meeting.abstract || meeting.presenterBio) ? `
-                                    <button onclick="toggleDetails('previous-${index}')" 
-                                            style="background: none; border: none; color: var(--accent-blue); cursor: pointer; font-size: 0.9rem; margin-top: 0.5rem; padding: 0;">
-                                        ▶ Show Details
-                                    </button>
-                                ` : ''}
-                            </td>
-                        </tr>
-                    `;
-
-                    if (meeting.abstract || meeting.presenterBio) {
-                        html += `
-                            <tr id="details-previous-${index}" style="display: none;">
-                                <td colspan="3" style="background: var(--light-gray); padding: 1.5rem;">
+                    <tr>
+                        <td><strong>${meeting.date}</strong></td>
+                        <td class="presenter">${meeting.presenter}</td>
+                        <td>
+                            <div class="paper-title">${meeting.title}</div>
+                            ${meeting.authors ? `<div class="paper-authors">${meeting.authors}</div>` : ''}
+                            ${hasDetails ? `
+                                <button onclick="toggleDetails('previous-${index}')" 
+                                    style="background: var(--accent-blue); color: white; border: none; padding: 0.25rem 0.5rem; border-radius: 4px; cursor: pointer; font-size: 0.8rem; margin-top: 0.5rem;">
+                                    ▶ Show Details
+                                </button>
+                                <div id="details-previous-${index}" style="display: none; margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid var(--border-light);">
                                     ${meeting.abstract ? `
                                         <div style="margin-bottom: 1rem;">
                                             <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Abstract:</h4>
@@ -857,15 +890,24 @@
                                         </div>
                                     ` : ''}
                                     ${meeting.presenterBio ? `
-                                        <div>
+                                        <div style="margin-bottom: 1rem;">
                                             <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Speaker Bio:</h4>
                                             <p style="color: var(--dark-gray); line-height: 1.6;">${meeting.presenterBio}</p>
                                         </div>
                                     ` : ''}
-                                </td>
-                            </tr>
-                        `;
-                    }
+                                    ${meeting.paper_links && meeting.paper_links.length > 0 ? `
+                                        <div>
+                                            <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Paper Links:</h4>
+                                            <ul style="color: var(--dark-gray); margin: 0; padding-left: 1.5rem;">
+                                                ${meeting.paper_links.map(link => `<li><a href="${link}" target="_blank" style="color: var(--primary-blue);">${link}</a></li>`).join('')}
+                                            </ul>
+                                        </div>
+                                    ` : ''}
+                                </div>
+                            ` : ''}
+                        </td>
+                    </tr>
+                `;
                 });
                 tbody.innerHTML = html;
             }
