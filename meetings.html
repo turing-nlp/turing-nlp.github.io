@@ -437,14 +437,14 @@
                                 <span class="detail-icon">📅</span>
                                 <div>
                                     <strong>Schedule:</strong><br>
-                                    Excluding 1st & 3rd Thursday each month
+                                    Excluding 3rd Thursday each month
                                 </div>
                             </div>
                             <div class="detail-item">
                                 <span class="detail-icon">🔗</span>
-                                <div>
+                                <div id="zoomInfo">
                                     <strong>Join via Zoom:</strong><br>
-                                    <a href="#" style="color: white; text-decoration: underline;">Meeting Link</a>
+                                    Keep up to date with our mailing list to see this week's Zoom link.
                                 </div>
                             </div>
                             <div class="detail-item">
@@ -482,7 +482,11 @@
                                 </tr>
                             </thead>
                             <tbody id="upcomingMeetings">
-                                <!-- Meetings will be populated by JavaScript -->
+                                <tr>
+                                    <td colspan="3" style="text-align: center; padding: 2rem; color: var(--dark-gray);">
+                                        Loading meetings data...
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -502,7 +506,11 @@
                                 </tr>
                             </thead>
                             <tbody id="previousMeetings">
-                                <!-- Previous meetings will be populated by JavaScript -->
+                                <tr>
+                                    <td colspan="3" style="text-align: center; padding: 2rem; color: var(--dark-gray);">
+                                        Loading meetings data...
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -534,25 +542,11 @@
                 <div class="sidebar-card">
                     <h3 class="sidebar-title">🔗 Join Our Meetings</h3>
                     <p style="margin-bottom: 1.5rem; color: var(--dark-gray); font-size: 0.95rem;">
-                        All meetings use the same recurring Zoom link every Thursday 4-5pm (UK time).
-                    </p>
-                    <a href="#" class="action-btn" style="margin-bottom: 1rem;">
-                        📹 Join Zoom Meeting
-                    </a>
-                    <div
-                        style="padding: 1rem; background: var(--light-gray); border-radius: 6px; font-size: 0.85rem; color: var(--dark-gray);">
-                        <strong>Meeting ID:</strong> [To be added]<br>
-                        <strong>Passcode:</strong> [To be added]
-                    </div>
-                </div>
-
-                <div class="sidebar-card">
-                    <h3 class="sidebar-title">📧 Join Our Community</h3>
-                    <p style="margin-bottom: 1.5rem; color: var(--dark-gray); font-size: 0.95rem;">
-                        Don't miss our meetings! Join our mailing list for updates.
+                        We conduct our meetings via Zoom. Keep up to date with our mailing list to see this week's Zoom
+                        link.
                     </p>
                     <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=p_SVQ1XklU-Knx-672OE-fR6PcyyBV1JuragBENwKPJUMFEzUFRFVkQ4N0MxOTROTDlNN1Q5S1BJSCQlQCN0PWcu&wdLOR=cCC6B022F-A814-004B-942B-2E835A58A305"
-                        class="action-btn">
+                        class="action-btn" style="margin-bottom: 1rem;">
                         ✉️ Join Mailing List
                     </a>
                 </div>
@@ -615,8 +609,8 @@
         </div>
     </footer>
 
-    // Load meetings data from external JSON file
     <script>
+        // Load meetings data from external JSON file
         let allMeetings = [];
 
         // Function to load meetings data from meetings-data.json
@@ -688,26 +682,15 @@
             return { thisWeekMeeting, upcomingMeetings, previousMeetings };
         }
 
-        function getZoomInfo(meeting) {
-            // Check if meeting has Zoom Link in the data
-            if (meeting.zoom_link) {
-                return `<a href="${meeting.zoom_link}" style="color: white; text-decoration: underline;">Join Meeting</a>`;
-            } else {
-                return 'We conduct our meetings via Zoom. <br>Keep up to date with our mailing list to see this week\'s Zoom link.';
-            }
-        }
-
         function renderThisWeekMeeting(meeting) {
             const section = document.getElementById('thisWeekSection');
             const container = document.getElementById('thisWeekMeeting');
+            const zoomInfo = document.getElementById('zoomInfo');
 
             if (!meeting) {
                 section.style.display = 'none';
                 // Update the general Zoom info in the overview
-                const zoomElement = document.querySelector('.detail-item .detail-icon:contains("🔗")').nextElementSibling;
-                if (zoomElement) {
-                    zoomElement.innerHTML = '<strong>Join via Zoom:</strong><br>Keep up to date with our mailing list to see this week\'s Zoom link.';
-                }
+                zoomInfo.innerHTML = '<strong>Join via Zoom:</strong><br>Keep up to date with our mailing list to see this week\'s Zoom link.';
                 return;
             }
 
@@ -716,69 +699,68 @@
             const hasDetails = meeting.abstract || meeting.presenterBio;
 
             container.innerHTML = `
-            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
-                <div>
-                    <h3 style="color: var(--primary-blue); font-size: 1.5rem; margin-bottom: 0.5rem;">${meeting.title}</h3>
-                    <div style="color: var(--dark-gray); margin-bottom: 0.5rem;">
-                        <strong>Presenter:</strong> ${meeting.presenter}
+                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
+                    <div>
+                        <h3 style="color: var(--primary-blue); font-size: 1.5rem; margin-bottom: 0.5rem;">${meeting.title}</h3>
+                        <div style="color: var(--dark-gray); margin-bottom: 0.5rem;">
+                            <strong>Presenter:</strong> ${meeting.presenter}
+                        </div>
+                        ${meeting.authors ? `
+                            <div style="color: var(--dark-gray); margin-bottom: 0.5rem;">
+                                <strong>Authors:</strong> ${meeting.authors}
+                            </div>
+                        ` : ''}
+                        ${meeting.location ? `
+                            <div style="color: var(--dark-gray); margin-bottom: 0.5rem;">
+                                <strong>Location:</strong> ${meeting.location}
+                            </div>
+                        ` : ''}
+                        ${meeting.zoom_link ? `
+                            <div style="color: var(--dark-gray); margin-bottom: 0.5rem;">
+                                <strong>Zoom Link:</strong> <a href="${meeting.zoom_link}" style="color: var(--primary-blue);">Join Meeting</a>
+                            </div>
+                        ` : ''}
                     </div>
-                    ${meeting.authors ? `
-                        <div style="color: var(--dark-gray); margin-bottom: 0.5rem;">
-                            <strong>Authors:</strong> ${meeting.authors}
-                        </div>
-                    ` : ''}
-                    ${meeting.location ? `
-                        <div style="color: var(--dark-gray); margin-bottom: 0.5rem;">
-                            <strong>Location:</strong> ${meeting.location}
-                        </div>
-                    ` : ''}
-                    ${meeting.zoom_link ? `
-                        <div style="color: var(--dark-gray); margin-bottom: 0.5rem;">
-                            <strong>Zoom Link:</strong> <a href="${meeting.zoom_link}" style="color: var(--primary-blue);">Join Meeting</a>
-                        </div>
-                    ` : ''}
+                    <div style="text-align: right; color: var(--dark-gray);">
+                        <div style="font-size: 1.1rem; font-weight: 600;">${meeting.date}</div>
+                        <div style="font-size: 0.9rem;">Thursday, 4-5pm UK</div>
+                    </div>
                 </div>
-                <div style="text-align: right; color: var(--dark-gray);">
-                    <div style="font-size: 1.1rem; font-weight: 600;">${meeting.date}</div>
-                    <div style="font-size: 0.9rem;">Thursday, 4-5pm UK</div>
-                </div>
-            </div>
-            ${hasDetails ? `
-                <button onclick="toggleDetails('thisweek')" 
-                    style="background: var(--primary-blue); color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; margin-bottom: 1rem;">
-                    ▶ Show Details
-                </button>
-                <div id="details-thisweek" style="display: none;">
-                    ${meeting.abstract ? `
-                        <div style="margin-bottom: 1rem;">
-                            <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Abstract:</h4>
-                            <p style="color: var(--dark-gray); line-height: 1.6;">${meeting.abstract}</p>
-                        </div>
-                    ` : ''}
-                    ${meeting.presenterBio ? `
-                        <div>
-                            <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Speaker Bio:</h4>
-                            <p style="color: var(--dark-gray); line-height: 1.6;">${meeting.presenterBio}</p>
-                        </div>
-                    ` : ''}
-                    ${meeting.paper_links && meeting.paper_links.length > 0 ? `
-                        <div style="margin-top: 1rem;">
-                            <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Paper Links:</h4>
-                            <ul style="color: var(--dark-gray);">
-                                ${meeting.paper_links.map(link => `<li><a href="${link}" target="_blank" style="color: var(--primary-blue);">${link}</a></li>`).join('')}
-                            </ul>
-                        </div>
-                    ` : ''}
-                </div>
-            ` : ''}
-        `;
+                ${hasDetails ? `
+                    <button onclick="toggleDetails('thisweek')" 
+                        style="background: var(--primary-blue); color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; margin-bottom: 1rem;">
+                        ▶ Show Details
+                    </button>
+                    <div id="details-thisweek" style="display: none;">
+                        ${meeting.abstract ? `
+                            <div style="margin-bottom: 1rem;">
+                                <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Abstract:</h4>
+                                <p style="color: var(--dark-gray); line-height: 1.6;">${meeting.abstract}</p>
+                            </div>
+                        ` : ''}
+                        ${meeting.presenterBio ? `
+                            <div>
+                                <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Speaker Bio:</h4>
+                                <p style="color: var(--dark-gray); line-height: 1.6;">${meeting.presenterBio}</p>
+                            </div>
+                        ` : ''}
+                        ${meeting.paper_links && meeting.paper_links.length > 0 ? `
+                            <div style="margin-top: 1rem;">
+                                <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Paper Links:</h4>
+                                <ul style="color: var(--dark-gray);">
+                                    ${meeting.paper_links.map(link => `<li><a href="${link}" target="_blank" style="color: var(--primary-blue);">${link}</a></li>`).join('')}
+                                </ul>
+                            </div>
+                        ` : ''}
+                    </div>
+                ` : ''}
+            `;
 
             // Update the general Zoom info in the overview
-            const overviewZoom = document.querySelector('.meeting-overview .detail-item:nth-child(3) div');
-            if (overviewZoom && meeting.zoom_link) {
-                overviewZoom.innerHTML = `<strong>Join via Zoom:</strong><br><a href="${meeting.zoom_link}" style="color: white; text-decoration: underline;">Join This Week's Meeting</a>`;
-            } else if (overviewZoom) {
-                overviewZoom.innerHTML = '<strong>Join via Zoom:</strong><br>Keep up to date with our mailing list to see this week\'s Zoom link.';
+            if (meeting.zoom_link) {
+                zoomInfo.innerHTML = `<strong>Join via Zoom:</strong><br><a href="${meeting.zoom_link}" style="color: white; text-decoration: underline;">Join This Week's Meeting</a>`;
+            } else {
+                zoomInfo.innerHTML = '<strong>Join via Zoom:</strong><br>Keep up to date with our mailing list to see this week\'s Zoom link.';
             }
         }
 
@@ -800,56 +782,56 @@
 
             if (meetings.length === 0) {
                 tbody.innerHTML = `
-                <tr>
-                    <td colspan="3" style="font-style: italic; color: var(--dark-gray); text-align: center; padding: 2rem;">
-                        No upcoming meetings scheduled. Check back soon or join our mailing list for updates.
-                    </td>
-                </tr>
-            `;
+                    <tr>
+                        <td colspan="3" style="font-style: italic; color: var(--dark-gray); text-align: center; padding: 2rem;">
+                            No upcoming meetings scheduled. Check back soon or join our mailing list for updates.
+                        </td>
+                    </tr>
+                `;
             } else {
                 let html = '';
                 meetings.forEach((meeting, index) => {
                     const hasDetails = meeting.abstract || meeting.presenterBio || (meeting.paper_links && meeting.paper_links.length > 0);
                     html += `
-                    <tr>
-                        <td><strong>${meeting.date}</strong></td>
-                        <td class="presenter">${meeting.presenter}</td>
-                        <td>
-                            <div class="paper-title">${meeting.title}</div>
-                            ${meeting.authors ? `<div class="paper-authors">${meeting.authors}</div>` : ''}
-                            ${meeting.location ? `<div style="font-size: 0.9rem; color: var(--dark-gray); margin-top: 0.25rem;">${meeting.location}</div>` : ''}
-                            ${meeting.zoom_link ? `<div style="font-size: 0.9rem; margin-top: 0.25rem;"><a href="${meeting.zoom_link}" style="color: var(--primary-blue);">Join via Zoom</a></div>` : ''}
-                            ${hasDetails ? `
-                                <button onclick="toggleDetails('upcoming-${index}')" 
-                                    style="background: var(--accent-blue); color: white; border: none; padding: 0.25rem 0.5rem; border-radius: 4px; cursor: pointer; font-size: 0.8rem; margin-top: 0.5rem;">
-                                    ▶ Show Details
-                                </button>
-                                <div id="details-upcoming-${index}" style="display: none; margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid var(--border-light);">
-                                    ${meeting.abstract ? `
-                                        <div style="margin-bottom: 1rem;">
-                                            <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Abstract:</h4>
-                                            <p style="color: var(--dark-gray); line-height: 1.6;">${meeting.abstract}</p>
-                                        </div>
-                                    ` : ''}
-                                    ${meeting.presenterBio ? `
-                                        <div style="margin-bottom: 1rem;">
-                                            <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Speaker Bio:</h4>
-                                            <p style="color: var(--dark-gray); line-height: 1.6;">${meeting.presenterBio}</p>
-                                        </div>
-                                    ` : ''}
-                                    ${meeting.paper_links && meeting.paper_links.length > 0 ? `
-                                        <div>
-                                            <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Paper Links:</h4>
-                                            <ul style="color: var(--dark-gray); margin: 0; padding-left: 1.5rem;">
-                                                ${meeting.paper_links.map(link => `<li><a href="${link}" target="_blank" style="color: var(--primary-blue);">${link}</a></li>`).join('')}
-                                            </ul>
-                                        </div>
-                                    ` : ''}
-                                </div>
-                            ` : ''}
-                        </td>
-                    </tr>
-                `;
+                        <tr>
+                            <td><strong>${meeting.date}</strong></td>
+                            <td class="presenter">${meeting.presenter}</td>
+                            <td>
+                                <div class="paper-title">${meeting.title}</div>
+                                ${meeting.authors ? `<div class="paper-authors">${meeting.authors}</div>` : ''}
+                                ${meeting.location ? `<div style="font-size: 0.9rem; color: var(--dark-gray); margin-top: 0.25rem;">${meeting.location}</div>` : ''}
+                                ${meeting.zoom_link ? `<div style="font-size: 0.9rem; margin-top: 0.25rem;"><a href="${meeting.zoom_link}" style="color: var(--primary-blue);">Join via Zoom</a></div>` : ''}
+                                ${hasDetails ? `
+                                    <button onclick="toggleDetails('upcoming-${index}')" 
+                                        style="background: var(--accent-blue); color: white; border: none; padding: 0.25rem 0.5rem; border-radius: 4px; cursor: pointer; font-size: 0.8rem; margin-top: 0.5rem;">
+                                        ▶ Show Details
+                                    </button>
+                                    <div id="details-upcoming-${index}" style="display: none; margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid var(--border-light);">
+                                        ${meeting.abstract ? `
+                                            <div style="margin-bottom: 1rem;">
+                                                <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Abstract:</h4>
+                                                <p style="color: var(--dark-gray); line-height: 1.6;">${meeting.abstract}</p>
+                                            </div>
+                                        ` : ''}
+                                        ${meeting.presenterBio ? `
+                                            <div style="margin-bottom: 1rem;">
+                                                <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Speaker Bio:</h4>
+                                                <p style="color: var(--dark-gray); line-height: 1.6;">${meeting.presenterBio}</p>
+                                            </div>
+                                        ` : ''}
+                                        ${meeting.paper_links && meeting.paper_links.length > 0 ? `
+                                            <div>
+                                                <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Paper Links:</h4>
+                                                <ul style="color: var(--dark-gray); margin: 0; padding-left: 1.5rem;">
+                                                    ${meeting.paper_links.map(link => `<li><a href="${link}" target="_blank" style="color: var(--primary-blue);">${link}</a></li>`).join('')}
+                                                </ul>
+                                            </div>
+                                        ` : ''}
+                                    </div>
+                                ` : ''}
+                            </td>
+                        </tr>
+                    `;
                 });
                 tbody.innerHTML = html;
             }
@@ -860,54 +842,54 @@
 
             if (meetings.length === 0) {
                 tbody.innerHTML = `
-                <tr>
-                    <td colspan="3" style="font-style: italic; color: var(--dark-gray); text-align: center; padding: 2rem;">
-                        Previous meeting archive will be populated here as we build our meeting history.
-                    </td>
-                </tr>
-            `;
+                    <tr>
+                        <td colspan="3" style="font-style: italic; color: var(--dark-gray); text-align: center; padding: 2rem;">
+                            Previous meeting archive will be populated here as we build our meeting history.
+                        </td>
+                    </tr>
+                `;
             } else {
                 let html = '';
                 meetings.forEach((meeting, index) => {
                     const hasDetails = meeting.abstract || meeting.presenterBio || (meeting.paper_links && meeting.paper_links.length > 0);
                     html += `
-                    <tr>
-                        <td><strong>${meeting.date}</strong></td>
-                        <td class="presenter">${meeting.presenter}</td>
-                        <td>
-                            <div class="paper-title">${meeting.title}</div>
-                            ${meeting.authors ? `<div class="paper-authors">${meeting.authors}</div>` : ''}
-                            ${hasDetails ? `
-                                <button onclick="toggleDetails('previous-${index}')" 
-                                    style="background: var(--accent-blue); color: white; border: none; padding: 0.25rem 0.5rem; border-radius: 4px; cursor: pointer; font-size: 0.8rem; margin-top: 0.5rem;">
-                                    ▶ Show Details
-                                </button>
-                                <div id="details-previous-${index}" style="display: none; margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid var(--border-light);">
-                                    ${meeting.abstract ? `
-                                        <div style="margin-bottom: 1rem;">
-                                            <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Abstract:</h4>
-                                            <p style="color: var(--dark-gray); line-height: 1.6;">${meeting.abstract}</p>
-                                        </div>
-                                    ` : ''}
-                                    ${meeting.presenterBio ? `
-                                        <div style="margin-bottom: 1rem;">
-                                            <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Speaker Bio:</h4>
-                                            <p style="color: var(--dark-gray); line-height: 1.6;">${meeting.presenterBio}</p>
-                                        </div>
-                                    ` : ''}
-                                    ${meeting.paper_links && meeting.paper_links.length > 0 ? `
-                                        <div>
-                                            <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Paper Links:</h4>
-                                            <ul style="color: var(--dark-gray); margin: 0; padding-left: 1.5rem;">
-                                                ${meeting.paper_links.map(link => `<li><a href="${link}" target="_blank" style="color: var(--primary-blue);">${link}</a></li>`).join('')}
-                                            </ul>
-                                        </div>
-                                    ` : ''}
-                                </div>
-                            ` : ''}
-                        </td>
-                    </tr>
-                `;
+                        <tr>
+                            <td><strong>${meeting.date}</strong></td>
+                            <td class="presenter">${meeting.presenter}</td>
+                            <td>
+                                <div class="paper-title">${meeting.title}</div>
+                                ${meeting.authors ? `<div class="paper-authors">${meeting.authors}</div>` : ''}
+                                ${hasDetails ? `
+                                    <button onclick="toggleDetails('previous-${index}')" 
+                                        style="background: var(--accent-blue); color: white; border: none; padding: 0.25rem 0.5rem; border-radius: 4px; cursor: pointer; font-size: 0.8rem; margin-top: 0.5rem;">
+                                        ▶ Show Details
+                                    </button>
+                                    <div id="details-previous-${index}" style="display: none; margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid var(--border-light);">
+                                        ${meeting.abstract ? `
+                                            <div style="margin-bottom: 1rem;">
+                                                <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Abstract:</h4>
+                                                <p style="color: var(--dark-gray); line-height: 1.6;">${meeting.abstract}</p>
+                                            </div>
+                                        ` : ''}
+                                        ${meeting.presenterBio ? `
+                                            <div style="margin-bottom: 1rem;">
+                                                <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Speaker Bio:</h4>
+                                                <p style="color: var(--dark-gray); line-height: 1.6;">${meeting.presenterBio}</p>
+                                            </div>
+                                        ` : ''}
+                                        ${meeting.paper_links && meeting.paper_links.length > 0 ? `
+                                            <div>
+                                                <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Paper Links:</h4>
+                                                <ul style="color: var(--dark-gray); margin: 0; padding-left: 1.5rem;">
+                                                    ${meeting.paper_links.map(link => `<li><a href="${link}" target="_blank" style="color: var(--primary-blue);">${link}</a></li>`).join('')}
+                                                </ul>
+                                            </div>
+                                        ` : ''}
+                                    </div>
+                                ` : ''}
+                            </td>
+                        </tr>
+                    `;
                 });
                 tbody.innerHTML = html;
             }
