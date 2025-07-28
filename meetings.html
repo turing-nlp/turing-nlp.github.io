@@ -478,12 +478,13 @@
                                 <tr>
                                     <th style="width: 120px;">Date</th>
                                     <th style="width: 150px;">Presenter</th>
+                                    <th style="width: 120px;">Type</th>
                                     <th>Paper/Topic</th>
                                 </tr>
                             </thead>
                             <tbody id="upcomingMeetings">
                                 <tr>
-                                    <td colspan="3" style="text-align: center; padding: 2rem; color: var(--dark-gray);">
+                                    <td colspan="4" style="text-align: center; padding: 2rem; color: var(--dark-gray);">
                                         Loading meetings data...
                                     </td>
                                 </tr>
@@ -502,12 +503,13 @@
                                 <tr>
                                     <th style="width: 120px;">Date</th>
                                     <th style="width: 150px;">Presenter</th>
+                                    <th style="width: 120px;">Type</th>
                                     <th>Paper/Topic</th>
                                 </tr>
                             </thead>
                             <tbody id="previousMeetings">
                                 <tr>
-                                    <td colspan="3" style="text-align: center; padding: 2rem; color: var(--dark-gray);">
+                                    <td colspan="4" style="text-align: center; padding: 2rem; color: var(--dark-gray);">
                                         Loading meetings data...
                                     </td>
                                 </tr>
@@ -630,9 +632,33 @@
         }
 
         function parseDate(dateStr) {
-            // Convert DD.MM.YYYY to Date object
-            const [day, month, year] = dateStr.split('.');
+            // Convert DD/MM/YYYY to Date object (changed from DD.MM.YYYY)
+            const [day, month, year] = dateStr.includes('/') ? dateStr.split('/') : dateStr.split('.');
             return new Date(year, month - 1, day);
+        }
+
+        function formatDateForDisplay(dateStr) {
+            // Convert DD.MM.YYYY to DD/MM/YYYY for display
+            if (dateStr.includes('.')) {
+                return dateStr.replace(/\./g, '/');
+            }
+            return dateStr;
+        }
+
+        function getSessionTypeButton(sessionType) {
+            if (sessionType === 'journal_club') {
+                return '<span style="background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.8rem; font-weight: 500; display: inline-flex; align-items: center; gap: 0.25rem;">📚 Journal Club</span>';
+            } else {
+                return '<span style="background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.8rem; font-weight: 500; display: inline-flex; align-items: center; gap: 0.25rem;">🎤 Seminar</span>';
+            }
+        }
+
+        function getPresenterName(meeting) {
+            // For journal clubs, show empty presenter if no specific presenter
+            if (meeting.type === 'journal_club' && (meeting.presenter === 'Reading Group' || meeting.presenter === '')) {
+                return '<span style="color: var(--dark-gray); font-style: italic;">—</span>';
+            }
+            return meeting.presenter;
         }
 
         function isCurrentWeek(date) {
@@ -722,9 +748,12 @@
                         ` : ''}
                     </div>
                     <div style="text-align: right; color: var(--dark-gray);">
-                        <div style="font-size: 1.1rem; font-weight: 600;">${meeting.date}</div>
+                        <div style="font-size: 1.1rem; font-weight: 600;">${formatDateForDisplay(meeting.date)}</div>
                         <div style="font-size: 0.9rem;">Thursday, 4-5pm UK</div>
                     </div>
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    ${getSessionTypeButton(meeting.type)}
                 </div>
                 ${hasDetails ? `
                     <button onclick="toggleDetails('thisweek')" 
@@ -783,7 +812,7 @@
             if (meetings.length === 0) {
                 tbody.innerHTML = `
                     <tr>
-                        <td colspan="3" style="font-style: italic; color: var(--dark-gray); text-align: center; padding: 2rem;">
+                        <td colspan="4" style="font-style: italic; color: var(--dark-gray); text-align: center; padding: 2rem;">
                             No upcoming meetings scheduled. Check back soon or join our mailing list for updates.
                         </td>
                     </tr>
@@ -792,10 +821,14 @@
                 let html = '';
                 meetings.forEach((meeting, index) => {
                     const hasDetails = meeting.abstract || meeting.presenterBio || (meeting.paper_links && meeting.paper_links.length > 0);
+                    const isNextUpcoming = index === 0; // First meeting is the next upcoming
+                    const rowStyle = isNextUpcoming ? 'background: linear-gradient(135deg, #fef3c7, #fde68a); border-left: 4px solid var(--warning-orange);' : '';
+
                     html += `
-                        <tr>
-                            <td><strong>${meeting.date}</strong></td>
-                            <td class="presenter">${meeting.presenter}</td>
+                        <tr style="${rowStyle}">
+                            <td><strong>${formatDateForDisplay(meeting.date)}</strong></td>
+                            <td class="presenter">${getPresenterName(meeting)}</td>
+                            <td>${getSessionTypeButton(meeting.type)}</td>
                             <td>
                                 <div class="paper-title">${meeting.title}</div>
                                 ${meeting.authors ? `<div class="paper-authors">${meeting.authors}</div>` : ''}
@@ -843,7 +876,7 @@
             if (meetings.length === 0) {
                 tbody.innerHTML = `
                     <tr>
-                        <td colspan="3" style="font-style: italic; color: var(--dark-gray); text-align: center; padding: 2rem;">
+                        <td colspan="4" style="font-style: italic; color: var(--dark-gray); text-align: center; padding: 2rem;">
                             Previous meeting archive will be populated here as we build our meeting history.
                         </td>
                     </tr>
@@ -854,8 +887,9 @@
                     const hasDetails = meeting.abstract || meeting.presenterBio || (meeting.paper_links && meeting.paper_links.length > 0);
                     html += `
                         <tr>
-                            <td><strong>${meeting.date}</strong></td>
-                            <td class="presenter">${meeting.presenter}</td>
+                            <td><strong>${formatDateForDisplay(meeting.date)}</strong></td>
+                            <td class="presenter">${getPresenterName(meeting)}</td>
+                            <td>${getSessionTypeButton(meeting.type)}</td>
                             <td>
                                 <div class="paper-title">${meeting.title}</div>
                                 ${meeting.authors ? `<div class="paper-authors">${meeting.authors}</div>` : ''}
