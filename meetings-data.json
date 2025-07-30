@@ -1,5 +1,13 @@
 [
   {
+    "date": "09.10.2025",
+    "presenter": "Elena Kochkina",
+    "title": "TBA",
+    "type": "seminar",
+    "location": "TBA",
+    "abstract": "TBA"
+  },
+  {
     "date": "25.09.2025",
     "presenter": "Jabez Magomere",
     "title": "TBA",
@@ -25,11 +33,10 @@
   },
   {
     "date": "14.08.2025",
-    "presenter": "Elena Kochkina",
+    "presenter": "TBA",
     "title": "TBA",
-    "type": "seminar",
-    "location": "TBA",
-    "abstract": "TBA"
+    "type": "journal_club",
+    "location": "TBA"
   },
   {
     "date": "24.07.2025",
