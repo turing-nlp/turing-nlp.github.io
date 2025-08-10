@@ -27,15 +27,47 @@ def convert_csv_to_json(csv_filename, output_filename=None):
         # Try reading with different encoding and robust CSV parsing
         print(f"Attempting to read CSV file: {csv_filename}")
         
-        # Use pandas with robust settings for multiline CSV
-        df = pd.read_csv(
-            csv_filename, 
-            encoding='utf-8',
-            quotechar='"',
-            escapechar='\\',
-            skipinitialspace=True,
-            on_bad_lines='skip'  # Skip problematic lines
-        )
+        # Try multiple CSV reading strategies
+        df = None
+        reading_strategies = [
+            # Strategy 1: Standard pandas with robust settings
+            {
+                'encoding': 'utf-8',
+                'quotechar': '"',
+                'escapechar': '\\',
+                'skipinitialspace': True,
+                'on_bad_lines': 'skip'
+            },
+            # Strategy 2: More permissive settings
+            {
+                'encoding': 'utf-8',
+                'quotechar': '"',
+                'skipinitialspace': True,
+                'on_bad_lines': 'skip',
+                'doublequote': True,
+                'quoting': 1  # QUOTE_ALL
+            },
+            # Strategy 3: Try with different delimiter detection
+            {
+                'encoding': 'utf-8',
+                'sep': None,  # Auto-detect
+                'engine': 'python',
+                'on_bad_lines': 'skip'
+            }
+        ]
+        
+        for i, strategy in enumerate(reading_strategies):
+            try:
+                print(f"Trying reading strategy {i+1}...")
+                df = pd.read_csv(csv_filename, **strategy)
+                print(f"Success with strategy {i+1}")
+                break
+            except Exception as e:
+                print(f"Strategy {i+1} failed: {e}")
+                continue
+        
+        if df is None:
+            raise Exception("All reading strategies failed")
         
         print(f"Successfully read CSV with {len(df)} rows")
         print(f"Columns: {list(df.columns)}")
@@ -85,10 +117,22 @@ def convert_csv_to_json(csv_filename, output_filename=None):
                 # If we have a potential US date and it's before transition, use US format
                 if potential_us_date and potential_us_date < transition_date:
                     date_obj = potential_us_date
-                # Otherwise, try post-transition formats (DD/MM/YYYY, DD.MM.YY, etc.)
+                # For dates after transition, prefer DD/MM/YYYY but handle edge cases
+                elif potential_uk_date:
+                    date_obj = potential_uk_date
+                elif potential_us_date:
+                    # Edge case: date could be parsed as US but is after transition
+                    # Check if it makes sense as DD/MM (e.g., 11/27 would be invalid as DD/MM)
+                    try:
+                        # Try parsing as DD/MM/YYYY first
+                        test_date = datetime.strptime(date_str, '%d/%m/%Y')
+                        date_obj = test_date
+                    except ValueError:
+                        # If DD/MM fails, use the US parsing
+                        date_obj = potential_us_date
                 else:
+                    # Try other post-transition formats
                     post_transition_formats = [
-                        '%d/%m/%Y',    # 11/27/2022 -> 11th day, 27th month (invalid) -> try as DD/MM
                         '%d.%m.%Y',    # 30.10.2025  
                         '%d.%m.%y',    # 21.09.23
                         '%d/%m/%y',    # 21/09/23

@@ -22,6 +22,15 @@
             "location": " (Alan Turing Institute) & online"
         },
         {
+            "date": "14.08.2025",
+            "presenter": "Mahmud Akter & Xingwei Tan",
+            "title": "Advancing LLM Reasoning - From Claim Verification to Symbolic Guidance",
+            "abstract": "The session will explore the current state and future directions of reasoning capabilities in large language models, covering both the assessment of reasoning through claim verification and novel approaches to enhance logical reasoning through symbolic methods. Abstract 1: Although LLMs have shown great performance on Mathematics and Coding related reasoning tasks, the reasoning capabilities of LLMs regarding other forms of reasoning are still an open problem. Here, we examine the issue of reasoning from the perspective of claim verification. We propose a framework designed to break down any claim paired with evidence into atomic reasoning types that are necessary for verification. We use this framework to create RECV, the first claim verification benchmark, incorporating real-world claims, to assess the deductive and abductive reasoning capabilities of LLMs. The benchmark comprises of three datasets, covering reasoning problems of increasing complexity. We evaluate three state-of-the-art proprietary LLMs under multiple prompt settings. Our results show that while LLMs can address deductive reasoning problems, they consistently fail in cases of abductive reasoning. Moreover, we observe that enhancing LLMs with rationale generation is not always beneficial. Nonetheless, we find that generated rationales are semantically similar to those provided by humans, especially in deductive reasoning cases. Abstract 2: Large language models (LLMs) have shown promising performance in mathematical and logical reasoning benchmarks. However, recent studies have pointed to memorization, rather than generalization, as one of the leading causes for such performance. LLMs, in fact, are susceptible to content variations, demonstrating a lack of robust symbolic abstractions supporting their reasoning process. To improve reliability, many attempts have been made to combine LLMs with symbolic methods. Nevertheless, existing approaches fail to effectively leverage symbolic representations due to the challenges involved in developing reliable and scalable verification mechanisms. In this paper, we propose to overcome such limitations by generating symbolic reasoning trajectories and select the high-quality ones using a process reward model automatically tuned based on Monte Carlo estimation. The trajectories are then employed via fine-tuning methods to improve logical reasoning and generalization. Our results on logical reasoning benchmarks such as FOLIO and LogicAsker show the effectiveness of the proposed method with large gains on frontier and open-weight models. Moreover, additional experiments on claim verification reveal that fine-tuning on the generated symbolic reasoning trajectories enhances out-of-domain generalizability, suggesting the potential impact of symbolically-guided process supervision in alleviating the effect of memorization on LLM reasoning.",
+            "location": "Ada Lovelace (Alan Turing Institute) & online",
+            "presenterBio": "Mahmud Elahi Akhter is a Research Assistant at Maria Liakata NLP lab at the School of Electronic Engineering and Computer Science at Queen Mary University of London, UK. In 2020, He earned his B.Sc. degree in computer science and engineering from North South University, Bangladesh. Before joining QMUL, he was a Research Assistant at the Department of Electrical and Computer Engineering, North South University, Department of Electrical and Electronic Engineering, University of Dhaka, and the Institute of Statistical Research and Training, University of Dhaka. Previously, he worked on multilingual language modeling, internal representation learning, biomedical object detection, inverse and surrogate modeling and statistical modeling of malnutrition and poverty. His current work focuses on explainability of PLM's and LLM's for rumour and claim veracity. Xingwei Tan is a research associate at Sheffield NLP working with Prof. Nikos Aletras. Before that, he was pursuing his PhD in the Department of Computer Science, University of Warwick, supervised by Prof. Yulan He and Dr. Gabriele Pergola. He received his MSc. from South China University of Technology in 2020 and his bachelor's degree from Sun Yat-Sen University in 2017. His research interests span sentiment analysis, event understanding, information extraction, and reasoning with large language models.",
+            "paperLinks": "https://aclanthology.org/2025.findings-acl.1059.pdf; https://arxiv.org/pdf/2505.20415?"
+        },
+        {
             "date": "24.07.2025",
             "presenter": "Joseph Boyle",
             "title": "Building Useful Agents",
@@ -102,6 +111,13 @@
             "date": "30.01.2025",
             "presenter": "Michael Schlichtkrull",
             "title": "\"DeepSeek-R1\" Reinforcement Learning for Open Source LLMs",
+            "abstract": "",
+            "location": " (Alan Turing Institute) & online"
+        },
+        {
+            "date": "28.03.2024",
+            "presenter": "Prof. Ann John (Swansea) Prof. Dana Atzil-Slonim (Bar-Ilan University) Prof. Eiman Kanjo (Nottingham Trent/Imperial) Prof. Joseph Hayes (UCL) Prof. Philip Resnik (University of Maryland) Prof. Robert Stewart (King's College London) Dr. Valentin Tablan (IESO)",
+            "title": "AI UK Fringe event, \"AI for Mental Health Monitoring\", jointly organised by the \"Natural Language Processing\" and \"Data Science for Mental Health\" Turing Interest Groups.",
             "abstract": "",
             "location": " (Alan Turing Institute) & online"
         },
@@ -193,6 +209,13 @@
             "date": "01.12.2022",
             "presenter": "Everyone",
             "title": "Paper Skimming Session",
+            "abstract": "",
+            "location": " (Alan Turing Institute) & online"
+        },
+        {
+            "date": "27.11.2022",
+            "presenter": "Kaspar Beelen",
+            "title": "\"Hands-on Session: Flair\" with Kaspar Beelen",
             "abstract": "",
             "location": " (Alan Turing Institute) & online"
         },
