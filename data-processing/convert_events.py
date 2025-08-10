@@ -17,6 +17,19 @@ def clean_multiline_text(text):
     text = re.sub(r'\s+', ' ', text)
     return text
 
+def get_session_type(session_type):
+    """Map session type to standardized format for HTML script"""
+    if pd.isna(session_type) or session_type == '':
+        return "seminar"  # Default
+    
+    session_type = str(session_type).lower().strip()
+    
+    # Map to the values expected by the HTML script
+    if 'journal club' in session_type or 'journal_club' in session_type:
+        return "journal_club"
+    else:
+        return "seminar"  # Default for everything else (seminars, talks, etc.)
+
 def convert_csv_to_json(csv_filename, output_filename=None):
     """Convert CSV to meetings-data.json format"""
     
@@ -160,6 +173,7 @@ def convert_csv_to_json(csv_filename, output_filename=None):
                 "date": date_formatted,
                 "presenter": clean_multiline_text(row.get('Presenter', '')),
                 "title": clean_multiline_text(row.get('Event Name', '')),
+                "sessionType": get_session_type(row.get('Type of Session', '')),
                 "abstract": clean_multiline_text(row.get('Abstract', '')),
                 "location": clean_multiline_text(row.get('Room', 'TBA')) + " (Alan Turing Institute) & online"
             }
