@@ -623,7 +623,8 @@
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
-                allMeetings = await response.json();
+                const data = await response.json();
+                allMeetings = data.meetings || [];  // <- This is the key change
                 console.log(`Loaded ${allMeetings.length} meetings from meetings-data.json`);
             } catch (error) {
                 console.error('Error loading meetings data:', error);
