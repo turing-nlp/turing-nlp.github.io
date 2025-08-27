@@ -25,12 +25,13 @@
             "location": " (Alan Turing Institute) & online"
         },
         {
-            "date": "28.09.2025",
-            "presenter": "TBA",
-            "title": "TBA",
+            "date": "28.08.2025",
+            "presenter": "Sebastian Löbbers & Mahmud Akter",
+            "title": "Ethics in NLP Research",
             "sessionType": "journal_club",
-            "abstract": "",
-            "location": " (Alan Turing Institute) & online"
+            "abstract": "This is an informal reading group where we explore interesting papers together. We'll be discussing two papers that caught our attention: \"Generative Ghosts: Anticipating Benefits and Risks of AI Afterlives\" - exploring the implications of AI agents representing deceased individuals \"NLP Security and Ethics, in the Wild\" - examining how NLP security research often lacks proper ethical frameworks from cybersecurity",
+            "location": " (Alan Turing Institute) & online",
+            "paperLinks": "Generative Ghosts: Anticipating Benefits and Risks of AI Afterlives; NLP Security and Ethics, in the Wild"
         },
         {
             "date": "14.08.2025",

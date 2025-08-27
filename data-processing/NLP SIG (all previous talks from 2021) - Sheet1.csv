@@ -4,7 +4,10 @@ Date,Presenter,Event Name,Type of Session,Zoom Link,Room,Abstract,Bio for Speake
 09/10/2025,Elena Kochkina,TBA,seminar,,,,,
 25/09/2025,Jabez Magomere,TBA,seminar,,,,,
 11/09/2025,Samuel Mensah,TBA,seminar,,,,,
-28/08/2025,TBA,TBA,journal club,,,,,
+28/08/2025,Sebastian Löbbers & Mahmud Akter,Ethics in NLP Research,journal club,,,"This is an informal reading group where we explore interesting papers together. We'll be discussing two papers that caught our attention:
+
+""Generative Ghosts: Anticipating Benefits and Risks of AI Afterlives"" - exploring the implications of AI agents representing deceased individuals
+""NLP Security and Ethics, in the Wild"" - examining how NLP security research often lacks proper ethical frameworks from cybersecurity",,"Generative Ghosts: Anticipating Benefits and Risks of AI Afterlives; NLP Security and Ethics, in the Wild"
 14/08/2025,Mahmud Akter & Xingwei Tan,Advancing LLM Reasoning - From Claim Verification to Symbolic Guidance,seminar,,Ada Lovelace,"The session will explore the current state and future directions of reasoning capabilities in large language models, covering both the assessment of reasoning through claim verification and novel approaches to enhance logical reasoning through symbolic methods.
 Abstract 1: Although LLMs have shown great performance on Mathematics and Coding related reasoning tasks, the reasoning capabilities of LLMs regarding other forms of reasoning are still an open problem. Here, we examine the issue of reasoning from the perspective of claim verification. We propose a framework designed to break down any claim paired with evidence into atomic reasoning types that are necessary for verification. We use this framework to create RECV, the first claim verification benchmark, incorporating real-world claims, to assess the deductive and abductive reasoning capabilities of LLMs. The benchmark comprises of three datasets, covering reasoning problems of increasing complexity. We evaluate three state-of-the-art proprietary LLMs under multiple prompt settings. Our results show that while LLMs can address deductive reasoning problems, they consistently fail in cases of abductive reasoning. Moreover, we observe that enhancing LLMs with rationale generation is not always beneficial. Nonetheless, we find that generated rationales are semantically similar to those provided by humans, especially in deductive reasoning cases.
 Abstract 2: Large language models (LLMs) have shown promising performance in mathematical and logical reasoning benchmarks. However, recent studies have pointed to memorization, rather than generalization, as one of the leading causes for such performance. LLMs, in fact, are susceptible to content variations, demonstrating a lack of robust symbolic abstractions supporting their reasoning process. To improve reliability, many attempts have been made to combine LLMs with symbolic methods. Nevertheless, existing approaches fail to effectively leverage symbolic representations due to the challenges involved in developing reliable and scalable verification mechanisms. In this paper, we propose to overcome such limitations by generating symbolic reasoning trajectories and select the high-quality ones using a process reward model automatically tuned based on Monte Carlo estimation. The trajectories are then employed via fine-tuning methods to improve logical reasoning and generalization. Our results on logical reasoning benchmarks such as FOLIO and LogicAsker show the effectiveness of the proposed method with large gains on frontier and open-weight models. Moreover, additional experiments on claim verification reveal that fine-tuning on the generated symbolic reasoning trajectories enhances out-of-domain generalizability, suggesting the potential impact of symbolically-guided process supervision in alleviating the effect of memorization on LLM reasoning.
@@ -122,10 +125,8 @@ Jenny Chim",“Knowledge Injection” - Reading Group,journal club,,,,,
 1/6/2022,,Paper Skimming,journal club,,,,,
 12/12/2021,Yulan He,Hands-on Session: Baleen 3 and Annot8,workshop,,,,,
 12/2/2021,,Paper Skimming Session,journal club,,,,,
-11/25/2021,,"Paper Skimming Session
-",journal club,,,,,
-10/28/2021,,"Paper Skimming Session
-",journal club,,,,,
+11/25/2021,,"Paper Skimming Session",journal club,,,,,
+10/28/2021,,"Paper Skimming Session",journal club,,,,,
 10/14/2021,Peifeng Wang,"""Incorporating Structured Knowledge for Machine Commonsense Reasoning"" with Peifeng Wang",seminar,,,,,
 10/7/2021,,Paper Skimming Session,journal club,,,,,
 9/30/2021,Harish Tayyar Madabushi,"""AStitchInLanguageModels: Dataset and Methods for the Exploration of Idiomaticity in Pre-Trained Language Models SemEval 2022 Task 2 Multilingual Idiomaticity Detection and Sentence Embedding"" with Harish Tayyar Madabushi",seminar,,,,,
