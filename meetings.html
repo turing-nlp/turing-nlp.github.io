@@ -508,6 +508,9 @@
                                     <th>Paper/Topic</th>
                                 </tr>
                             </thead>
+                            <tbody id="upcomingMeetings">
+                                <!-- Meetings will be populated by JavaScript -->
+                            </tbody>
                             <tbody id="previousMeetings">
                                 <tr>
                                     <td colspan="4" style="text-align: center; padding: 2rem; color: var(--dark-gray);">
@@ -624,8 +627,8 @@
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const data = await response.json();
-                allMeetings = data.meetings || [];  // <- This is the key change
-                console.log(`Loaded ${allMeetings.length} meetings from meetings-data.json`);
+                allMeetings = data.meetings || [];
+                console.log('Loaded meetings:', allMeetings.length);
             } catch (error) {
                 console.error('Error loading meetings data:', error);
                 // Fallback to empty array if loading fails
@@ -772,7 +775,7 @@
             return sessionTypes[sessionType?.toLowerCase()] || sessionTypes['seminar'];
         }
 
-
+        // Updated renderThisWeekMeeting function
         function renderThisWeekMeeting(meeting) {
             const section = document.getElementById('thisWeekSection');
             const container = document.getElementById('thisWeekMeeting');
@@ -790,10 +793,10 @@
                 <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
                     <div>
                         <h3 style="color: var(--primary-blue); font-size: 1.5rem; margin-bottom: 0.5rem;">
-                            ${sessionInfo.emoji} ${meeting.title}
+                            ${meeting.title}
                         </h3>
                         <div style="color: var(--dark-gray); margin-bottom: 0.5rem;">
-                            <strong>Session Type:</strong> ${sessionInfo.label}
+                            <strong>Session Type:</strong> ${sessionInfo.emoji} ${sessionInfo.label}
                         </div>
                         <div style="color: var(--dark-gray); margin-bottom: 0.5rem;">
                             <strong>Presenter:</strong> ${meeting.presenter}
@@ -831,6 +834,7 @@
             `;
         }
 
+        // Updated renderUpcomingMeetings function
         function renderUpcomingMeetings(meetings) {
             const tbody = document.getElementById('upcomingMeetings');
 
@@ -838,7 +842,7 @@
                 tbody.innerHTML = `
                     <tr>
                         <td><strong>TBA</strong></td>
-                        <td colspan="2" style="font-style: italic; color: var(--dark-gray);">
+                        <td colspan="3" style="font-style: italic; color: var(--dark-gray);">
                             Schedule being updated. Contact Anthony to propose papers or volunteer to present!
                         </td>
                     </tr>
@@ -851,14 +855,13 @@
                         <tr>
                             <td><strong>${meeting.date}</strong></td>
                             <td class="presenter">${meeting.presenter}</td>
+                            <td style="color: var(--primary-blue); font-weight: 500;">
+                                ${sessionInfo.emoji} ${sessionInfo.label}
+                            </td>
                             <td>
-                                <div class="paper-title">
-                                    ${sessionInfo.emoji} ${meeting.title}
-                                    <span style="font-size: 0.8rem; color: var(--dark-gray); font-weight: normal; margin-left: 0.5rem;">
-                                        (${sessionInfo.label})
-                                    </span>
-                                </div>
+                                <div class="paper-title">${meeting.title}</div>
                                 ${meeting.authors ? `<div class="paper-authors">${meeting.authors}</div>` : ''}
+                                ${meeting.location ? `<div style="color: var(--dark-gray); font-size: 0.9rem; margin-top: 0.25rem;">${meeting.location}</div>` : ''}
                                 ${(meeting.abstract || meeting.presenterBio) ? `
                                     <button onclick="toggleDetails('upcoming-${index}')" 
                                             style="background: var(--accent-blue); color: white; border: none; padding: 0.25rem 0.75rem; border-radius: 4px; cursor: pointer; font-size: 0.8rem; margin-top: 0.5rem;">
@@ -872,7 +875,7 @@
                     if (meeting.abstract || meeting.presenterBio) {
                         html += `
                             <tr id="details-upcoming-${index}" style="display: none;">
-                                <td colspan="3" style="background: var(--light-gray); padding: 1.5rem;">
+                                <td colspan="4" style="background: var(--light-gray); padding: 1.5rem;">
                                     ${meeting.abstract ? `
                                         <div style="margin-bottom: 1rem;">
                                             <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Abstract:</h4>
@@ -894,13 +897,14 @@
             }
         }
 
+        // Updated renderPreviousMeetings function
         function renderPreviousMeetings(meetings) {
             const tbody = document.getElementById('previousMeetings');
 
             if (meetings.length === 0) {
                 tbody.innerHTML = `
                     <tr>
-                        <td colspan="3" style="font-style: italic; color: var(--dark-gray); text-align: center; padding: 2rem;">
+                        <td colspan="4" style="font-style: italic; color: var(--dark-gray); text-align: center; padding: 2rem;">
                             Previous meeting archive will be populated here as we build our meeting history.
                         </td>
                     </tr>
@@ -913,13 +917,11 @@
                         <tr>
                             <td><strong>${meeting.date}</strong></td>
                             <td class="presenter">${meeting.presenter}</td>
+                            <td style="color: var(--primary-blue); font-weight: 500;">
+                                ${sessionInfo.emoji} ${sessionInfo.label}
+                            </td>
                             <td>
-                                <div class="paper-title">
-                                    ${sessionInfo.emoji} ${meeting.title}
-                                    <span style="font-size: 0.8rem; color: var(--dark-gray); font-weight: normal; margin-left: 0.5rem;">
-                                        (${sessionInfo.label})
-                                    </span>
-                                </div>
+                                <div class="paper-title">${meeting.title}</div>
                                 ${meeting.authors ? `<div class="paper-authors">${meeting.authors}</div>` : ''}
                                 ${(meeting.abstract || meeting.presenterBio) ? `
                                     <button onclick="toggleDetails('previous-${index}')" 
@@ -934,7 +936,7 @@
                     if (meeting.abstract || meeting.presenterBio) {
                         html += `
                             <tr id="details-previous-${index}" style="display: none;">
-                                <td colspan="3" style="background: var(--light-gray); padding: 1.5rem;">
+                                <td colspan="4" style="background: var(--light-gray); padding: 1.5rem;">
                                     ${meeting.abstract ? `
                                         <div style="margin-bottom: 1rem;">
                                             <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Abstract:</h4>
@@ -955,7 +957,6 @@
                 tbody.innerHTML = html;
             }
         }
-
 
         function toggleMobileMenu() {
             const navMenu = document.getElementById('navMenu');
