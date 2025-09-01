@@ -478,14 +478,13 @@
                                 <tr>
                                     <th style="width: 100px;">Date</th>
                                     <th style="width: 140px;">Presenter</th>
-                                    <th style="width: 100px;">Type</th>
-                                    <th style="width: 120px;">Zoom Link</th>
+                                    <th style="width: 130px;">Type</th>
                                     <th>Paper/Topic</th>
                                 </tr>
                             </thead>
                             <tbody id="upcomingMeetings">
                                 <tr>
-                                    <td colspan="5" style="text-align: center; padding: 2rem; color: var(--dark-gray);">
+                                    <td colspan="4" style="text-align: center; padding: 2rem; color: var(--dark-gray);">
                                         Loading meetings data...
                                     </td>
                                 </tr>
@@ -650,12 +649,32 @@
             return dateStr;
         }
 
+        // Function to get session type with colored button styling
         function getSessionTypeButton(sessionType) {
-            if (sessionType === 'journal_club') {
-                return '<span style="background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.8rem; font-weight: 500; display: inline-flex; align-items: center; gap: 0.25rem;">📚 Journal Club</span>';
-            } else {
-                return '<span style="background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.8rem; font-weight: 500; display: inline-flex; align-items: center; gap: 0.25rem;">🎤 Seminar</span>';
-            }
+            const sessionTypes = {
+                'seminar': {
+                    button: '<span style="background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; padding: 0.4rem 0.8rem; border-radius: 12px; font-size: 0.85rem; font-weight: 500; display: inline-flex; align-items: center; gap: 0.3rem; box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);">🎤 Seminar</span>',
+                    emoji: '🎤',
+                    label: 'Seminar'
+                },
+                'journal_club': {
+                    button: '<span style="background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 0.4rem 0.8rem; border-radius: 12px; font-size: 0.85rem; font-weight: 500; display: inline-flex; align-items: center; gap: 0.3rem; box-shadow: 0 2px 4px rgba(16, 185, 129, 0.3);">📚 Journal Club</span>',
+                    emoji: '📚',
+                    label: 'Journal Club'
+                },
+                'journal club': {
+                    button: '<span style="background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 0.4rem 0.8rem; border-radius: 12px; font-size: 0.85rem; font-weight: 500; display: inline-flex; align-items: center; gap: 0.3rem; box-shadow: 0 2px 4px rgba(16, 185, 129, 0.3);">📚 Journal Club</span>',
+                    emoji: '📚',
+                    label: 'Journal Club'
+                },
+                'workshop': {
+                    button: '<span style="background: linear-gradient(135deg, #f59e0b, #d97706); color: white; padding: 0.4rem 0.8rem; border-radius: 12px; font-size: 0.85rem; font-weight: 500; display: inline-flex; align-items: center; gap: 0.3rem; box-shadow: 0 2px 4px rgba(245, 158, 11, 0.3);">🛠️ Workshop</span>',
+                    emoji: '🛠️',
+                    label: 'Workshop'
+                }
+            };
+
+            return sessionTypes[sessionType?.toLowerCase()] || sessionTypes['seminar'];
         }
 
         function getPresenterName(meeting) {
@@ -775,66 +794,6 @@
             return sessionTypes[sessionType?.toLowerCase()] || sessionTypes['seminar'];
         }
 
-        // Updated renderThisWeekMeeting function
-        function renderThisWeekMeeting(meeting) {
-            const section = document.getElementById('thisWeekSection');
-            const container = document.getElementById('thisWeekMeeting');
-
-            if (!meeting) {
-                section.style.display = 'none';
-                return;
-            }
-
-            section.style.display = 'block';
-            const hasDetails = meeting.abstract || meeting.presenterBio;
-            const sessionInfo = getSessionTypeInfo(meeting.sessionType);
-
-            container.innerHTML = `
-                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
-                    <div>
-                        <h3 style="color: var(--primary-blue); font-size: 1.5rem; margin-bottom: 0.5rem;">
-                            ${meeting.title}
-                        </h3>
-                        <div style="color: var(--dark-gray); margin-bottom: 0.5rem;">
-                            <strong>Session Type:</strong> ${sessionInfo.emoji} ${sessionInfo.label}
-                        </div>
-                        <div style="color: var(--dark-gray); margin-bottom: 0.5rem;">
-                            <strong>Presenter:</strong> ${meeting.presenter}
-                        </div>
-                        ${meeting.authors ?
-                    `<div style="color: var(--dark-gray); margin-bottom: 0.5rem;"><strong>Authors:</strong> ${meeting.authors}</div>` : ''}
-                        <div style="color: var(--warning-orange); font-weight: bold;">📅 ${meeting.date} • Thursday 4-5pm (UK time)</div>
-                    </div>
-                    <div style="background: white; padding: 0.5rem 1rem; border-radius: 6px; font-weight: bold; color: var(--warning-orange); border: 2px solid var(--warning-orange);">
-                        THIS WEEK
-                    </div>
-                </div>
-                
-                ${hasDetails ? `
-                    <button onclick="toggleDetails('thisweek')" 
-                            id="thisweek-btn"
-                            style="background: var(--accent-blue); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 6px; cursor: pointer; font-weight: 500; margin-top: 1rem;">
-                        ▶ Show Abstract & Bio
-                    </button>
-                    <div id="details-thisweek" style="display: none; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 2px solid rgba(255,255,255,0.3);">
-                        ${meeting.abstract ? `
-                            <div style="margin-bottom: 1.5rem;">
-                                <h4 style="color: var(--primary-blue); margin-bottom: 0.75rem;">📄 Abstract:</h4>
-                                <p style="color: var(--dark-gray); line-height: 1.6; background: rgba(255,255,255,0.7); padding: 1rem; border-radius: 6px;">${meeting.abstract}</p>
-                            </div>
-                        ` : ''}
-                        ${meeting.presenterBio ? `
-                            <div>
-                                <h4 style="color: var(--primary-blue); margin-bottom: 0.75rem;">👤 Speaker Bio:</h4>
-                                <p style="color: var(--dark-gray); line-height: 1.6; background: rgba(255,255,255,0.7); padding: 1rem; border-radius: 6px;">${meeting.presenterBio}</p>
-                            </div>
-                        ` : ''}
-                    </div>
-                ` : ''}
-            `;
-        }
-
-        // Updated renderUpcomingMeetings function
         function renderUpcomingMeetings(meetings) {
             const tbody = document.getElementById('upcomingMeetings');
 
@@ -850,16 +809,21 @@
             } else {
                 let html = '';
                 meetings.forEach((meeting, index) => {
-                    const sessionInfo = getSessionTypeInfo(meeting.sessionType);
+                    const sessionInfo = getSessionTypeButton(meeting.sessionType);
+                    // Highlight the first (next) upcoming meeting
+                    const isNextMeeting = index === 0;
+                    const rowStyle = isNextMeeting ?
+                        'background: linear-gradient(135deg, #fef3c7, #fde68a); border-left: 4px solid #f59e0b;' : '';
+
                     html += `
-                        <tr>
+                        <tr style="${rowStyle}">
                             <td><strong>${meeting.date}</strong></td>
                             <td class="presenter">${meeting.presenter}</td>
-                            <td style="color: var(--primary-blue); font-weight: 500;">
-                                ${sessionInfo.emoji} ${sessionInfo.label}
+                            <td>
+                                ${sessionInfo.button}
                             </td>
                             <td>
-                                <div class="paper-title">${meeting.title}</div>
+                                <div class="paper-title">${meeting.title || 'TBA'}</div>
                                 ${meeting.authors ? `<div class="paper-authors">${meeting.authors}</div>` : ''}
                                 ${meeting.location ? `<div style="color: var(--dark-gray); font-size: 0.9rem; margin-top: 0.25rem;">${meeting.location}</div>` : ''}
                                 ${(meeting.abstract || meeting.presenterBio) ? `
@@ -897,7 +861,7 @@
             }
         }
 
-        // Updated renderPreviousMeetings function
+        // Updated renderPreviousMeetings function with colored buttons
         function renderPreviousMeetings(meetings) {
             const tbody = document.getElementById('previousMeetings');
 
@@ -912,13 +876,13 @@
             } else {
                 let html = '';
                 meetings.forEach((meeting, index) => {
-                    const sessionInfo = getSessionTypeInfo(meeting.sessionType);
+                    const sessionInfo = getSessionTypeButton(meeting.sessionType);
                     html += `
                         <tr>
                             <td><strong>${meeting.date}</strong></td>
                             <td class="presenter">${meeting.presenter}</td>
-                            <td style="color: var(--primary-blue); font-weight: 500;">
-                                ${sessionInfo.emoji} ${sessionInfo.label}
+                            <td>
+                                ${sessionInfo.button}
                             </td>
                             <td>
                                 <div class="paper-title">${meeting.title}</div>
@@ -956,6 +920,65 @@
                 });
                 tbody.innerHTML = html;
             }
+        }
+
+        // Updated renderThisWeekMeeting function
+        function renderThisWeekMeeting(meeting) {
+            const section = document.getElementById('thisWeekSection');
+            const container = document.getElementById('thisWeekMeeting');
+
+            if (!meeting) {
+                section.style.display = 'none';
+                return;
+            }
+
+            section.style.display = 'block';
+            const hasDetails = meeting.abstract || meeting.presenterBio;
+            const sessionInfo = getSessionTypeButton(meeting.sessionType);
+
+            container.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
+                    <div>
+                        <h3 style="color: var(--primary-blue); font-size: 1.5rem; margin-bottom: 0.5rem;">
+                            ${meeting.title}
+                        </h3>
+                        <div style="margin-bottom: 0.75rem;">
+                            ${sessionInfo.button}
+                        </div>
+                        <div style="color: var(--dark-gray); margin-bottom: 0.5rem;">
+                            <strong>Presenter:</strong> ${meeting.presenter}
+                        </div>
+                        ${meeting.authors ?
+                    `<div style="color: var(--dark-gray); margin-bottom: 0.5rem;"><strong>Authors:</strong> ${meeting.authors}</div>` : ''}
+                        <div style="color: var(--warning-orange); font-weight: bold;">📅 ${meeting.date} • Thursday 4-5pm (UK time)</div>
+                    </div>
+                    <div style="background: white; padding: 0.5rem 1rem; border-radius: 6px; font-weight: bold; color: var(--warning-orange); border: 2px solid var(--warning-orange);">
+                        THIS WEEK
+                    </div>
+                </div>
+                
+                ${hasDetails ? `
+                    <button onclick="toggleDetails('thisweek')" 
+                            id="thisweek-btn"
+                            style="background: var(--accent-blue); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 6px; cursor: pointer; font-weight: 500; margin-top: 1rem;">
+                        ▶ Show Abstract & Bio
+                    </button>
+                    <div id="details-thisweek" style="display: none; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 2px solid rgba(255,255,255,0.3);">
+                        ${meeting.abstract ? `
+                            <div style="margin-bottom: 1.5rem;">
+                                <h4 style="color: var(--primary-blue); margin-bottom: 0.75rem;">📄 Abstract:</h4>
+                                <p style="color: var(--dark-gray); line-height: 1.6; background: rgba(255,255,255,0.7); padding: 1rem; border-radius: 6px;">${meeting.abstract}</p>
+                            </div>
+                        ` : ''}
+                        ${meeting.presenterBio ? `
+                            <div>
+                                <h4 style="color: var(--primary-blue); margin-bottom: 0.75rem;">👤 Speaker Bio:</h4>
+                                <p style="color: var(--dark-gray); line-height: 1.6; background: rgba(255,255,255,0.7); padding: 1rem; border-radius: 6px;">${meeting.presenterBio}</p>
+                            </div>
+                        ` : ''}
+                    </div>
+                ` : ''}
+            `;
         }
 
         function toggleMobileMenu() {
