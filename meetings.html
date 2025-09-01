@@ -741,90 +741,6 @@
             return { thisWeekMeeting, upcomingMeetings, previousMeetings };
         }
 
-        function renderThisWeekMeeting(meeting) {
-            const section = document.getElementById('thisWeekSection');
-            const container = document.getElementById('thisWeekMeeting');
-            const zoomInfo = document.getElementById('zoomInfo');
-
-            if (!meeting) {
-                section.style.display = 'none';
-                // Update the general Zoom info in the overview
-                zoomInfo.innerHTML = '<strong>Join via Zoom:</strong><br>Keep up to date with our mailing list to see this week\'s Zoom link.';
-                return;
-            }
-
-            section.style.display = 'block';
-
-            const hasDetails = meeting.abstract || meeting.presenterBio;
-
-            container.innerHTML = `
-                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
-                    <div>
-                        <h3 style="color: var(--primary-blue); font-size: 1.5rem; margin-bottom: 0.5rem;">${meeting.title}</h3>
-                        <div style="color: var(--dark-gray); margin-bottom: 0.5rem;">
-                            <strong>Presenter:</strong> ${meeting.presenter}
-                        </div>
-                        ${meeting.authors ? `
-                            <div style="color: var(--dark-gray); margin-bottom: 0.5rem;">
-                                <strong>Authors:</strong> ${meeting.authors}
-                            </div>
-                        ` : ''}
-                        ${meeting.location ? `
-                            <div style="color: var(--dark-gray); margin-bottom: 0.5rem;">
-                                <strong>Location:</strong> ${meeting.location}
-                            </div>
-                        ` : ''}
-                        ${meeting.zoom_link ? `
-                            <div style="color: var(--dark-gray); margin-bottom: 0.5rem;">
-                                <strong>Zoom Link:</strong> <a href="${meeting.zoom_link}" style="color: var(--primary-blue);">Join Meeting</a>
-                            </div>
-                        ` : ''}
-                    </div>
-                    <div style="text-align: right; color: var(--dark-gray);">
-                        <div style="font-size: 1.1rem; font-weight: 600;">${formatDateForDisplay(meeting.date)}</div>
-                        <div style="font-size: 0.9rem;">Thursday, 4-5pm UK</div>
-                    </div>
-                </div>
-                <div style="margin-bottom: 1rem;">
-                    ${getSessionTypeButton(meeting.type)}
-                </div>
-                ${hasDetails ? `
-                    <button onclick="toggleDetails('thisweek')" 
-                        style="background: var(--primary-blue); color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; margin-bottom: 1rem;">
-                        ▶ Show Details
-                    </button>
-                    <div id="details-thisweek" style="display: none;">
-                        ${meeting.abstract ? `
-                            <div style="margin-bottom: 1rem;">
-                                <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Abstract:</h4>
-                                <p style="color: var(--dark-gray); line-height: 1.6;">${meeting.abstract}</p>
-                            </div>
-                        ` : ''}
-                        ${meeting.presenterBio ? `
-                            <div>
-                                <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Speaker Bio:</h4>
-                                <p style="color: var(--dark-gray); line-height: 1.6;">${meeting.presenterBio}</p>
-                            </div>
-                        ` : ''}
-                        ${meeting.paper_links && meeting.paper_links.length > 0 ? `
-                            <div style="margin-top: 1rem;">
-                                <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Paper Links:</h4>
-                                <ul style="color: var(--dark-gray);">
-                                    ${meeting.paper_links.map(link => `<li><a href="${link}" target="_blank" style="color: var(--primary-blue);">${link}</a></li>`).join('')}
-                                </ul>
-                            </div>
-                        ` : ''}
-                    </div>
-                ` : ''}
-            `;
-
-            // Update the general Zoom info in the overview
-            if (meeting.zoom_link) {
-                zoomInfo.innerHTML = `<strong>Join via Zoom:</strong><br><a href="${meeting.zoom_link}" style="color: white; text-decoration: underline;">Join This Week's Meeting</a>`;
-            } else {
-                zoomInfo.innerHTML = '<strong>Join via Zoom:</strong><br>Keep up to date with our mailing list to see this week\'s Zoom link.';
-            }
-        }
 
         function toggleDetails(meetingId) {
             const details = document.getElementById(`details-${meetingId}`);
@@ -839,69 +755,140 @@
             }
         }
 
+        // Function to get session type emoji and label
+        function getSessionTypeInfo(sessionType) {
+            const sessionTypes = {
+                'seminar': { emoji: '🎤', label: 'Seminar' },
+                'journal_club': { emoji: '📚', label: 'Journal Club' },
+                'journal club': { emoji: '📚', label: 'Journal Club' }, // Handle both formats
+                'workshop': { emoji: '🛠️', label: 'Workshop' },
+                'panel': { emoji: '🗣️', label: 'Panel Discussion' },
+                'tutorial': { emoji: '📖', label: 'Tutorial' },
+                'reading_group': { emoji: '📖', label: 'Reading Group' },
+                'reading group': { emoji: '📖', label: 'Reading Group' } // Handle both formats
+            };
+
+            // Default to seminar if type not recognized
+            return sessionTypes[sessionType?.toLowerCase()] || sessionTypes['seminar'];
+        }
+
+
+        function renderThisWeekMeeting(meeting) {
+            const section = document.getElementById('thisWeekSection');
+            const container = document.getElementById('thisWeekMeeting');
+
+            if (!meeting) {
+                section.style.display = 'none';
+                return;
+            }
+
+            section.style.display = 'block';
+            const hasDetails = meeting.abstract || meeting.presenterBio;
+            const sessionInfo = getSessionTypeInfo(meeting.sessionType);
+
+            container.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
+                    <div>
+                        <h3 style="color: var(--primary-blue); font-size: 1.5rem; margin-bottom: 0.5rem;">
+                            ${sessionInfo.emoji} ${meeting.title}
+                        </h3>
+                        <div style="color: var(--dark-gray); margin-bottom: 0.5rem;">
+                            <strong>Session Type:</strong> ${sessionInfo.label}
+                        </div>
+                        <div style="color: var(--dark-gray); margin-bottom: 0.5rem;">
+                            <strong>Presenter:</strong> ${meeting.presenter}
+                        </div>
+                        ${meeting.authors ?
+                    `<div style="color: var(--dark-gray); margin-bottom: 0.5rem;"><strong>Authors:</strong> ${meeting.authors}</div>` : ''}
+                        <div style="color: var(--warning-orange); font-weight: bold;">📅 ${meeting.date} • Thursday 4-5pm (UK time)</div>
+                    </div>
+                    <div style="background: white; padding: 0.5rem 1rem; border-radius: 6px; font-weight: bold; color: var(--warning-orange); border: 2px solid var(--warning-orange);">
+                        THIS WEEK
+                    </div>
+                </div>
+                
+                ${hasDetails ? `
+                    <button onclick="toggleDetails('thisweek')" 
+                            id="thisweek-btn"
+                            style="background: var(--accent-blue); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 6px; cursor: pointer; font-weight: 500; margin-top: 1rem;">
+                        ▶ Show Abstract & Bio
+                    </button>
+                    <div id="details-thisweek" style="display: none; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 2px solid rgba(255,255,255,0.3);">
+                        ${meeting.abstract ? `
+                            <div style="margin-bottom: 1.5rem;">
+                                <h4 style="color: var(--primary-blue); margin-bottom: 0.75rem;">📄 Abstract:</h4>
+                                <p style="color: var(--dark-gray); line-height: 1.6; background: rgba(255,255,255,0.7); padding: 1rem; border-radius: 6px;">${meeting.abstract}</p>
+                            </div>
+                        ` : ''}
+                        ${meeting.presenterBio ? `
+                            <div>
+                                <h4 style="color: var(--primary-blue); margin-bottom: 0.75rem;">👤 Speaker Bio:</h4>
+                                <p style="color: var(--dark-gray); line-height: 1.6; background: rgba(255,255,255,0.7); padding: 1rem; border-radius: 6px;">${meeting.presenterBio}</p>
+                            </div>
+                        ` : ''}
+                    </div>
+                ` : ''}
+            `;
+        }
+
         function renderUpcomingMeetings(meetings) {
             const tbody = document.getElementById('upcomingMeetings');
 
             if (meetings.length === 0) {
                 tbody.innerHTML = `
                     <tr>
-                        <td colspan="5" style="font-style: italic; color: var(--dark-gray); text-align: center; padding: 2rem;">
-                            No upcoming meetings scheduled. Check back soon or join our mailing list for updates.
+                        <td><strong>TBA</strong></td>
+                        <td colspan="2" style="font-style: italic; color: var(--dark-gray);">
+                            Schedule being updated. Contact Anthony to propose papers or volunteer to present!
                         </td>
                     </tr>
                 `;
             } else {
                 let html = '';
                 meetings.forEach((meeting, index) => {
-                    const hasDetails = meeting.abstract || meeting.presenterBio || (meeting.paper_links && meeting.paper_links.length > 0);
-                    const isNextUpcoming = index === 0; // First meeting is the next upcoming
-                    const rowStyle = isNextUpcoming ? 'background: linear-gradient(135deg, #fef3c7, #fde68a); border-left: 4px solid var(--warning-orange);' : '';
-
-                    // Don't show abstract as "TBA" for journal clubs
-                    const shouldShowAbstract = meeting.type !== 'journal_club' || (meeting.abstract && meeting.abstract !== 'TBA');
-                    const hasActualDetails = (shouldShowAbstract && meeting.abstract) || meeting.presenterBio || (meeting.paper_links && meeting.paper_links.length > 0);
-
+                    const sessionInfo = getSessionTypeInfo(meeting.sessionType);
                     html += `
-                        <tr style="${rowStyle}">
-                            <td><strong>${formatDateForDisplay(meeting.date)}</strong></td>
-                            <td class="presenter">${getPresenterName(meeting)}</td>
-                            <td>${getSessionTypeButton(meeting.type)}</td>
-                            <td>${meeting.zoom_link ? `<a href="${meeting.zoom_link}" style="color: var(--primary-blue); font-size: 0.9rem;">Join Meeting</a>` : '<span style="color: var(--dark-gray); font-style: italic;">TBA</span>'}</td>
+                        <tr>
+                            <td><strong>${meeting.date}</strong></td>
+                            <td class="presenter">${meeting.presenter}</td>
                             <td>
-                                <div class="paper-title">${meeting.title}</div>
+                                <div class="paper-title">
+                                    ${sessionInfo.emoji} ${meeting.title}
+                                    <span style="font-size: 0.8rem; color: var(--dark-gray); font-weight: normal; margin-left: 0.5rem;">
+                                        (${sessionInfo.label})
+                                    </span>
+                                </div>
                                 ${meeting.authors ? `<div class="paper-authors">${meeting.authors}</div>` : ''}
-                                ${meeting.location ? `<div style="font-size: 0.9rem; color: var(--dark-gray); margin-top: 0.25rem;">${meeting.location}</div>` : ''}
-                                ${hasActualDetails ? `
+                                ${(meeting.abstract || meeting.presenterBio) ? `
                                     <button onclick="toggleDetails('upcoming-${index}')" 
-                                        style="background: var(--accent-blue); color: white; border: none; padding: 0.25rem 0.5rem; border-radius: 4px; cursor: pointer; font-size: 0.8rem; margin-top: 0.5rem;">
+                                            style="background: var(--accent-blue); color: white; border: none; padding: 0.25rem 0.75rem; border-radius: 4px; cursor: pointer; font-size: 0.8rem; margin-top: 0.5rem;">
                                         ▶ Show Details
                                     </button>
-                                    <div id="details-upcoming-${index}" style="display: none; margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid var(--border-light);">
-                                        ${(shouldShowAbstract && meeting.abstract) ? `
-                                            <div style="margin-bottom: 1rem;">
-                                                <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Abstract:</h4>
-                                                <p style="color: var(--dark-gray); line-height: 1.6;">${meeting.abstract}</p>
-                                            </div>
-                                        ` : ''}
-                                        ${meeting.presenterBio ? `
-                                            <div style="margin-bottom: 1rem;">
-                                                <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Speaker Bio:</h4>
-                                                <p style="color: var(--dark-gray); line-height: 1.6;">${meeting.presenterBio}</p>
-                                            </div>
-                                        ` : ''}
-                                        ${meeting.paper_links && meeting.paper_links.length > 0 ? `
-                                            <div>
-                                                <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Paper Links:</h4>
-                                                <ul style="color: var(--dark-gray); margin: 0; padding-left: 1.5rem;">
-                                                    ${meeting.paper_links.map(link => `<li><a href="${link}" target="_blank" style="color: var(--primary-blue);">${link}</a></li>`).join('')}
-                                                </ul>
-                                            </div>
-                                        ` : ''}
-                                    </div>
                                 ` : ''}
                             </td>
                         </tr>
                     `;
+
+                    if (meeting.abstract || meeting.presenterBio) {
+                        html += `
+                            <tr id="details-upcoming-${index}" style="display: none;">
+                                <td colspan="3" style="background: var(--light-gray); padding: 1.5rem;">
+                                    ${meeting.abstract ? `
+                                        <div style="margin-bottom: 1rem;">
+                                            <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Abstract:</h4>
+                                            <p style="color: var(--dark-gray); line-height: 1.6;">${meeting.abstract}</p>
+                                        </div>
+                                    ` : ''}
+                                    ${meeting.presenterBio ? `
+                                        <div>
+                                            <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Speaker Bio:</h4>
+                                            <p style="color: var(--dark-gray); line-height: 1.6;">${meeting.presenterBio}</p>
+                                        </div>
+                                    ` : ''}
+                                </td>
+                            </tr>
+                        `;
+                    }
                 });
                 tbody.innerHTML = html;
             }
@@ -913,7 +900,7 @@
             if (meetings.length === 0) {
                 tbody.innerHTML = `
                     <tr>
-                        <td colspan="4" style="font-style: italic; color: var(--dark-gray); text-align: center; padding: 2rem;">
+                        <td colspan="3" style="font-style: italic; color: var(--dark-gray); text-align: center; padding: 2rem;">
                             Previous meeting archive will be populated here as we build our meeting history.
                         </td>
                     </tr>
@@ -921,50 +908,54 @@
             } else {
                 let html = '';
                 meetings.forEach((meeting, index) => {
-                    const hasDetails = meeting.abstract || meeting.presenterBio || (meeting.paper_links && meeting.paper_links.length > 0);
+                    const sessionInfo = getSessionTypeInfo(meeting.sessionType);
                     html += `
                         <tr>
-                            <td><strong>${formatDateForDisplay(meeting.date)}</strong></td>
-                            <td class="presenter">${getPresenterName(meeting)}</td>
-                            <td>${getSessionTypeButton(meeting.type)}</td>
+                            <td><strong>${meeting.date}</strong></td>
+                            <td class="presenter">${meeting.presenter}</td>
                             <td>
-                                <div class="paper-title">${meeting.title}</div>
+                                <div class="paper-title">
+                                    ${sessionInfo.emoji} ${meeting.title}
+                                    <span style="font-size: 0.8rem; color: var(--dark-gray); font-weight: normal; margin-left: 0.5rem;">
+                                        (${sessionInfo.label})
+                                    </span>
+                                </div>
                                 ${meeting.authors ? `<div class="paper-authors">${meeting.authors}</div>` : ''}
-                                ${hasDetails ? `
+                                ${(meeting.abstract || meeting.presenterBio) ? `
                                     <button onclick="toggleDetails('previous-${index}')" 
-                                        style="background: var(--accent-blue); color: white; border: none; padding: 0.25rem 0.5rem; border-radius: 4px; cursor: pointer; font-size: 0.8rem; margin-top: 0.5rem;">
+                                            style="background: var(--accent-blue); color: white; border: none; padding: 0.25rem 0.75rem; border-radius: 4px; cursor: pointer; font-size: 0.8rem; margin-top: 0.5rem;">
                                         ▶ Show Details
                                     </button>
-                                    <div id="details-previous-${index}" style="display: none; margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid var(--border-light);">
-                                        ${meeting.abstract ? `
-                                            <div style="margin-bottom: 1rem;">
-                                                <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Abstract:</h4>
-                                                <p style="color: var(--dark-gray); line-height: 1.6;">${meeting.abstract}</p>
-                                            </div>
-                                        ` : ''}
-                                        ${meeting.presenterBio ? `
-                                            <div style="margin-bottom: 1rem;">
-                                                <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Speaker Bio:</h4>
-                                                <p style="color: var(--dark-gray); line-height: 1.6;">${meeting.presenterBio}</p>
-                                            </div>
-                                        ` : ''}
-                                        ${meeting.paper_links && meeting.paper_links.length > 0 ? `
-                                            <div>
-                                                <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Paper Links:</h4>
-                                                <ul style="color: var(--dark-gray); margin: 0; padding-left: 1.5rem;">
-                                                    ${meeting.paper_links.map(link => `<li><a href="${link}" target="_blank" style="color: var(--primary-blue);">${link}</a></li>`).join('')}
-                                                </ul>
-                                            </div>
-                                        ` : ''}
-                                    </div>
                                 ` : ''}
                             </td>
                         </tr>
                     `;
+
+                    if (meeting.abstract || meeting.presenterBio) {
+                        html += `
+                            <tr id="details-previous-${index}" style="display: none;">
+                                <td colspan="3" style="background: var(--light-gray); padding: 1.5rem;">
+                                    ${meeting.abstract ? `
+                                        <div style="margin-bottom: 1rem;">
+                                            <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Abstract:</h4>
+                                            <p style="color: var(--dark-gray); line-height: 1.6;">${meeting.abstract}</p>
+                                        </div>
+                                    ` : ''}
+                                    ${meeting.presenterBio ? `
+                                        <div>
+                                            <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Speaker Bio:</h4>
+                                            <p style="color: var(--dark-gray); line-height: 1.6;">${meeting.presenterBio}</p>
+                                        </div>
+                                    ` : ''}
+                                </td>
+                            </tr>
+                        `;
+                    }
                 });
                 tbody.innerHTML = html;
             }
         }
+
 
         function toggleMobileMenu() {
             const navMenu = document.getElementById('navMenu');

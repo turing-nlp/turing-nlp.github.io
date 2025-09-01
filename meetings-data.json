@@ -17,6 +17,14 @@
             "location": " (Alan Turing Institute) & online"
         },
         {
+            "date": "18.09.2025",
+            "presenter": "Fawzia Zehra Kara-Isitt",
+            "title": "TBA",
+            "sessionType": "seminar",
+            "abstract": "",
+            "location": " (Alan Turing Institute) & online"
+        },
+        {
             "date": "11.09.2025",
             "presenter": "Samuel Mensah",
             "title": "TBA",
@@ -26,12 +34,12 @@
         },
         {
             "date": "28.08.2025",
-            "presenter": "Sebastian Löbbers & Mahmud Akter",
+            "presenter": "Sebastian Löbbers",
             "title": "Ethics in NLP Research",
             "sessionType": "journal_club",
-            "abstract": "This is an informal reading group where we explore interesting papers together. We'll be discussing two papers that caught our attention: \"Generative Ghosts: Anticipating Benefits and Risks of AI Afterlives\" - exploring the implications of AI agents representing deceased individuals \"NLP Security and Ethics, in the Wild\" - examining how NLP security research often lacks proper ethical frameworks from cybersecurity",
+            "abstract": "This is an informal reading group where we explore interesting papers together. We'll be discussing two papers that caught our attention: \"Generative Ghosts: Anticipating Benefits and Risks of AI Afterlives\" - exploring the implications of AI agents representing deceased individuals",
             "location": " (Alan Turing Institute) & online",
-            "paperLinks": "Generative Ghosts: Anticipating Benefits and Risks of AI Afterlives; NLP Security and Ethics, in the Wild"
+            "paperLinks": "Generative Ghosts: Anticipating Benefits and Risks of AI Afterlives"
         },
         {
             "date": "14.08.2025",
