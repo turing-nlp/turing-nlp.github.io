@@ -763,20 +763,6 @@
             return { thisWeekMeeting, upcomingMeetings, previousMeetings };
         }
 
-
-        function toggleDetails(meetingId) {
-            const details = document.getElementById(`details-${meetingId}`);
-            const button = document.querySelector(`[onclick="toggleDetails('${meetingId}')"]`);
-
-            if (details.style.display === 'none' || details.style.display === '') {
-                details.style.display = 'block';
-                button.textContent = '▼ Hide Details';
-            } else {
-                details.style.display = 'none';
-                button.textContent = '▶ Show Details';
-            }
-        }
-
         // Function to get session type emoji and label
         function getSessionTypeInfo(sessionType) {
             const sessionTypes = {
@@ -794,6 +780,7 @@
             return sessionTypes[sessionType?.toLowerCase()] || sessionTypes['seminar'];
         }
 
+        // Updated renderUpcomingMeetings function with fixed details layout
         function renderUpcomingMeetings(meetings) {
             const tbody = document.getElementById('upcomingMeetings');
 
@@ -828,6 +815,7 @@
                                 ${meeting.location ? `<div style="color: var(--dark-gray); font-size: 0.9rem; margin-top: 0.25rem;">${meeting.location}</div>` : ''}
                                 ${(meeting.abstract || meeting.presenterBio) ? `
                                     <button onclick="toggleDetails('upcoming-${index}')" 
+                                            id="btn-upcoming-${index}"
                                             style="background: var(--accent-blue); color: white; border: none; padding: 0.25rem 0.75rem; border-radius: 4px; cursor: pointer; font-size: 0.8rem; margin-top: 0.5rem;">
                                         ▶ Show Details
                                     </button>
@@ -836,22 +824,33 @@
                         </tr>
                     `;
 
+                    // Add details row that spans ALL columns properly
                     if (meeting.abstract || meeting.presenterBio) {
                         html += `
                             <tr id="details-upcoming-${index}" style="display: none;">
-                                <td colspan="4" style="background: var(--light-gray); padding: 1.5rem;">
-                                    ${meeting.abstract ? `
-                                        <div style="margin-bottom: 1rem;">
-                                            <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Abstract:</h4>
-                                            <p style="color: var(--dark-gray); line-height: 1.6;">${meeting.abstract}</p>
-                                        </div>
-                                    ` : ''}
-                                    ${meeting.presenterBio ? `
-                                        <div>
-                                            <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Speaker Bio:</h4>
-                                            <p style="color: var(--dark-gray); line-height: 1.6;">${meeting.presenterBio}</p>
-                                        </div>
-                                    ` : ''}
+                                <td colspan="4" style="background: #f8fafc; padding: 0; border: none;">
+                                    <div style="padding: 2rem; background: linear-gradient(135deg, #f8fafc, #e2e8f0); border-radius: 8px; margin: 0.5rem;">
+                                        ${meeting.abstract ? `
+                                            <div style="margin-bottom: ${meeting.presenterBio ? '2rem' : '0'};">
+                                                <h4 style="color: var(--primary-blue); margin-bottom: 1rem; font-size: 1.1rem; border-bottom: 2px solid var(--primary-blue); padding-bottom: 0.5rem; display: inline-block;">
+                                                    📄 Abstract
+                                                </h4>
+                                                <div style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid var(--accent-blue);">
+                                                    <p style="color: var(--dark-gray); line-height: 1.7; font-size: 0.95rem; margin: 0;">${meeting.abstract}</p>
+                                                </div>
+                                            </div>
+                                        ` : ''}
+                                        ${meeting.presenterBio ? `
+                                            <div>
+                                                <h4 style="color: var(--primary-blue); margin-bottom: 1rem; font-size: 1.1rem; border-bottom: 2px solid var(--primary-blue); padding-bottom: 0.5rem; display: inline-block;">
+                                                    👤 Speaker Bio
+                                                </h4>
+                                                <div style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid var(--turing-blue);">
+                                                    <p style="color: var(--dark-gray); line-height: 1.7; font-size: 0.95rem; margin: 0;">${meeting.presenterBio}</p>
+                                                </div>
+                                            </div>
+                                        ` : ''}
+                                    </div>
                                 </td>
                             </tr>
                         `;
@@ -861,7 +860,7 @@
             }
         }
 
-        // Updated renderPreviousMeetings function with colored buttons
+        // Updated renderPreviousMeetings function with improved details layout
         function renderPreviousMeetings(meetings) {
             const tbody = document.getElementById('previousMeetings');
 
@@ -889,6 +888,7 @@
                                 ${meeting.authors ? `<div class="paper-authors">${meeting.authors}</div>` : ''}
                                 ${(meeting.abstract || meeting.presenterBio) ? `
                                     <button onclick="toggleDetails('previous-${index}')" 
+                                            id="btn-previous-${index}"
                                             style="background: var(--accent-blue); color: white; border: none; padding: 0.25rem 0.75rem; border-radius: 4px; cursor: pointer; font-size: 0.8rem; margin-top: 0.5rem;">
                                         ▶ Show Details
                                     </button>
@@ -897,22 +897,33 @@
                         </tr>
                     `;
 
+                    // Add details row that spans ALL columns properly
                     if (meeting.abstract || meeting.presenterBio) {
                         html += `
                             <tr id="details-previous-${index}" style="display: none;">
-                                <td colspan="4" style="background: var(--light-gray); padding: 1.5rem;">
-                                    ${meeting.abstract ? `
-                                        <div style="margin-bottom: 1rem;">
-                                            <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Abstract:</h4>
-                                            <p style="color: var(--dark-gray); line-height: 1.6;">${meeting.abstract}</p>
-                                        </div>
-                                    ` : ''}
-                                    ${meeting.presenterBio ? `
-                                        <div>
-                                            <h4 style="color: var(--primary-blue); margin-bottom: 0.5rem;">Speaker Bio:</h4>
-                                            <p style="color: var(--dark-gray); line-height: 1.6;">${meeting.presenterBio}</p>
-                                        </div>
-                                    ` : ''}
+                                <td colspan="4" style="background: #f8fafc; padding: 0; border: none;">
+                                    <div style="padding: 2rem; background: linear-gradient(135deg, #f8fafc, #e2e8f0); border-radius: 8px; margin: 0.5rem;">
+                                        ${meeting.abstract ? `
+                                            <div style="margin-bottom: ${meeting.presenterBio ? '2rem' : '0'};">
+                                                <h4 style="color: var(--primary-blue); margin-bottom: 1rem; font-size: 1.1rem; border-bottom: 2px solid var(--primary-blue); padding-bottom: 0.5rem; display: inline-block;">
+                                                    📄 Abstract
+                                                </h4>
+                                                <div style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid var(--accent-blue);">
+                                                    <p style="color: var(--dark-gray); line-height: 1.7; font-size: 0.95rem; margin: 0;">${meeting.abstract}</p>
+                                                </div>
+                                            </div>
+                                        ` : ''}
+                                        ${meeting.presenterBio ? `
+                                            <div>
+                                                <h4 style="color: var(--primary-blue); margin-bottom: 1rem; font-size: 1.1rem; border-bottom: 2px solid var(--primary-blue); padding-bottom: 0.5rem; display: inline-block;">
+                                                    👤 Speaker Bio
+                                                </h4>
+                                                <div style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid var(--turing-blue);">
+                                                    <p style="color: var(--dark-gray); line-height: 1.7; font-size: 0.95rem; margin: 0;">${meeting.presenterBio}</p>
+                                                </div>
+                                            </div>
+                                        ` : ''}
+                                    </div>
                                 </td>
                             </tr>
                         `;
@@ -922,63 +933,33 @@
             }
         }
 
-        // Updated renderThisWeekMeeting function
-        function renderThisWeekMeeting(meeting) {
-            const section = document.getElementById('thisWeekSection');
-            const container = document.getElementById('thisWeekMeeting');
+        // Updated toggleDetails function to handle button text properly
+        function toggleDetails(meetingId) {
+            const details = document.getElementById(`details-${meetingId}`);
+            const button = document.getElementById(`btn-${meetingId}`);
 
-            if (!meeting) {
-                section.style.display = 'none';
+            if (!details || !button) {
+                // Fallback to old selector method
+                const oldButton = document.querySelector(`[onclick="toggleDetails('${meetingId}')"]`);
+                if (oldButton) {
+                    if (details.style.display === 'none' || details.style.display === '') {
+                        details.style.display = 'table-row';
+                        oldButton.textContent = '▼ Hide Details';
+                    } else {
+                        details.style.display = 'none';
+                        oldButton.textContent = '▶ Show Details';
+                    }
+                }
                 return;
             }
 
-            section.style.display = 'block';
-            const hasDetails = meeting.abstract || meeting.presenterBio;
-            const sessionInfo = getSessionTypeButton(meeting.sessionType);
-
-            container.innerHTML = `
-                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
-                    <div>
-                        <h3 style="color: var(--primary-blue); font-size: 1.5rem; margin-bottom: 0.5rem;">
-                            ${meeting.title}
-                        </h3>
-                        <div style="margin-bottom: 0.75rem;">
-                            ${sessionInfo.button}
-                        </div>
-                        <div style="color: var(--dark-gray); margin-bottom: 0.5rem;">
-                            <strong>Presenter:</strong> ${meeting.presenter}
-                        </div>
-                        ${meeting.authors ?
-                    `<div style="color: var(--dark-gray); margin-bottom: 0.5rem;"><strong>Authors:</strong> ${meeting.authors}</div>` : ''}
-                        <div style="color: var(--warning-orange); font-weight: bold;">📅 ${meeting.date} • Thursday 4-5pm (UK time)</div>
-                    </div>
-                    <div style="background: white; padding: 0.5rem 1rem; border-radius: 6px; font-weight: bold; color: var(--warning-orange); border: 2px solid var(--warning-orange);">
-                        THIS WEEK
-                    </div>
-                </div>
-                
-                ${hasDetails ? `
-                    <button onclick="toggleDetails('thisweek')" 
-                            id="thisweek-btn"
-                            style="background: var(--accent-blue); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 6px; cursor: pointer; font-weight: 500; margin-top: 1rem;">
-                        ▶ Show Abstract & Bio
-                    </button>
-                    <div id="details-thisweek" style="display: none; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 2px solid rgba(255,255,255,0.3);">
-                        ${meeting.abstract ? `
-                            <div style="margin-bottom: 1.5rem;">
-                                <h4 style="color: var(--primary-blue); margin-bottom: 0.75rem;">📄 Abstract:</h4>
-                                <p style="color: var(--dark-gray); line-height: 1.6; background: rgba(255,255,255,0.7); padding: 1rem; border-radius: 6px;">${meeting.abstract}</p>
-                            </div>
-                        ` : ''}
-                        ${meeting.presenterBio ? `
-                            <div>
-                                <h4 style="color: var(--primary-blue); margin-bottom: 0.75rem;">👤 Speaker Bio:</h4>
-                                <p style="color: var(--dark-gray); line-height: 1.6; background: rgba(255,255,255,0.7); padding: 1rem; border-radius: 6px;">${meeting.presenterBio}</p>
-                            </div>
-                        ` : ''}
-                    </div>
-                ` : ''}
-            `;
+            if (details.style.display === 'none' || details.style.display === '') {
+                details.style.display = 'table-row';
+                button.textContent = '▼ Hide Details';
+            } else {
+                details.style.display = 'none';
+                button.textContent = '▶ Show Details';
+            }
         }
 
         function toggleMobileMenu() {
