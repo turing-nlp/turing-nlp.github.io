@@ -763,6 +763,34 @@
             return { thisWeekMeeting, upcomingMeetings, previousMeetings };
         }
 
+        function toggleDetails(meetingId) {
+            const details = document.getElementById(`details-${meetingId}`);
+            const button = document.getElementById(`btn-${meetingId}`);
+
+            if (!details || !button) {
+                // Fallback to old selector method
+                const oldButton = document.querySelector(`[onclick="toggleDetails('${meetingId}')"]`);
+                if (oldButton) {
+                    if (details.style.display === 'none' || details.style.display === '') {
+                        details.style.display = 'table-row';
+                        oldButton.textContent = '▼ Hide Details';
+                    } else {
+                        details.style.display = 'none';
+                        oldButton.textContent = '▶ Show Details';
+                    }
+                }
+                return;
+            }
+
+            if (details.style.display === 'none' || details.style.display === '') {
+                details.style.display = 'table-row';
+                button.textContent = '▼ Hide Details';
+            } else {
+                details.style.display = 'none';
+                button.textContent = '▶ Show Details';
+            }
+        }
+
         // Function to get session type emoji and label
         function getSessionTypeInfo(sessionType) {
             const sessionTypes = {
@@ -780,7 +808,6 @@
             return sessionTypes[sessionType?.toLowerCase()] || sessionTypes['seminar'];
         }
 
-        // Updated renderUpcomingMeetings function with fixed details layout
         function renderUpcomingMeetings(meetings) {
             const tbody = document.getElementById('upcomingMeetings');
 
@@ -933,34 +960,65 @@
             }
         }
 
-        // Updated toggleDetails function to handle button text properly
-        function toggleDetails(meetingId) {
-            const details = document.getElementById(`details-${meetingId}`);
-            const button = document.getElementById(`btn-${meetingId}`);
+        // Updated renderThisWeekMeeting function
+        function renderThisWeekMeeting(meeting) {
+            const section = document.getElementById('thisWeekSection');
+            const container = document.getElementById('thisWeekMeeting');
 
-            if (!details || !button) {
-                // Fallback to old selector method
-                const oldButton = document.querySelector(`[onclick="toggleDetails('${meetingId}')"]`);
-                if (oldButton) {
-                    if (details.style.display === 'none' || details.style.display === '') {
-                        details.style.display = 'table-row';
-                        oldButton.textContent = '▼ Hide Details';
-                    } else {
-                        details.style.display = 'none';
-                        oldButton.textContent = '▶ Show Details';
-                    }
-                }
+            if (!meeting) {
+                section.style.display = 'none';
                 return;
             }
 
-            if (details.style.display === 'none' || details.style.display === '') {
-                details.style.display = 'table-row';
-                button.textContent = '▼ Hide Details';
-            } else {
-                details.style.display = 'none';
-                button.textContent = '▶ Show Details';
-            }
+            section.style.display = 'block';
+            const hasDetails = meeting.abstract || meeting.presenterBio;
+            const sessionInfo = getSessionTypeButton(meeting.sessionType);
+
+            container.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
+                    <div>
+                        <h3 style="color: var(--primary-blue); font-size: 1.5rem; margin-bottom: 0.5rem;">
+                            ${meeting.title}
+                        </h3>
+                        <div style="margin-bottom: 0.75rem;">
+                            ${sessionInfo.button}
+                        </div>
+                        <div style="color: var(--dark-gray); margin-bottom: 0.5rem;">
+                            <strong>Presenter:</strong> ${meeting.presenter}
+                        </div>
+                        ${meeting.authors ?
+                    `<div style="color: var(--dark-gray); margin-bottom: 0.5rem;"><strong>Authors:</strong> ${meeting.authors}</div>` : ''}
+                        <div style="color: var(--warning-orange); font-weight: bold;">📅 ${meeting.date} • Thursday 4-5pm (UK time)</div>
+                    </div>
+                    <div style="background: white; padding: 0.5rem 1rem; border-radius: 6px; font-weight: bold; color: var(--warning-orange); border: 2px solid var(--warning-orange);">
+                        THIS WEEK
+                    </div>
+                </div>
+                
+                ${hasDetails ? `
+                    <button onclick="toggleDetails('thisweek')" 
+                            id="thisweek-btn"
+                            style="background: var(--accent-blue); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 6px; cursor: pointer; font-weight: 500; margin-top: 1rem;">
+                        ▶ Show Abstract & Bio
+                    </button>
+                    <div id="details-thisweek" style="display: none; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 2px solid rgba(255,255,255,0.3);">
+                        ${meeting.abstract ? `
+                            <div style="margin-bottom: 1.5rem;">
+                                <h4 style="color: var(--primary-blue); margin-bottom: 0.75rem;">📄 Abstract:</h4>
+                                <p style="color: var(--dark-gray); line-height: 1.6; background: rgba(255,255,255,0.7); padding: 1rem; border-radius: 6px;">${meeting.abstract}</p>
+                            </div>
+                        ` : ''}
+                        ${meeting.presenterBio ? `
+                            <div>
+                                <h4 style="color: var(--primary-blue); margin-bottom: 0.75rem;">👤 Speaker Bio:</h4>
+                                <p style="color: var(--dark-gray); line-height: 1.6; background: rgba(255,255,255,0.7); padding: 1rem; border-radius: 6px;">${meeting.presenterBio}</p>
+                            </div>
+                        ` : ''}
+                    </div>
+                ` : ''}
+            `;
         }
+
 
         function toggleMobileMenu() {
             const navMenu = document.getElementById('navMenu');
