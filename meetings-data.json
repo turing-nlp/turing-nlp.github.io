@@ -10,19 +10,11 @@
             "presenterBio": "Fuzzy Kara-Isitt is a doctoral researcher at Brunel University's Intelligent Data Analysis group, where she's on a mission to make the internet a kinder place—one algorithm at a time. Her research focuses on detecting and mitigating online toxicity using sentiment analysis, because apparently someone needs to teach machines the difference between passionate debate and digital warfare. A multilingual advocate who volunteers as a mental health first aider and participates in anti-hate hackathons, Fuzzyhas lived in four culturally different countries and believes the best way to solve global problems is to bring together diverse perspectives, a good sense of humour, and really robust error handling. Currently seeking opportunities to continue her work in AI for social good, within research as a fellow in academia or industry, Fuzzy is particularly interested in bridging the gap between academic research and real-world applications and working towards advocacy and protection of the vulnerable online to make the digital world safer and simply kinder for everyone."
         },
         {
-            "date": "09.10.2025",
-            "presenter": "Elena Kochkina",
-            "title": "TBA",
-            "sessionType": "seminar",
-            "abstract": "",
-            "location": " (Alan Turing Institute) & online"
-        },
-        {
             "date": "25.09.2025",
-            "presenter": "Jabez Magomere",
-            "title": "TBA",
-            "sessionType": "seminar",
-            "abstract": "",
+            "presenter": "Mahmud Akter",
+            "title": "Ethics in NLP Security Research (Continued",
+            "sessionType": "journal_club",
+            "abstract": "We're continuing our casual journal club on \"Ethics in NLP Research\" with our second paper discussion. Mahmud Akter (QMUL) has kindly volunteered to lead the discussion on: \"NLP Security and Ethics, in the Wild\" by Lent et al. (2025), presented at TACL Brief Paper Summary: This work examines how NLP security research often operates in an ethical \"gray zone,\" lacking established frameworks from cybersecurity ethics like harm minimization, coordinated vulnerability disclosure, and responsible public disclosure. The authors surveyed 80 NLP security papers and found that many fail to adopt cybersecurity's ethical best practices, potentially benefiting attackers more than defenders. This paper connects well with our ongoing theme of research ethics in the NLP community and should spark interesting discussions about responsible disclosure, potential misuse, and cross-disciplinary ethical frameworks.",
             "location": " (Alan Turing Institute) & online"
         },
         {
