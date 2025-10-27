@@ -1,6 +1,40 @@
 {
     "meetings": [
         {
+            "date": "22.01.2026",
+            "presenter": "Tao Wang",
+            "title": "Temporal Reasoning in Clinical Text: Building Medical Timelines with LLMs",
+            "sessionType": "seminar",
+            "abstract": "Temporal information in electronic health records (EHRs) is often vague, fragmented, and inconsistently documented, making timeline reconstruction challenging. This talk introduces a benchmark dataset and a large language model (LLM)–based framework for automating temporal inference from clinical text. We explore enhanced prompting strategies that combine Chain-of-Thought reasoning, temporal markup, and layout cues to improve event-time alignment. Preliminary findings suggest that model performance varies across strategies for both global and single-event queries. We conclude with implications for treatment pathway analysis, temporal phenotyping, and real-world deployment.",
+            "location": "Ada Lovelace (Alan Turing Institute) & online",
+            "presenterBio": "Dr. Tao Wang is a Research Fellow in Health Text Analytics and Data Science in the Department of Biostatistics & Health Informatics at King’s College London. His research focuses on developing advanced AI methods to extract, integrate, and reason over complex health data. His interests include: Natural Language Processing (NLP), Health Data Science, Multimodal Learning, Knowledge Graphs and Reasoning, and Clinical Decision Support Systems."
+        },
+        {
+            "date": "27.11.2025",
+            "presenter": "Elena Kochkina",
+            "title": "TBA",
+            "sessionType": "seminar",
+            "abstract": "",
+            "location": " (Alan Turing Institute) & online"
+        },
+        {
+            "date": "13.11.2025",
+            "presenter": "Joanna Kuc",
+            "title": "TBA",
+            "sessionType": "seminar",
+            "abstract": "",
+            "location": " (Alan Turing Institute) & online"
+        },
+        {
+            "date": "30.10.2025",
+            "presenter": "Jabez Magomere",
+            "title": "When Claims Evolve: Evaluating and Enhancing the Robustness of Embedding Models Against Misinformation Edits",
+            "sessionType": "seminar",
+            "abstract": "In this talk, I will explore the challenge of evaluating the robustness of embedding models in real-world applications where users may introduce subtle edits to text, such typos, negations, dialect shifts, and entity replacements. This issue is particularly prevalent in misinformation contexts, where claims evolve as they spread online, yet embedding models are typically trained and tested on clean, static datasets that fail to capture real-world variability. I will discuss why measuring robustness in these dynamic settings is difficult and how conventional benchmarks like MTEB overlook linguistic diversity in the wild. I will then introduce our framework that uses LLMs as both perturbers and verifiers to generate valid, natural claim variations, enabling systematic robustness evaluation of embedding models multi-stage retrieval pipelines (first-stage retrieval and reranking). Finally, I will present results from a large-scale comparison of BERT, T5, and LLM-distilled models, and outline mitigation approaches to improve robustness in noisy, evolving real-world text.",
+            "location": "Ada Lovelace (Alan Turing Institute) & online",
+            "presenterBio": "Jabez Magomere is a Rhodes Scholar and PhD student at the University of Oxford, where he studies ways to improve the factuality and grounding of large language models. His broader research explores how AI systems can reason across diverse languages and cultural contexts, including work on linguistic reasoning in low-resource and extinct languages, synthetic data generation for specialized domains, and evaluating cultural bias in text-to-image systems. He has also applied his research in industry through internships at Google DeepMind and JPMorgan Chase."
+        },
+        {
             "date": "23.10.2025",
             "presenter": "Fawzia Zehra Kara-Isitt",
             "title": "Malicious Markovs - Hate Speech Monitoring through Probabilistic Modelling",
@@ -140,6 +174,15 @@
             "sessionType": "seminar",
             "abstract": "",
             "location": " (Alan Turing Institute) & online"
+        },
+        {
+            "date": "22.01.2025",
+            "presenter": "Tao Wang",
+            "title": "Temporal Reasoning in Clinical Text: Building Medical Timelines with LLMs",
+            "sessionType": "seminar",
+            "abstract": "Temporal information in electronic health records (EHRs) is often vague, fragmented, and inconsistently documented, making timeline reconstruction challenging. This talk introduces a benchmark dataset and a large language model (LLM)–based framework for automating temporal inference from clinical text. We explore enhanced prompting strategies that combine Chain-of-Thought reasoning, temporal markup, and layout cues to improve event-time alignment. Preliminary findings suggest that model performance varies across strategies for both global and single-event queries. We conclude with implications for treatment pathway analysis, temporal phenotyping, and real-world deployment.",
+            "location": " (Alan Turing Institute) & online",
+            "presenterBio": "Dr. Tao Wang is a Research Fellow in Health Text Analytics and Data Science in the Department of Biostatistics & Health Informatics at King’s College London. His research focuses on developing advanced AI methods to extract, integrate, and reason over complex health data. His interests include: Natural Language Processing (NLP), Health Data Science, Multimodal Learning, Knowledge Graphs and Reasoning, and Clinical Decision Support Systems."
         },
         {
             "date": "28.03.2024",
