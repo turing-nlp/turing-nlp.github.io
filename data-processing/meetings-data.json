@@ -1,7 +1,7 @@
 {
     "meetings": [
         {
-            "date": "22.01.2025",
+            "date": "22.01.2026",
             "presenter": "Tao Wang",
             "title": "Temporal Reasoning in Clinical Text: Building Medical Timelines with LLMs",
             "sessionType": "seminar",
