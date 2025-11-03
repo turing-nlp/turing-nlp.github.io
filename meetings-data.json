@@ -1,25 +1,16 @@
 {
     "meetings": [
         {
-            "date": "22.01.2026",
-            "presenter": "Tao Wang",
-            "title": "Temporal Reasoning in Clinical Text: Building Medical Timelines with LLMs",
-            "sessionType": "seminar",
-            "abstract": "Temporal information in electronic health records (EHRs) is often vague, fragmented, and inconsistently documented, making timeline reconstruction challenging. This talk introduces a benchmark dataset and a large language model (LLM)–based framework for automating temporal inference from clinical text. We explore enhanced prompting strategies that combine Chain-of-Thought reasoning, temporal markup, and layout cues to improve event-time alignment. Preliminary findings suggest that model performance varies across strategies for both global and single-event queries. We conclude with implications for treatment pathway analysis, temporal phenotyping, and real-world deployment.",
-            "location": "Ada Lovelace (Alan Turing Institute) & online",
-            "presenterBio": "Dr. Tao Wang is a Research Fellow in Health Text Analytics and Data Science in the Department of Biostatistics & Health Informatics at King’s College London. His research focuses on developing advanced AI methods to extract, integrate, and reason over complex health data. His interests include: Natural Language Processing (NLP), Health Data Science, Multimodal Learning, Knowledge Graphs and Reasoning, and Clinical Decision Support Systems."
-        },
-        {
-            "date": "27.11.2025",
-            "presenter": "Elena Kochkina",
+            "date": "04.12.2025",
+            "presenter": "Joanna Kuc",
             "title": "TBA",
             "sessionType": "seminar",
             "abstract": "",
             "location": " (Alan Turing Institute) & online"
         },
         {
-            "date": "13.11.2025",
-            "presenter": "Joanna Kuc",
+            "date": "27.11.2025",
+            "presenter": "Elena Kochkina",
             "title": "TBA",
             "sessionType": "seminar",
             "abstract": "",
